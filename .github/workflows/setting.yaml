@@ -24,7 +24,7 @@ concurrency:
 # Default to bash
 defaults:
   run:
-    shell: bash
+    shell: zsh
 
 jobs:
   # Build job
