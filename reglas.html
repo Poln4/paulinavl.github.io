@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Reglas e Instrucciones
+{% endblock %}
+
+{% block main %}
+    <h2 class="uno-text">Reglas Generales del juego</h2>
+    <div>
+      <p>Se barajan las cartas y se reparten 7 cartas por persona.</p>
+      <p>Se coloca una carta sobre la mesa, pero debe ser un número. No puede ser una carta especial.</p>
+      <p>Se comienza el juego con la siguiente persona a la que repartió en sentido contra-reloj.</p>
+      <p>Se juega de a una carta que debe coincidir con la carta en la mesa, ya sea con el mismo número o característica o mismo color.</p>
+      <p>Excepto si la carta en mesa es un +2 o un +4 (roba dos o roba cuatro respectivamente), y/o con la carta de cambio de color. En caso de cambio, hay que seguir la decisión de la persona que lanzó la carta.</p>
+      <p>Se juega hasta que alguien tenga una carta. En ese caso, la persona debe decir: “Me queda una”. Si no lo dice y le preguntan cuántas cartas le quedan, debe robar 2 cartas del mazo.</p>
+      <p>Tras esto, gana la persona que se queda sin cartas para jugar.</p>
+
+      <p>El resto de los jugadores deben contar los puntos según el tipo de cartas en mano:</p>
+
+      <p>Las cartas con número tienen el mismo valor que el número que reflejan.</p>
+      <p>Las cartas de “reverse”, “skip”, “+2” valen 20 puntos.</p>
+      <p>Las cartas negras, de robar 4 y cambiar color, valen 50 puntos.</p>
+    </div>
+    <div>
+        <h2 class="uno-text">Instrucciones de uso de la página</h2>
+        <p>Primero, debes ingresar el nombre de los jugadores. Pueedes hacerlo a través del link en pantalla o hacer click en la barra de navegación.</p>
+        <p>Tras ingresar a los jugadores, puedes comenzar a recolectar los puntos. Para ello, selecciona el ícono de la página (el que dice UNOFamiliar)</p>
+        <p>Esta es la página de inicio y con los jugadores agregados, puedes ir anotando los puntajes que obtienen ronda tras ronda.</p>
+        <p>Tras terminar el juego, puedes ver la lista de ganadores.</p>
+        <p>También puedes elegir entre comenzar una partida desde cero (en donde deberás ingresar el nombre de los jugadores nuevamente).</p>
+        <p>O puedes continuar la partida con los mismos jugadores una vez más (esto simplemente recetea los puntajes a 0).</p>
+    </div>
+
+{% endblock %}

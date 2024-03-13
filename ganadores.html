@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Lista de ganadores
+{% endblock %}
+
+{% block main %}
+    <script>
+    // Función para redireccionar
+    function redireccionar() {
+        // Reemplaza 'otra_pagina.html' con la ruta de la página a la que deseas redirigir
+        window.location.href = '/nueva_partida';
+    }
+    function redireccionar2() {
+        // Reemplaza 'otra_pagina.html' con la ruta de la página a la que deseas redirigir
+        window.location.href = '/nueva_partida_jugadores';
+    }
+    </script>
+    <h2 class="uno-text">Ganadores</h2>
+    <br>
+    <button class="btn btn-primary" onclick="redireccionar()">Resetea la lista de jugadores</button>
+    <button class="btn btn-primary" onclick="redireccionar2()">Nueva Partida</button>
+    <table class="table table-boardered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th class="uno-text">Ranking de ganadores</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ganador in ganadores %}
+                <tr>
+                    <td>{{ ganador.nombre }}</td>
+                    <td>{{ ganador.puntos }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

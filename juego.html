@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Lista de jugadores
+{% endblock %}
+
+{% block main %}
+    <script>
+    // Función para redireccionar
+    function redireccionar() {
+        // Reemplaza 'otra_pagina.html' con la ruta de la página a la que deseas redirigir
+        window.location.href = '/jugadores';
+    }
+    </script>
+    <h2 class="uno-text">Juego</h2>
+    <br>
+    <button class="btn btn-primary" onclick="redireccionar()">Agregar jugadores</button>
+    <form action="/juego" method="post">
+        <table class="table table-boardered table-striped">
+            <tr>
+                <th>Jugador</th>
+                <th>Puntos hasta el momento</th>
+                <th>Ingrese puntos para la siguiente ronda</th>
+            </tr>
+            {% for jugador in jugadores %}
+                <tr>
+                    <td>{{ jugador.nombre }}</td>
+                    <td>{{ jugador.puntos }}</td>
+                    <td><input type="number" name="puntos_{{ jugador.nombre }}" required></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Siguiente Ronda">
+    </form>
+{% endblock %}

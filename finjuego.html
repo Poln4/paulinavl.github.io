@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    JUEGO FINALIZADO
+{% endblock %}
+
+{% block main %}
+    <script>
+    // Función para redireccionar
+    function redireccionar() {
+        // Reemplaza 'otra_pagina.html' con la ruta de la página a la que deseas redirigir
+        window.location.href = '/ganador';
+    }
+    </script>
+    <h2 class="uno-text">Juego Finalizado</h2>
+    <br>
+    <button class="btn btn-primary" onclick="redireccionar()">Ver el ranking de ganadores</button>
+    <form action="/ganador" method="post">
+        <table class="table table-boardered table-striped">
+            <tr>
+                <th>Jugador</th>
+                <th>Puntos obtenidos</th>
+            </tr>
+            {% for jugador in jugadores %}
+                <tr>
+                    <td>{{ jugador.nombre }}</td>
+                    <td>{{ jugador.puntos }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+{% endblock %}

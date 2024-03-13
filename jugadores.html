@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Jugadores
+{% endblock %}
+
+{% block main %}
+    <script>
+    // Función para redireccionar
+    function redireccionar() {
+        // Reemplaza 'otra_pagina.html' con la ruta de la página a la que deseas redirigir
+        window.location.href = '/nueva_partida';
+    }
+    function redireccionar2() {
+        // Reemplaza 'otra_pagina.html' con la ruta de la página a la que deseas redirigir
+        window.location.href = '/';
+    }
+    </script>
+    <form action="{{ url_for('jugadores') }}" method="post">
+        <div class="form-group">
+            <label for="nombre">Jugador {{ cantidad + 1 }}:</label>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="nombre" name="nombre" placeholder="Nombre" type="text">
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit">Agregar</button>
+        <br>
+        <div>
+            {% if cantidad > 1: %}
+            <p> Hay {{ cantidad }} jugadores en la lista. </p>
+            {% endif %}
+            {% if cantidad == 0: %}
+            <p> No hay jugadores agregados todavía.</p>
+            {% endif %}
+            {% if cantidad == 1: %}
+            <p> Hay 1 jugador en la lista. </p>
+            {% endif %}
+        </div>
+        <div>
+            <table class="table table-boardered table-striped">
+                <thead>
+                    <tr>
+                        <th class="uno-text">Lista de jugadores</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jugador in jugadores %}
+                    <tr>
+                        <td>{{ jugador.nombre }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </form>
+    <div>
+        <button class="btn btn-primary" onclick="redireccionar()">Resetea la lista de jugadores</button>
+        <button class="btn btn-primary" onclick="redireccionar2()">¡A jugar!</button>
+    </div>
+{% endblock %}
