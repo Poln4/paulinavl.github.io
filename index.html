@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paulina Valenzuela Lagos — Readability, NLP &amp; Spanish</title>
+<meta name="description" content="Paulina Valenzuela Lagos — computational linguist, Spanish instructor, and doctoral researcher building tools that measure and teach language.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FEFDFB;
+    --bg-panel:#F5F4EF;
+    --ink:#22241F;
+    --ink-soft:#5C5F55;
+    --red:#C23B2E;
+    --teal:#0E7F6F;
+    --gold:#C98A00;
+    --rule: rgba(34,36,31,0.14);
+    --font-display:'Kalam', cursive;
+    --font-body:'Source Serif 4', Georgia, serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw: 780px;
+    --stroke-shadow: 1px 1px 0 rgba(0,0,0,0.04);
+  }
+  html[data-theme="dark"]{
+    --bg:#1D2620;
+    --bg-panel:#25322A;
+    --ink:#F3F0E4;
+    --ink-soft:#C6C2AC;
+    --red:#EA9280;
+    --teal:#8FE0C7;
+    --gold:#F0D27E;
+    --rule: rgba(243,240,228,0.18);
+    --font-display:'Caveat', cursive;
+    --stroke-shadow: 0 0 6px rgba(243,240,228,0.18);
+  }
+  html[data-lang="zh"]{ --font-display:'Noto Sans TC', var(--font-display); --font-body:'Noto Sans TC', var(--font-body); }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    transition:background .35s ease, color .35s ease;
+  }
+  html[data-theme="dark"] body{
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.03), transparent 45%),
+      radial-gradient(ellipse at 85% 60%, rgba(255,255,255,0.025), transparent 40%);
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  a{color:var(--red); text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{color:var(--teal);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  .controls{ position:fixed; top:16px; right:16px; z-index:60; display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+  .toggle-group{
+    display:flex; align-items:center; gap:0;
+    border:2px solid var(--ink); border-radius:24px;
+    font-family:var(--font-mono); font-size:12px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .toggle-group button{
+    border:none; background:transparent; color:var(--ink-soft);
+    padding:7px 12px; cursor:pointer; font-family:var(--font-mono); font-size:12px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .toggle-group button.active{ background:var(--ink); color:var(--bg); }
+
+  .rail{
+    position:fixed; left:16px; top:0; bottom:0;
+    width:44px; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:14px; z-index:40;
+  }
+  .rail-stamp{
+    width:34px; height:34px; border-radius:50%;
+    border:1.5px dashed var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:11px; font-weight:600;
+    color:var(--ink-soft); background:transparent;
+    opacity:0.35; transform:scale(0.9) rotate(-6deg);
+    transition:opacity .35s ease, transform .35s ease, color .35s ease, border-color .35s ease;
+  }
+  .rail-stamp.active{
+    opacity:1; transform:scale(1) rotate(-6deg);
+    color:var(--red); border-color:var(--red); border-style:solid;
+  }
+  .rail-line{position:absolute; left:50%; top:8%; bottom:8%; width:1px; background:var(--rule); z-index:-1;}
+  @media (max-width: 900px){ .rail{display:none;} }
+
+  header.hero{padding:120px 0 60px; position:relative;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal); display:inline-block; padding:3px 9px; border:1px solid var(--teal);
+    border-radius:3px; margin-bottom:22px; transform:rotate(-1.2deg);
+  }
+  h1.title{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(42px, 8vw, 68px);
+    line-height:1.05; margin:0 0 18px; letter-spacing:0.005em;
+    text-shadow:var(--stroke-shadow);
+  }
+  h1.title .accent{ color:var(--red); }
+  .tagline{ font-size:20px; color:var(--ink-soft); max-width:54ch; margin:0 0 30px; }
+  .hero-links{ display:flex; flex-wrap:wrap; gap:10px 16px; font-family:var(--font-mono); font-size:13.5px; }
+  .hero-links a{ text-decoration:none; border-bottom:1px solid var(--red); padding-bottom:1px; }
+
+  .stampcard{
+    margin-top:44px; border:1.5px dashed var(--ink-soft); border-radius:6px;
+    padding:16px 18px; font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);
+    background:var(--bg-panel); display:flex; flex-wrap:wrap; gap:8px 22px;
+  }
+  .stampcard b{color:var(--ink); font-weight:600;}
+
+  section{ padding:54px 0; position:relative; }
+  section + section{ border-top:1.5px dashed var(--rule); }
+  .kicker{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--red); margin:0 0 8px; display:flex; align-items:center; gap:10px;
+  }
+  .kicker .lvl{ border:1px solid var(--red); border-radius:3px; padding:1px 7px; color:var(--red); }
+  h2{ font-family:var(--font-display); font-weight:700; font-size:clamp(28px,4.4vw,38px); margin:0 0 20px; text-shadow:var(--stroke-shadow); }
+  h3{ font-family:var(--font-display); font-weight:700; font-size:23px; margin:26px 0 8px; }
+  p{ margin:0 0 16px; }
+  .lede{ font-size:19px; color:var(--ink-soft); }
+
+  mark{ background:transparent; color:inherit; position:relative; padding:0 2px; }
+  mark.gold{ box-shadow: inset 0 -0.42em 0 rgba(201,138,0,0.32); }
+  html[data-theme="dark"] mark.gold{ box-shadow: inset 0 -0.4em 0 rgba(240,210,126,0.28); }
+  mark.teal{ box-shadow: inset 0 -0.42em 0 rgba(14,127,111,0.22); }
+  html[data-theme="dark"] mark.teal{ box-shadow: inset 0 -0.4em 0 rgba(143,224,199,0.22); }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:18px; margin-top:22px; }
+  @media(min-width:640px){ .grid.two{ grid-template-columns:1fr 1fr; } }
+
+  .card{
+    border:1.5px solid var(--rule); background:var(--bg-panel);
+    border-radius:8px; padding:20px 22px;
+  }
+  .card h4{ font-family:var(--font-display); font-size:20px; margin:0 0 6px; font-weight:700; }
+  .card p{ font-size:15.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .card a.link{ font-family:var(--font-mono); font-size:12.5px; text-decoration:none; border-bottom:1px solid var(--red);}
+  .tagrow{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .tag{
+    font-family:var(--font-mono); font-size:11px; color:var(--teal); border:1px solid var(--teal);
+    border-radius:20px; padding:2px 9px;
+  }
+
+  .spotlight{
+    margin-top:26px; border:2px solid var(--teal); border-radius:10px;
+    padding:24px 24px; background:var(--bg-panel);
+  }
+  .spotlight h4{ font-family:var(--font-display); font-size:24px; margin:0 0 10px; font-weight:700; color:var(--teal); }
+  .spotlight .link-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; font-family:var(--font-mono); font-size:13px; }
+
+  .metric-row{ display:flex; flex-wrap:wrap; gap:26px; margin:26px 0 6px; }
+  .metric{ min-width:120px; }
+  .metric .num{ font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--red); line-height:1;}
+  .metric .lab{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); margin-top:4px; }
+
+  blockquote{
+    margin:22px 0; padding:2px 0 2px 20px; border-left:3px solid var(--gold);
+    font-family:var(--font-display); color:var(--ink-soft); font-size:21px; font-weight:700;
+  }
+
+  .skills-list{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .skills-list span{
+    font-family:var(--font-mono); font-size:12.5px; background:var(--bg-panel);
+    border-radius:4px; padding:4px 10px; color:var(--ink); border:1px solid var(--rule);
+  }
+
+  .ledger{
+    margin-top:22px; border:1.5px solid var(--rule); border-radius:8px;
+    max-height:360px; overflow-y:auto; background:var(--bg-panel);
+  }
+  .ledger-row{
+    display:grid; grid-template-columns:120px 1fr; gap:14px;
+    padding:11px 18px; border-bottom:1px dashed var(--rule); align-items:baseline;
+  }
+  .ledger-row:last-child{ border-bottom:none; }
+  .ledger-row .yr{ font-family:var(--font-mono); font-size:12px; color:var(--teal); }
+  .ledger-row .role{ font-size:15px; }
+  .ledger-row .role b{ font-weight:600; }
+  .ledger-note{ font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); margin-top:10px; }
+
+  .support-box{
+    border:2px solid var(--red); border-radius:10px; padding:26px 24px;
+    background:var(--bg-panel); margin-top:14px;
+  }
+  .support-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+  .btn{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    padding:10px 18px; border-radius:6px; border:1.5px solid var(--ink);
+    color:var(--ink); transition:all .2s ease; display:inline-block;
+  }
+  .btn.primary{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .btn.primary:hover{ opacity:.85; }
+  .btn:hover{ background:var(--ink); color:var(--bg); }
+
+  footer{ padding:60px 0 90px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
+  footer .foot-links a{ margin-right:16px; }
+
+  .note{
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); opacity:.85;
+    border-left:2px solid var(--rule); padding-left:10px; margin-top:18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="toggle-group" role="group" aria-label="Theme">
+    <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+    <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+  </div>
+  <div class="toggle-group" role="group" aria-label="Language">
+    <button id="btn-en" type="button">EN</button>
+    <button id="btn-es" type="button">ES</button>
+    <button id="btn-zh" type="button">中</button>
+  </div>
+</div>
+
+<div class="rail" aria-hidden="true">
+  <div class="rail-line"></div>
+  <div class="rail-stamp" data-target="origins">A1</div>
+  <div class="rail-stamp" data-target="teaching">A2</div>
+  <div class="rail-stamp" data-target="research">B1</div>
+  <div class="rail-stamp" data-target="projects">B2</div>
+  <div class="rail-stamp" data-target="journey">C1</div>
+  <div class="rail-stamp" data-target="support">C2</div>
+</div>
+
+<main class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">
+      <span class="i18n" data-lang="en">reading level: variable, on purpose</span>
+      <span class="i18n" data-lang="es" style="display:none">nivel de lectura: variable, a propósito</span>
+      <span class="i18n" data-lang="zh" style="display:none">閱讀難度:刻意保持不固定</span>
+    </span>
+    <h1 class="title">Paulina Valenzuela<br><span class="accent">Lagos</span></h1>
+    <p class="tagline">
+      <span class="i18n" data-lang="en">Computational linguist, Spanish instructor, and Ph.D. candidate at NTUST — I build the tools that decide how hard a text feels, and teach the humans reading it.</span>
+      <span class="i18n" data-lang="es" style="display:none">Lingüista computacional, profesora de español y candidata a doctora en la NTUST — construyo las herramientas que deciden qué tan difícil se siente un texto, y enseño a las personas que lo leen.</span>
+      <span class="i18n" data-lang="zh" style="display:none">計算語言學家、西班牙語教師,現為台灣科技大學博士候選人——我打造用來判斷文本難度的工具,也教導閱讀這些文本的人。</span>
+    </p>
+    <div class="hero-links">
+      <a href="mailto:paoo.ss@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
+      <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
+      <a href="https://github.com/Poln4">GitHub</a>
+      <a href="#support">
+        <span class="i18n" data-lang="en">Support my work →</span>
+        <span class="i18n" data-lang="es" style="display:none">Apoya mi trabajo →</span>
+        <span class="i18n" data-lang="zh" style="display:none">支持我的研究 →</span>
+      </a>
+    </div>
+    <div class="stampcard">
+      <span><b><span class="i18n" data-lang="en">Field:</span><span class="i18n" data-lang="es" style="display:none">Área:</span><span class="i18n" data-lang="zh" style="display:none">領域:</span></b>
+        <span class="i18n" data-lang="en">NLP × applied linguistics × language pedagogy</span>
+        <span class="i18n" data-lang="es" style="display:none">PLN × lingüística aplicada × pedagogía del lenguaje</span>
+        <span class="i18n" data-lang="zh" style="display:none">自然語言處理 × 應用語言學 × 語言教學法</span>
+      </span>
+      <span><b><span class="i18n" data-lang="en">Base:</span><span class="i18n" data-lang="es" style="display:none">Base:</span><span class="i18n" data-lang="zh" style="display:none">所在地:</span></b> Taipei, Taiwan</span>
+      <span><b><span class="i18n" data-lang="en">Status:</span><span class="i18n" data-lang="es" style="display:none">Estado:</span><span class="i18n" data-lang="zh" style="display:none">身份:</span></b>
+        <span class="i18n" data-lang="en">Ph.D. candidate, Digital Learning &amp; Education, NTUST</span>
+        <span class="i18n" data-lang="es" style="display:none">Candidata a doctora, Aprendizaje Digital y Educación, NTUST</span>
+        <span class="i18n" data-lang="zh" style="display:none">台灣科技大學數位學習與教育研究所博士候選人</span>
+      </span>
+    </div>
+  </header>
+
+  <section id="origins">
+    <p class="kicker"><span class="lvl">A1</span>
+      <span class="i18n" data-lang="en">origins</span>
+      <span class="i18n" data-lang="es" style="display:none">orígenes</span>
+      <span class="i18n" data-lang="zh" style="display:none">起源</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">Where this started</span>
+      <span class="i18n" data-lang="es" style="display:none">Dónde empezó todo</span>
+      <span class="i18n" data-lang="zh" style="display:none">一切的起點</span>
+    </h2>
+
+    <div class="i18n" data-lang="en">
+      <p class="lede">I was the first person in my family to go to college — a Licenciate in Letters, with a mention in linguistics and Hispanic literature, at the Pontifical Catholic University of Chile (PUC). My parents always said education was the one inheritance they could give me. That stuck.</p>
+      <p>At PUC I minored in Asian Studies, which is how I ended up co-organizing an international seminar on Korean studies, placing 4th in a national essay on Korea, and — with a part-time job funding the trip myself — spending a summer studying Korean at Seoul National University. That circle of friends, mostly exchange students from across Asia, is a big part of why I ended up teaching Spanish to Asian learners for a living.</p>
+      <p>My undergraduate thesis grew out of a genuinely small moment: friends kept asking me why Spanish articles (<em>el, la, un, una…</em>) were so hard to get right, and I couldn't give them a satisfying answer. So I researched it. The result — <mark class="gold">"Uso y adquisición de artículos en español como segunda lengua"</mark> — was published in <em>Logos: Revista de Lingüística, Filosofía y Literatura</em> in 2019, co-written with my advisor, Dra. Gloria Toledo. I finished the underlying research while recovering from a car accident, which taught me early on that research is one of the few things that travels well through a hard year.</p>
+      <p>A second degree, in Secondary Education, followed on a Teacher's Vocation Scholarship from the Chilean government — and a year at Union College in New York as a language assistant, where I first started experimenting with technology (VR included) in the language classroom.</p>
+    </div>
+    <div class="i18n" data-lang="es" style="display:none">
+      <p class="lede">Fui la primera persona de mi familia en ir a la universidad — Licenciatura en Letras, mención en lingüística y literatura hispánica, en la Pontificia Universidad Católica de Chile (PUC). Mis padres siempre dijeron que la educación era la única herencia que podían darme. Eso se quedó conmigo.</p>
+      <p>En la PUC hice un minor en Estudios Asiáticos, lo que me llevó a co-organizar un seminario internacional de estudios coreanos, obtener el 4º lugar en un ensayo nacional sobre Corea, y — financiando el viaje con un trabajo de medio tiempo — pasar un verano estudiando coreano en la Universidad Nacional de Seúl. Ese círculo de amigos, en su mayoría estudiantes de intercambio de Asia, es una gran parte de por qué terminé enseñando español a estudiantes asiáticos.</p>
+      <p>Mi tesis de pregrado nació de un momento pequeño: mis amigos me preguntaban por qué los artículos en español (<em>el, la, un, una…</em>) eran tan difíciles, y no tenía una respuesta satisfactoria. Así que investigué. El resultado — <mark class="gold">"Uso y adquisición de artículos en español como segunda lengua"</mark> — se publicó en <em>Logos: Revista de Lingüística, Filosofía y Literatura</em> en 2019, junto a mi profesora guía, la Dra. Gloria Toledo. Terminé esa investigación mientras me recuperaba de un accidente automovilístico, lo que me enseñó temprano que la investigación es de las pocas cosas que acompañan bien un año difícil.</p>
+      <p>Una segunda licenciatura, en Educación Secundaria, vino con una Beca Vocación de Profesor del gobierno de Chile — y un año en Union College, en Nueva York, como asistente de idioma, donde empecé a experimentar con tecnología (incluyendo VR) en la sala de clases.</p>
+    </div>
+    <div class="i18n" data-lang="zh" style="display:none">
+      <p class="lede">我是家族裡第一個念大學的人——在智利天主教大學(PUC)取得西班牙語文學與語言學學士學位。父母常說,教育是他們唯一能留給我的財富,這句話一直影響著我。</p>
+      <p>在PUC,我輔修亞洲研究,因此參與籌辦國際韓國研究研討會、以一篇關於韓國的文章獲得全國徵文第四名,並靠打工存錢,在首爾大學度過一個暑假學習韓語。那段時期認識的朋友——多數是來自亞洲各地的交換學生——是我後來投入教導亞洲學生西班牙語的重要原因。</p>
+      <p>我的大學畢業論文源自一個很小的契機:朋友們常問我為什麼西班牙語冠詞(el、la、un、una…)這麼難掌握,而我答不出令人滿意的答案。於是我開始研究這個問題。研究成果〈西班牙語冠詞作為第二語言的使用與習得〉於2019年發表於《Logos: Revista de Lingüística, Filosofía y Literatura》,與指導教授Gloria Toledo博士合著。我是在一場車禍恢復期間完成這項研究的,這讓我很早就明白:研究是少數能陪你撐過艱難一年的事物之一。</p>
+      <p>接著,我在智利政府「教師志業獎學金」的資助下,取得中等教育學士學位;隨後在紐約Union College擔任語言助教一年,也是在那時開始嘗試在課堂中運用科技(包括VR)。</p>
+    </div>
+  </section>
+
+  <section id="teaching">
+    <p class="kicker"><span class="lvl">A2</span>
+      <span class="i18n" data-lang="en">teaching</span>
+      <span class="i18n" data-lang="es" style="display:none">docencia</span>
+      <span class="i18n" data-lang="zh" style="display:none">教學</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">One classroom at a time</span>
+      <span class="i18n" data-lang="es" style="display:none">Un salón de clases a la vez</span>
+      <span class="i18n" data-lang="zh" style="display:none">一間教室,一次一堂課</span>
+    </h2>
+    <p class="lede i18n" data-lang="en">Before "researcher" was on the business card, "teacher" was — and still is. Spanish, English, kids, adults, DELE candidates, exchange students, mining engineers learning survival Spanish: I've taught most of it, across three countries.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Antes de que "investigadora" apareciera en la tarjeta de presentación, ya decía "profesora" — y todavía lo dice. Español, inglés, niños, adultos, candidatos al DELE, estudiantes de intercambio, ingenieros de minería aprendiendo español de supervivencia: he enseñado casi de todo, en tres países.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">在「研究者」這個頭銜出現之前,「老師」就已經在我的履歷上了——現在也還是。西班牙語、英語、兒童、成人、DELE考生、交換學生、學西班牙語求生用語的礦業工程師:我幾乎教過所有類型的學生,足跡橫跨三個國家。</p>
+
+    <div class="ledger">
+      <div class="ledger-row"><span class="yr">2015</span><span class="role"><b>Middlebury College Chile</b> — Spanish Teacher (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2016</span><span class="role"><b>Intercoined Chile</b> — Spanish Teacher (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2016</span><span class="role"><b>Colegio Los Nogales</b> — Language &amp; Communication, 11th grade (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2017</span><span class="role"><b>CEE El Golf</b> — Academic Assistant &amp; Spanish Teacher, SIELE support (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2017</span><span class="role"><b>Bridge Language Group</b> — Spanish Teacher (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2017</span><span class="role"><b>University of the Andes</b> — Spanish Teacher, exchange students (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2017–18</span><span class="role"><b>Union College</b> — Spanish Language Assistant (Schenectady, NY)</span></div>
+      <div class="ledger-row"><span class="yr">2018</span><span class="role"><b>Liceo Carmela Carvajal de Prat</b> — Spanish Teacher, 7th–10th grade (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2018</span><span class="role"><b>PUC</b> — Spanish Teacher, Haitian immigrant program (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2018–19</span><span class="role"><b>CEE El Golf</b> — Spanish Teacher, Japanese mining-sector learners (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2019</span><span class="role"><b>Saint George College</b> — Spanish Teacher, 10th–12th grade (Santiago)</span></div>
+      <div class="ledger-row"><span class="yr">2019–20</span><span class="role"><b>MingZhi Junior High School</b> — English Tutor (Taipei)</span></div>
+      <div class="ledger-row"><span class="yr">2019–21</span><span class="role"><b>Freelance</b> — Private Spanish Teacher (Taipei)</span></div>
+      <div class="ledger-row"><span class="yr">2021</span><span class="role"><b>NTUST</b> — EMI Teaching Assistant · won <b>Best Tutor</b> award</span></div>
+      <div class="ledger-row"><span class="yr">2021–24</span><span class="role"><b>Lion and Lion</b> — Spanish &amp; English Teacher, DELE B1/B2 prep (Taipei)</span></div>
+      <div class="ledger-row"><span class="yr">2023</span><span class="role"><b>Lifelong Learning Center</b> — English Storyteller (New Taipei)</span></div>
+      <div class="ledger-row"><span class="yr">2023–</span><span class="role"><b>Gram</b> — English Teacher, grades 1–6 (New Taipei)</span></div>
+      <div class="ledger-row"><span class="yr">2024–</span><span class="role"><b>NTUST</b> — Teaching Assistant, Applied Foreign Languages; helped bring ChatGPT into a Reading &amp; Writing classroom</span></div>
+    </div>
+    <p class="ledger-note i18n" data-lang="en">scroll for the full ledger — it's long on purpose</p>
+    <p class="ledger-note i18n" data-lang="es" style="display:none">desplázate para ver la lista completa — es larga a propósito</p>
+    <p class="ledger-note i18n" data-lang="zh" style="display:none">捲動查看完整教學經歷——刻意保留完整清單</p>
+  </section>
+
+  <section id="research">
+    <p class="kicker"><span class="lvl">B1</span>
+      <span class="i18n" data-lang="en">research</span>
+      <span class="i18n" data-lang="es" style="display:none">investigación</span>
+      <span class="i18n" data-lang="zh" style="display:none">研究</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">What "readability" means in my hands</span>
+      <span class="i18n" data-lang="es" style="display:none">Qué significa "legibilidad" en mis manos</span>
+      <span class="i18n" data-lang="zh" style="display:none">「可讀性」在我手中的意義</span>
+    </h2>
+
+    <div class="i18n" data-lang="en">
+      <p class="lede">My doctoral dissertation, <em>"Assessing Text Readability in Spanish as a Foreign Language: Computational Modelling and Human Judgment,"</em> is a two-study pipeline: build a model that grades Spanish text difficulty as reliably as a trained rater, then check whether real learners actually experience difficulty the way the model predicts.</p>
+      <h3>Study 1 — a hybrid readability model</h3>
+      <p>A specialized, CEFR-labelled corpus (graded readers and DELE exam passages) feeds a pipeline of 238 linguistic features across six families — lexical, syntactic, cohesion, traditional, morphological, vocabulary — extracted in part with two original tools, <strong>SpanishMorphAnalyzer</strong> and <strong>VocabFeatureExtractor</strong>. Linguistic feature-based models are compared head-to-head against transformer-based models (BETO, MarIA, BERTIN).</p>
+      <p>The centerpiece is a <mark class="teal">Weighted Feature Consensus Tournament</mark> — six feature-selection methods voting on what actually matters, with collinearity pruning deliberately moved to <em>after</em> the tournament rather than before it.</p>
+    </div>
+    <div class="i18n" data-lang="es" style="display:none">
+      <p class="lede">Mi tesis doctoral, <em>"Assessing Text Readability in Spanish as a Foreign Language: Computational Modelling and Human Judgment,"</em> es un proceso de dos estudios: construir un modelo que clasifique la dificultad de textos en español con la fiabilidad de un evaluador entrenado, y luego comprobar si los aprendices realmente experimentan esa dificultad como el modelo la predice.</p>
+      <h3>Estudio 1 — un modelo híbrido de legibilidad</h3>
+      <p>Un corpus especializado, etiquetado según el MCER (lecturas graduadas y textos del examen DELE), alimenta un proceso de 238 características lingüísticas en seis familias — léxicas, sintácticas, de cohesión, tradicionales, morfológicas y de vocabulario — extraídas en parte con dos herramientas propias, <strong>SpanishMorphAnalyzer</strong> y <strong>VocabFeatureExtractor</strong>. Los modelos basados en características lingüísticas se comparan directamente con modelos basados en transformers (BETO, MarIA, BERTIN).</p>
+      <p>El centro del proceso es un <mark class="teal">Torneo Ponderado de Consenso de Características</mark> — seis métodos de selección de variables votando qué realmente importa, con la poda de colinealidad movida deliberadamente a después del torneo, no antes.</p>
+    </div>
+    <div class="i18n" data-lang="zh" style="display:none">
+      <p class="lede">我的博士論文《評估西班牙語作為外語的文本可讀性:電腦運算模型與人類判斷》分為兩個研究階段:先建立一個能像訓練有素的評分者一樣準確判斷西班牙語文本難度的模型,再驗證學習者實際感受到的難度是否與模型預測相符。</p>
+      <h3>研究一——混合式可讀性模型</h3>
+      <p>一個依CEFR分級標註的專門語料庫(分級讀本與DELE考試文章),輸入一套涵蓋六大類、共238項語言特徵的分析流程——詞彙、句法、銜接、傳統指標、構詞與詞彙難度——部分特徵由我自行開發的兩項工具 <strong>SpanishMorphAnalyzer</strong> 與 <strong>VocabFeatureExtractor</strong> 擷取。以語言特徵為基礎的模型與以Transformer為基礎的模型(BETO、MarIA、BERTIN)進行直接比較。</p>
+      <p>整個流程的核心是<mark class="teal">「加權特徵共識錦標賽」</mark>——六種特徵篩選方法共同「投票」決定哪些特徵真正重要,並刻意將共線性修剪步驟安排在錦標賽之後,而非之前。</p>
+    </div>
+
+    <div class="metric-row">
+      <div class="metric"><div class="num">~0.96</div><div class="lab i18n" data-lang="en">QWK · BERTIN + CatBoost hybrid</div><div class="lab i18n" data-lang="es" style="display:none">QWK · combinación BERTIN + CatBoost</div><div class="lab i18n" data-lang="zh" style="display:none">QWK・BERTIN + CatBoost 混合模型</div></div>
+      <div class="metric"><div class="num">~87%</div><div class="lab i18n" data-lang="en">classification accuracy</div><div class="lab i18n" data-lang="es" style="display:none">precisión de clasificación</div><div class="lab i18n" data-lang="zh" style="display:none">分類準確率</div></div>
+      <div class="metric"><div class="num">822</div><div class="lab i18n" data-lang="en">texts, A1–C2</div><div class="lab i18n" data-lang="es" style="display:none">textos, A1–C2</div><div class="lab i18n" data-lang="zh" style="display:none">篇文本,A1–C2</div></div>
+      <div class="metric"><div class="num">238</div><div class="lab i18n" data-lang="en">linguistic features</div><div class="lab i18n" data-lang="es" style="display:none">características lingüísticas</div><div class="lab i18n" data-lang="zh" style="display:none">項語言特徵</div></div>
+    </div>
+
+    <div class="i18n" data-lang="en">
+      <p>The best model pairs BERTIN with CatBoost — the <strong>"BERTIN paradox":</strong> weakest model alone, strongest as a hybrid partner. It also holds up well against MultiAzterTest, the existing benchmark, beating it on CEFR discrimination while correlating strongly with it (ρ = 0.738).</p>
+      <h3>Study 2 — does difficulty <em>feel</em> the way the model says it should?</h3>
+      <p>Study 2 triangulates the model's predictions against real perceptions from Mandarin-L1 learners of Spanish, including affective variables like anxiety and engagement, and typological distance. Including affect required making a literature-backed case strong enough to survive real methodological pushback — not just asserting it belonged.</p>
+      <h3>Before the Ph.D. — the master's</h3>
+      <p>My M.A. in Applied Foreign Languages (NTUST, 2020–2022), advised by Dra. Sy-Ying Lee, asked a narrower version of the same question: are graded readers or authentic illustrated books better first material for beginning Spanish learners? A corpus analysis of verb variety, frequency, mood, and tense across both text types, plus a 12-week study with Taiwanese Spanish majors, became a 170-page manuscript — and the seed of everything since.</p>
+      <div class="note">Presented at Edge Hill University (UK), Teachers College Columbia University, Westminster International University in Tashkent, and National Taipei University of Business. Two more papers on Study 1 &amp; 2 are queued for the XII Congreso Internacional de la AAH.</div>
+    </div>
+    <div class="i18n" data-lang="es" style="display:none">
+      <p>El mejor modelo combina BERTIN con CatBoost — la <strong>"paradoja BERTIN":</strong> el más débil por sí solo, el mejor compañero en un híbrido. También supera a MultiAzterTest, el punto de referencia existente, superándolo en discriminación MCER mientras se correlaciona fuertemente con él (ρ = 0.738).</p>
+      <h3>Estudio 2 — ¿la dificultad se <em>siente</em> como dice el modelo?</h3>
+      <p>El Estudio 2 triangula las predicciones del modelo con percepciones reales de aprendices de español con L1 mandarín, incluyendo variables afectivas como ansiedad y compromiso, además de la distancia tipológica. Incluir el factor afectivo exigió construir un argumento respaldado por la literatura lo suficientemente sólido para resistir un cuestionamiento metodológico real — no bastaba con afirmarlo.</p>
+      <h3>Antes del doctorado — la maestría</h3>
+      <p>Mi maestría en Lenguas Extranjeras Aplicadas (NTUST, 2020–2022), guiada por la Dra. Sy-Ying Lee, hizo una versión más acotada de la misma pregunta: ¿son mejores las lecturas graduadas o los libros ilustrados auténticos como primer material para principiantes de español? Un análisis de corpus sobre variedad, frecuencia, modo y tiempo verbal en ambos tipos de texto, más un estudio de 12 semanas con estudiantes taiwaneses de español, se convirtió en un manuscrito de 170 páginas — y la semilla de todo lo que vino después.</p>
+      <div class="note">Presentado en Edge Hill University (Reino Unido), Teachers College de Columbia University, Westminster International University en Taskent, y National Taipei University of Business. Dos ponencias más sobre los Estudios 1 y 2 están programadas para el XII Congreso Internacional de la AAH.</div>
+    </div>
+    <div class="i18n" data-lang="zh" style="display:none">
+      <p>表現最好的模型結合了BERTIN與CatBoost——我稱之為「BERTIN悖論」:單獨使用時最弱,搭配使用時卻是最佳夥伴。此模型也優於現有基準工具MultiAzterTest,在CEFR分級判別上表現更佳,同時與其保持高度相關(ρ = 0.738)。</p>
+      <h3>研究二——難度感受是否與模型預測相符?</h3>
+      <p>研究二將模型預測結果,與以華語為母語的西班牙語學習者的真實感受進行三角驗證,並納入焦慮、投入程度等情感變項,以及語言類型距離。納入情感因素,需要建立足夠有文獻支持的論證,才能通過真正的方法論質疑——單靠主張是不夠的。</p>
+      <h3>攻讀博士之前——碩士階段</h3>
+      <p>我在NTUST的應用外語碩士學位(2020–2022),由李思穎(Sy-Ying Lee)教授指導,探討的是同一個問題的縮小版:對西語初學者而言,分級讀本與真實插畫童書,哪一種是更好的入門教材?透過比較兩種文本在動詞多樣性、頻率、語氣與時態上的語料分析,加上一項為期12週、以台灣西班牙語主修學生為對象的研究,最終完成了一份170頁的論文——也是後來一切研究的起點。</p>
+      <div class="note">曾於英國Edge Hill University、哥倫比亞大學Teachers College、塔什干Westminster International University、國立臺北商業大學發表。另有兩篇分別探討研究一與研究二的論文,已投稿至第十二屆亞洲西班牙語學者協會(AAH)國際大會。</div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <p class="kicker"><span class="lvl">B2</span>
+      <span class="i18n" data-lang="en">projects</span>
+      <span class="i18n" data-lang="es" style="display:none">proyectos</span>
+      <span class="i18n" data-lang="zh" style="display:none">專案</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">Things I've built</span>
+      <span class="i18n" data-lang="es" style="display:none">Cosas que he construido</span>
+      <span class="i18n" data-lang="zh" style="display:none">我打造過的東西</span>
+    </h2>
+    <p class="lede i18n" data-lang="en">Research doesn't stay in papers if I can help it — most of it turns into a tool, a site, or an app.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Si depende de mí, la investigación no se queda solo en papers — casi todo termina convirtiéndose en una herramienta, un sitio o una app.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">只要能力所及,我的研究不會只停留在論文裡——大多數最後都會變成一項工具、一個網站,或一款應用程式。</p>
+
+    <div class="spotlight">
+      <h4>ZebraUp</h4>
+      <div class="i18n" data-lang="en">
+        <p>Built as an mHealth web app for people navigating rare or hard-to-diagnose conditions — the "zebras," in medical slang, that get overlooked while clinicians look for more common explanations. ZebraUp helps patients walk into short consultations with concrete data instead of a blurred memory of symptoms: structured symptom tracking, a timeline they can hand to a new specialist, and language built around how patients actually describe what's happening to them, not just clinical checklists.</p>
+        <p>I'm currently gathering structured data on how patients with complex, multi-system conditions communicate with their care teams — where that communication breaks down, and what actually helps — with the aim of publishing a study that uses ZebraUp as its case study.</p>
+      </div>
+      <div class="i18n" data-lang="es" style="display:none">
+        <p>Construida como una app web de salud móvil para personas que navegan condiciones raras o difíciles de diagnosticar — las "cebras", en la jerga médica, que quedan sin ver mientras los clínicos buscan explicaciones más comunes. ZebraUp ayuda a los pacientes a llegar a consultas breves con datos concretos en vez de un recuerdo difuso de sus síntomas: seguimiento estructurado de síntomas, una línea de tiempo que pueden entregar a un nuevo especialista, y un lenguaje construido a partir de cómo los pacientes realmente describen lo que les pasa, no solo listas clínicas de verificación.</p>
+        <p>Actualmente estoy recopilando datos estructurados sobre cómo se comunican con sus equipos médicos las personas con condiciones complejas y multisistémicas — dónde se rompe esa comunicación y qué realmente ayuda — con el objetivo de publicar un estudio que use ZebraUp como caso de estudio.</p>
+      </div>
+      <div class="i18n" data-lang="zh" style="display:none">
+        <p>這是一款為罕見或難以診斷疾病患者打造的行動醫療網頁應用程式。醫學術語中的「斑馬」,指的是那些在醫師優先考慮常見診斷時,容易被忽略的病例。ZebraUp協助病患在短暫的門診時間裡,帶著具體的資料而非模糊的症狀記憶進入診間:結構化的症狀紀錄、可交給新專科醫師參考的時間軸,以及貼近病患實際描述症狀方式(而非僅是臨床檢核表)所設計的用語。</p>
+        <p>我目前正在蒐集結構化資料,了解患有複雜、多系統疾病的病患如何與醫療團隊溝通——溝通在哪裡出現斷點、什麼真正有幫助——目標是發表一篇以ZebraUp作為案例研究的論文。</p>
+      </div>
+      <div class="link-row">
+        <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
+        <a href="https://github.com/Poln4/ZebraUp">github.com/Poln4/ZebraUp →</a>
+      </div>
+      <div class="tagrow"><span class="tag">Dart</span><span class="tag">health tech</span></div>
+    </div>
+
+    <div class="grid two" style="margin-top:26px;">
+      <div class="card">
+        <h4>The Carla Model</h4>
+        <p class="i18n" data-lang="en">A hybrid architecture behind Study 1 — traditional linguistic features fused with transformer embeddings, on a cleaned custom corpus of 800+ Spanish texts.</p>
+        <p class="i18n" data-lang="es" style="display:none">La arquitectura híbrida detrás del Estudio 1 — características lingüísticas tradicionales combinadas con embeddings de transformers, sobre un corpus propio y depurado de más de 800 textos en español.</p>
+        <p class="i18n" data-lang="zh" style="display:none">研究一背後的混合式架構——將傳統語言特徵與Transformer嵌入向量結合,建立在一個經過清理、超過800篇文本的西班牙語自建語料庫之上。</p>
+        <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span></div>
+      </div>
+      <div class="card">
+        <h4>Reading Club</h4>
+        <p class="i18n" data-lang="en">An extensive-reading initiative and the site that hosts it, plus a stint as EdTech Project Contributor for The Other Way Spanish, building the same idea into a community reading club.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una iniciativa de lectura extensiva y el sitio que la aloja, además de un período como Contribuidora de proyecto EdTech para The Other Way Spanish, llevando la misma idea a un club de lectura comunitario.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一項廣泛閱讀計畫,以及承載這項計畫的網站;此外我也曾擔任The Other Way Spanish的EdTech專案貢獻者,將同樣的理念延伸為一個社群式讀書會。</p>
+        <a class="link" href="https://poln4.pythonanywhere.com">poln4.pythonanywhere.com →</a>
+        <div class="tagrow"><span class="tag">Flask</span><span class="tag">EdTech</span></div>
+      </div>
+      <div class="card">
+        <h4>NAS Project</h4>
+        <p class="i18n" data-lang="en">A system built to acknowledge and respect diverse name structures and preferences — because most software still assumes everyone's name fits one Western template.</p>
+        <p class="i18n" data-lang="es" style="display:none">Un sistema diseñado para reconocer y respetar la diversidad de estructuras y preferencias en los nombres de las personas — porque la mayoría del software todavía asume que todos los nombres encajan en un solo modelo occidental.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一套用來尊重並辨識多元姓名結構與命名偏好的系統——因為大多數軟體仍預設所有人的姓名都符合單一西方命名模板。</p>
+        <a class="link" href="https://github.com/Poln4/nas-project">github.com/Poln4/nas-project →</a>
+        <div class="tagrow"><span class="tag">Python</span></div>
+      </div>
+    </div>
+
+    <h3>
+      <span class="i18n" data-lang="en">Publications &amp; reviewing</span>
+      <span class="i18n" data-lang="es" style="display:none">Publicaciones y revisión académica</span>
+      <span class="i18n" data-lang="zh" style="display:none">著作與學術審查</span>
+    </h3>
+    <div class="grid two">
+      <div class="card">
+        <h4>Spanish Graded Readers vs. Authentic Illustrated Texts</h4>
+        <p class="i18n" data-lang="en">Co-authored with Sy-Ying Lee. In active revision for the journal <em>System</em>, after an earlier round at <em>Reading in a Foreign Language</em>.</p>
+        <p class="i18n" data-lang="es" style="display:none">Coescrito con Sy-Ying Lee. En revisión activa para la revista <em>System</em>, tras una ronda anterior en <em>Reading in a Foreign Language</em>.</p>
+        <p class="i18n" data-lang="zh" style="display:none">與李思穎(Sy-Ying Lee)合著,目前正在為期刊《System》進行修訂,先前曾投稿至《Reading in a Foreign Language》。</p>
+      </div>
+      <div class="card">
+        <h4>Uso y adquisición de artículos en español como segunda lengua</h4>
+        <p class="i18n" data-lang="en">Valenzuela &amp; Toledo (2019). <em>Logos: Revista de Lingüística, Filosofía y Literatura</em>, 29(2), 268–285.</p>
+        <p class="i18n" data-lang="es" style="display:none">Valenzuela y Toledo (2019). <em>Logos: Revista de Lingüística, Filosofía y Literatura</em>, 29(2), 268–285.</p>
+        <p class="i18n" data-lang="zh" style="display:none">Valenzuela與Toledo(2019)。刊於《Logos: Revista de Lingüística, Filosofía y Literatura》,29(2),268–285頁。</p>
+      </div>
+    </div>
+    <p class="i18n" data-lang="en" style="margin-top:18px;">I also review for <em>Revista Literatura y Lingüística</em> (since 2022), and volunteer as a proofreader and English–Spanish translator for The Ehlers-Danlos Society, working on academic medical papers about EDS (since 2020).</p>
+    <p class="i18n" data-lang="es" style="display:none;margin-top:18px;">También reviso artículos para <em>Revista Literatura y Lingüística</em> (desde 2022), y colaboro como correctora y traductora inglés–español para The Ehlers-Danlos Society, trabajando en artículos académicos médicos sobre el SED (desde 2020).</p>
+    <p class="i18n" data-lang="zh" style="display:none;margin-top:18px;">此外,我自2022年起為《Revista Literatura y Lingüística》期刊審稿,並自2020年起擔任The Ehlers-Danlos Society的英西文校對與翻譯志工,協助翻譯關於EDS的學術醫學論文。</p>
+  </section>
+
+  <section id="journey">
+    <p class="kicker"><span class="lvl">C1</span>
+      <span class="i18n" data-lang="en">the honest part</span>
+      <span class="i18n" data-lang="es" style="display:none">la parte honesta</span>
+      <span class="i18n" data-lang="zh" style="display:none">誠實的部分</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">The messy middle</span>
+      <span class="i18n" data-lang="es" style="display:none">El proceso desordenado</span>
+      <span class="i18n" data-lang="zh" style="display:none">混亂的中間過程</span>
+    </h2>
+    <div class="i18n" data-lang="en">
+      <p class="lede">A live CV usually hides the parts that weren't smooth. Here's some of what actually got me here.</p>
+      <p>I'm a first-generation college student — nobody in my family had a map for any of this, so I've drawn most of it myself, one scholarship application at a time. Six of them, so far, got me from Chile to South Korea to New York to Taiwan.</p>
+      <p>Building Study 1's pipeline meant weeks of debugging my own mistakes, including an elbow-detection bug that was quietly choosing the wrong number of features for the entire feature-selection tournament — it only surfaced because a result looked slightly too convenient to trust. Fixing it meant switching to a stricter method and re-running everything.</p>
+      <p>Study 2 meant defending a methodological choice — including affective filter measures — against real pushback, and doing the reading needed to make that case on evidence, not instinct.</p>
+      <p>And underneath all of it: doctoral research, especially self-directed and this technical, is not well-funded work. If you've read this far and think what I'm building is worth backing, that's genuinely the most useful thing you can do next.</p>
+    </div>
+    <div class="i18n" data-lang="es" style="display:none">
+      <p class="lede">Un CV en vivo normalmente esconde las partes que no fueron fáciles. Esto es parte de lo que realmente me trajo hasta aquí.</p>
+      <p>Soy la primera de mi familia en ir a la universidad — nadie en mi familia tenía un mapa para nada de esto, así que he ido dibujando el mío, una postulación a beca a la vez. Seis becas, hasta ahora, me han llevado de Chile a Corea del Sur, a Nueva York y a Taiwán.</p>
+      <p>Construir el pipeline del Estudio 1 significó semanas depurando mis propios errores, incluyendo un bug en la detección del "codo" que estaba eligiendo silenciosamente el número equivocado de características para todo el torneo de selección — solo salió a la luz porque un resultado se veía demasiado conveniente para confiar en él. Arreglarlo significó cambiar a un método más estricto y volver a correr todo de nuevo.</p>
+      <p>El Estudio 2 significó defender una decisión metodológica — incluir medidas de filtro afectivo — frente a un cuestionamiento real, y hacer la lectura necesaria para sostener ese argumento con evidencia, no solo con instinto.</p>
+      <p>Y bajo todo esto: la investigación doctoral, especialmente cuando es autodirigida y tan técnica, no es un trabajo bien remunerado. Si llegaste hasta aquí leyendo y crees que lo que estoy construyendo vale la pena apoyar, eso es, honestamente, lo más útil que puedes hacer a continuación.</p>
+    </div>
+    <div class="i18n" data-lang="zh" style="display:none">
+      <p class="lede">一份「即時更新」的履歷,通常會隱藏那些不順利的部分。以下是真正把我帶到這裡的一些歷程。</p>
+      <p>我是家族裡第一位大學生——家人沒有人能為我指路,所以這條路大多是我自己一步步摸索出來的,靠著一次又一次申請獎學金。到目前為止,六筆獎學金帶我從智利走到韓國、紐約,再到台灣。</p>
+      <p>打造研究一的分析流程,意味著花費數週時間除錯——包括一個「拐點偵測」的錯誤,它悄悄地為整個特徵篩選錦標賽選錯了特徵數量,直到某次結果看起來「太完美」而讓我起疑,才發現問題所在。修正這個錯誤,意味著改用更嚴謹的方法,並重新跑一次所有流程。</p>
+      <p>研究二則意味著要為一項方法論決定辯護——納入情感濾網的測量——面對真正的質疑,並透過大量文獻閱讀,以證據而非直覺來支撐這個論點。</p>
+      <p>而在這一切之下:博士研究——尤其是這種自主推動、技術含量高的研究——本來就不是一份能帶來穩定收入的工作。如果你讀到這裡,也認同我正在做的事值得支持,那麼,那正是接下來你能做的最有幫助的事。</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="kicker"><span class="lvl">—</span>
+      <span class="i18n" data-lang="en">toolkit</span>
+      <span class="i18n" data-lang="es" style="display:none">herramientas</span>
+      <span class="i18n" data-lang="zh" style="display:none">技能工具</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">What I build with</span>
+      <span class="i18n" data-lang="es" style="display:none">Con qué construyo</span>
+      <span class="i18n" data-lang="zh" style="display:none">我使用的工具</span>
+    </h2>
+    <div class="skills-list">
+      <span>Python</span><span>R</span><span>C / C++</span><span>SQL</span><span>HTML / CSS</span>
+      <span>spaCy</span><span>scikit-learn</span><span>NLTK</span><span>XGBoost</span>
+      <span>transformers (BETO, MarIA, BERTIN)</span><span>pandas</span><span>NumPy</span>
+      <span>corpus linguistics</span><span>Flask</span><span>Git / GitHub</span>
+      <span>Moodle</span><span>H5P</span>
+    </div>
+    <h3>
+      <span class="i18n" data-lang="en">Languages</span>
+      <span class="i18n" data-lang="es" style="display:none">Idiomas</span>
+      <span class="i18n" data-lang="zh" style="display:none">語言能力</span>
+    </h3>
+    <div class="skills-list i18n" data-lang="en">
+      <span>Spanish — native</span><span>English — fluent (TOEFL iBT 102/120)</span><span>Mandarin — intermediate</span><span>Korean — elementary</span>
+    </div>
+    <div class="skills-list i18n" data-lang="es" style="display:none">
+      <span>Español — nativo</span><span>Inglés — fluido (TOEFL iBT 102/120)</span><span>Mandarín — intermedio</span><span>Coreano — elemental</span>
+    </div>
+    <div class="skills-list i18n" data-lang="zh" style="display:none">
+      <span>西班牙語——母語</span><span>英語——流利(TOEFL iBT 102/120)</span><span>華語——中等程度</span><span>韓語——初級</span>
+    </div>
+    <h3>
+      <span class="i18n" data-lang="en">Affiliations</span>
+      <span class="i18n" data-lang="es" style="display:none">Afiliaciones</span>
+      <span class="i18n" data-lang="zh" style="display:none">學會與組織</span>
+    </h3>
+    <div class="skills-list">
+      <span>LSA — Linguistic Society of America</span>
+      <span>ASELE — enseñanza del español como lengua extranjera</span>
+    </div>
+  </section>
+
+  <section id="support">
+    <p class="kicker"><span class="lvl">C2</span>
+      <span class="i18n" data-lang="en">what's next</span>
+      <span class="i18n" data-lang="es" style="display:none">qué sigue</span>
+      <span class="i18n" data-lang="zh" style="display:none">接下來</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">Work with me, or back this work</span>
+      <span class="i18n" data-lang="es" style="display:none">Trabaja conmigo, o apoya este trabajo</span>
+      <span class="i18n" data-lang="zh" style="display:none">與我合作,或支持這項研究</span>
+    </h2>
+    <p class="lede i18n" data-lang="en">I'm open to collaborations on open-source NLP and linguistics projects — especially anything touching language learning or teaching. If a role, a project, or a partnership sounds like a fit, I'd love to hear from you.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Estoy abierta a colaborar en proyectos de PLN y lingüística de código abierto — especialmente si tienen que ver con el aprendizaje o la enseñanza de idiomas. Si un puesto, un proyecto o una colaboración calzan, me encantaría saber de ti.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">我樂於參與開放原始碼的自然語言處理與語言學相關專案——尤其是與語言學習或教學有關的計畫。如果有職缺、專案或合作機會適合,歡迎與我聯繫。</p>
+
+    <blockquote class="i18n" data-lang="en">"Lecturabilidad," not "legibilidad" — whether a text is readable in practice, not just legible on the page.</blockquote>
+    <blockquote class="i18n" data-lang="es" style="display:none">«Lecturabilidad», no «legibilidad» — que un texto se pueda leer en la práctica, no solo que sea legible en la página.</blockquote>
+    <blockquote class="i18n" data-lang="zh" style="display:none">我偏好用「lecturabilidad」(實際可讀性)而非「legibilidad」(字面可辨識性)——指文本在實際閱讀中是否易懂,而不只是紙面上看得清楚。</blockquote>
+
+    <div class="support-box">
+      <h3 style="margin-top:0;">
+        <span class="i18n" data-lang="en">Support the research directly</span>
+        <span class="i18n" data-lang="es" style="display:none">Apoya la investigación directamente</span>
+        <span class="i18n" data-lang="zh" style="display:none">直接支持這項研究</span>
+      </h3>
+      <p class="i18n" data-lang="en">Independent, technical doctoral research runs on time most people don't get paid for. If this work is useful to you or you just want to see it keep going, a small contribution goes further than it might seem.</p>
+      <p class="i18n" data-lang="es" style="display:none">La investigación doctoral independiente y técnica se sostiene con tiempo que la mayoría de las personas no cobra. Si este trabajo te es útil, o simplemente quieres que siga adelante, un aporte pequeño rinde más de lo que parece.</p>
+      <p class="i18n" data-lang="zh" style="display:none">獨立且技術性強的博士研究,仰賴的是大多數人不會被支付報酬的時間。如果這項研究對你有幫助,或你單純希望它能持續下去,一點小小的贊助其實比想像中更有幫助。</p>
+      <div class="support-actions">
+        <a class="btn primary" href="mailto:paoo.ss@gmail.com?subject=Let's%20work%20together">
+          <span class="i18n" data-lang="en">Get in touch</span>
+          <span class="i18n" data-lang="es" style="display:none">Contáctame</span>
+          <span class="i18n" data-lang="zh" style="display:none">與我聯繫</span>
+        </a>
+        <a class="btn" href="#" title="Replace with your Ko-fi / Buy Me a Coffee link">
+          <span class="i18n" data-lang="en">Support on Ko-fi</span>
+          <span class="i18n" data-lang="es" style="display:none">Apóyame en Ko-fi</span>
+          <span class="i18n" data-lang="zh" style="display:none">在 Ko-fi 支持我</span>
+        </a>
+        <a class="btn" href="https://github.com/sponsors/Poln4">GitHub Sponsors</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-links">
+      <a href="mailto:paoo.ss@gmail.com">paoo.ss@gmail.com</a>
+      <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
+      <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
+      <a href="https://github.com/Poln4">GitHub</a>
+    </div>
+    <p style="margin-top:16px;">
+      <span class="i18n" data-lang="en">Taipei, Taiwan · updated 2026</span>
+      <span class="i18n" data-lang="es" style="display:none">Taipéi, Taiwán · actualizado en 2026</span>
+      <span class="i18n" data-lang="zh" style="display:none">台灣台北・2026年更新</span>
+    </p>
+  </footer>
+
+</main>
+
+<script>
+  const root = document.documentElement;
+  const btnLight = document.getElementById('btn-light');
+  const btnDark = document.getElementById('btn-dark');
+  function applyTheme(t){
+    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
+    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    try{ localStorage.setItem('theme', t); }catch(e){}
+  }
+  let savedTheme = 'light';
+  try{
+    savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }catch(e){}
+  applyTheme(savedTheme);
+  btnLight.addEventListener('click', () => applyTheme('light'));
+  btnDark.addEventListener('click', () => applyTheme('dark'));
+
+  const btnEn = document.getElementById('btn-en');
+  const btnEs = document.getElementById('btn-es');
+  const btnZh = document.getElementById('btn-zh');
+  function applyLang(l){
+    document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'zh' ? 'zh-Hant' : l;
+    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    try{ localStorage.setItem('lang', l); }catch(e){}
+  }
+  let savedLang = 'en';
+  try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
+  applyLang(savedLang);
+  btnEn.addEventListener('click', () => applyLang('en'));
+  btnEs.addEventListener('click', () => applyLang('es'));
+  btnZh.addEventListener('click', () => applyLang('zh'));
+
+  const stamps = document.querySelectorAll('.rail-stamp');
+  const sections = [...stamps].map(s => document.getElementById(s.dataset.target)).filter(Boolean);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = sections.indexOf(entry.target);
+      if (idx === -1) return;
+      if (entry.isIntersecting) stamps[idx].classList.add('active');
+    });
+  }, { rootMargin: '-40% 0px -40% 0px' });
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
