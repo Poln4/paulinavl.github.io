@@ -2,7 +2,7 @@
 
 My personal site — a live, story-driven CV. Studies, teaching, research, and the projects I keep building on the side, in English, Spanish, and Traditional Chinese.
 
-**Live:** [paulinavl.github.io](https://paulinavl.github.io)
+**Live:** [paulinavl.github.io](https://https://github.com/Poln4/paulinavl.github.io)
 
 ## What's here
 
