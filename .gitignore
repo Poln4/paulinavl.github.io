@@ -1,0 +1,8 @@
+# Full-resolution photo originals (HEIC/JPG straight from the camera).
+# These stay on your machine but never enter git history — only the
+# optimized web versions in images/ are committed.
+images/originals/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

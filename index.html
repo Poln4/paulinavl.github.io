@@ -64,7 +64,11 @@
 
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
 
-  .controls{ position:fixed; top:16px; right:16px; z-index:60; display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+  .hud{
+    position:fixed; top:16px; right:16px; z-index:60;
+    display:flex; flex-direction:column; align-items:flex-end; gap:8px;
+  }
+  .controls{ display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
   .toggle-group{
     display:flex; align-items:center; gap:0;
     border:2px solid var(--ink); border-radius:24px;
@@ -112,6 +116,49 @@
   }
   h1.title .accent{ color:var(--red); }
   .tagline{ font-size:20px; color:var(--ink-soft); max-width:54ch; margin:0 0 30px; }
+
+  /* the other half of the name */
+  .name-sub-wrap{ margin:-8px 0 24px; }
+  .name-sub, .nas{
+    position:relative; display:inline-block;
+    font-family:'IBM Plex Mono','Noto Sans TC',monospace;
+    font-size:15px; color:var(--ink-soft);
+    border-bottom:1px dotted var(--ink-soft); cursor:help;
+  }
+  .nas{
+    letter-spacing:.02em; margin-left:.4em;
+    text-decoration:none; white-space:nowrap;
+  }
+  /* sized to its host: tiny against the display headline, legible next to the subtitle */
+  .title .nas{ font-size:0.30em; vertical-align:0.46em; margin-left:.22em; }
+  .name-sub-wrap .nas{ font-size:11.5px; vertical-align:0.12em; }
+  .nas:hover{ color:var(--teal); border-bottom-color:var(--teal); }
+  .name-sub::after, .nas::after{
+    content:attr(data-tip);
+    position:absolute; left:0; top:calc(100% + 9px);
+    background:var(--ink); color:var(--bg);
+    font-family:'IBM Plex Mono','Noto Sans TC',monospace;
+    font-size:11.5px; line-height:1.4; letter-spacing:.02em;
+    padding:6px 11px; border-radius:5px; white-space:nowrap;
+    opacity:0; pointer-events:none; z-index:5;
+    transform:translateY(-3px); transition:opacity .18s ease, transform .18s ease;
+  }
+  .name-sub::before{
+    content:''; position:absolute; left:14px; top:calc(100% + 4px);
+    border:5px solid transparent; border-bottom-color:var(--ink);
+    opacity:0; pointer-events:none; transition:opacity .18s ease;
+  }
+  /* the NAS legend is a sentence, not a label — let it wrap */
+  .nas::after{
+    white-space:normal; width:max-content; max-width:min(300px, 72vw);
+    font-size:11px; line-height:1.5;
+  }
+  /* A 300px bubble anchored mid-headline pushes narrow pages sideways, and
+     touch devices cannot hover anyway — the mark still links to the project. */
+  @media (max-width:560px){ .nas::after{ display:none; } }
+  .name-sub:hover::after, .name-sub:focus-visible::after,
+  .nas:hover::after, .nas:focus-visible::after{ opacity:1; transform:translateY(0); }
+  .name-sub:hover::before, .name-sub:focus-visible::before{ opacity:1; }
   .hero-links{ display:flex; flex-wrap:wrap; gap:10px 16px; font-family:var(--font-mono); font-size:13.5px; }
   .hero-links a{ text-decoration:none; border-bottom:1px solid var(--red); padding-bottom:1px; }
 
@@ -214,20 +261,168 @@
     font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); opacity:.85;
     border-left:2px solid var(--rule); padding-left:10px; margin-top:18px;
   }
+
+  /* nav menu */
+  .menu-btn{
+    display:flex; align-items:center; gap:7px;
+    border:2px solid var(--ink); border-radius:24px;
+    background:var(--bg-panel); color:var(--ink);
+    font-family:var(--font-mono); font-size:12px; cursor:pointer;
+    padding:7px 14px; transition:background .2s ease, color .2s ease;
+  }
+  .menu-btn:hover, .menu-btn[aria-expanded="true"]{ background:var(--ink); color:var(--bg); }
+  .nav-panel{
+    background:var(--bg-panel); border:2px solid var(--ink); border-radius:12px;
+    padding:8px; min-width:216px; display:none;
+    box-shadow:0 10px 34px rgba(0,0,0,0.16);
+  }
+  .nav-panel.open{ display:block; }
+  .nav-panel a{
+    display:flex; align-items:baseline; gap:11px; text-decoration:none;
+    font-family:var(--font-mono); font-size:13px; color:var(--ink);
+    padding:7px 10px; border-radius:7px; transition:background .15s ease, color .15s ease;
+  }
+  .nav-panel a:hover, .nav-panel a:focus-visible{ background:var(--ink); color:var(--bg); outline:none; }
+  .nav-panel a .lv{ color:var(--teal); min-width:22px; font-size:11px; }
+  .nav-panel a:hover .lv, .nav-panel a:focus-visible .lv{ color:var(--bg); }
+  @media (max-width: 520px){
+    .nav-panel{ min-width:0; }
+  }
+  /* On a phone three stacked control rows cover 40% of the width and sit on
+     the hero text. Show only the menu button; the toggles live inside it. */
+  @media (max-width:700px){
+    .hud{ left:16px; }
+    .controls .toggle-group{ display:none; }
+    .controls.expanded .toggle-group{ display:flex; }
+    .nav-panel{ width:100%; }
+  }
+
+  /* photo pile — a board of snapshots, not a grid.
+     CSS columns keep each photo's own shape; rotation + a negative
+     bottom margin let them lean on each other. */
+  .gallery{
+    width:min(1120px, 92vw);
+    position:relative; left:50%; transform:translateX(-50%);
+    columns:4; column-gap:3px;
+    margin:36px 0 16px;
+  }
+  @media(max-width:1000px){ .gallery{ columns:3; } }
+  @media(max-width:700px){  .gallery{ columns:2; width:100%; left:auto; transform:none; } }
+
+  .gallery figure{
+    break-inside:avoid; -webkit-column-break-inside:avoid;
+    display:inline-block; width:100%;
+    margin:0 0 -6px; padding:7px 7px 3px;
+    background:var(--bg-panel);
+    border:1px solid var(--rule);
+    box-shadow:0 5px 15px rgba(0,0,0,.16);
+    transform:rotate(var(--r,0deg));
+    transition:transform .28s ease, box-shadow .28s ease;
+    position:relative; z-index:1;
+  }
+  html[data-theme="dark"] .gallery figure{ box-shadow:0 5px 18px rgba(0,0,0,.5); }
+  .gallery figure:nth-child(7n+1){ --r:-2.1deg; }
+  .gallery figure:nth-child(7n+2){ --r: 1.5deg; }
+  .gallery figure:nth-child(7n+3){ --r:-1.0deg; }
+  .gallery figure:nth-child(7n+4){ --r: 2.3deg; }
+  .gallery figure:nth-child(7n+5){ --r:-2.7deg; }
+  .gallery figure:nth-child(7n+6){ --r: 0.8deg; }
+  .gallery figure:nth-child(7n+7){ --r:-1.6deg; }
+  .gallery figure:hover, .gallery figure:focus-within{
+    transform:rotate(0deg) scale(1.05); z-index:30;
+    box-shadow:0 16px 36px rgba(0,0,0,.30);
+  }
+  .gallery img{ width:100%; height:auto; display:block; }
+  .gallery figcaption{
+    font-family:var(--font-display); font-weight:700;
+    font-size:13.5px; line-height:1.3; color:var(--ink-soft);
+    padding:6px 4px 2px; text-align:center;
+  }
+
+  /* name game */
+  .game{
+    border:2px solid var(--gold); border-radius:12px;
+    padding:24px 22px; background:var(--bg-panel); margin-top:24px;
+  }
+  .game-top{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
+    letter-spacing:.08em; text-transform:uppercase;
+  }
+  .game-name{
+    font-family:var(--font-display); font-weight:700; text-align:center;
+    font-size:clamp(26px,5.4vw,40px); line-height:1.2; margin:20px 0 6px;
+    text-shadow:var(--stroke-shadow);
+  }
+  .game-origin{
+    font-family:var(--font-mono); font-size:12px; color:var(--teal);
+    text-align:center; margin:0 0 22px;
+  }
+  .game-q{ font-size:17px; text-align:center; margin:0 0 18px; }
+  .game-options{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .opt{
+    font-family:var(--font-mono); font-size:14px; padding:10px 18px;
+    border-radius:6px; border:1.5px solid var(--ink); background:transparent;
+    color:var(--ink); cursor:pointer; transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .opt:hover:not(:disabled){ background:var(--ink); color:var(--bg); }
+  .opt:disabled{ cursor:default; }
+  .opt.correct{ background:var(--teal); border-color:var(--teal); color:var(--bg); }
+  .opt.wrong{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .opt.muted{ opacity:.45; }
+  .game-why{
+    margin-top:20px; border-left:3px solid var(--gold); padding-left:14px;
+    font-size:15.5px; color:var(--ink-soft); display:none;
+  }
+  .game-why.show{ display:block; }
+  .game-why b{ color:var(--ink); font-weight:600; }
+  .game-actions{ margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .game-final{ text-align:center; padding:6px 0; }
+  .game-score{
+    font-family:var(--font-display); font-size:40px; font-weight:700;
+    color:var(--red); line-height:1.1;
+  }
+
+  /* hero aspiration line */
+  .aspiration{
+    font-family:var(--font-body); font-size:18px; color:var(--ink);
+    margin:0 0 28px; max-width:56ch;
+  }
+  .aspiration b{ font-weight:600; }
 </style>
 </head>
 <body>
 
-<div class="controls">
-  <div class="toggle-group" role="group" aria-label="Theme">
-    <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
-    <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+<div class="hud">
+  <div class="controls">
+    <button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-panel">
+      <span aria-hidden="true">☰</span>
+      <span class="i18n" data-lang="en">menu</span>
+      <span class="i18n" data-lang="es" style="display:none">menú</span>
+      <span class="i18n" data-lang="zh" style="display:none">選單</span>
+    </button>
+    <div class="toggle-group" role="group" aria-label="Theme">
+      <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+      <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+    </div>
+    <div class="toggle-group" role="group" aria-label="Language">
+      <button id="btn-en" type="button">EN</button>
+      <button id="btn-es" type="button">ES</button>
+      <button id="btn-zh" type="button">中</button>
+    </div>
   </div>
-  <div class="toggle-group" role="group" aria-label="Language">
-    <button id="btn-en" type="button">EN</button>
-    <button id="btn-es" type="button">ES</button>
-    <button id="btn-zh" type="button">中</button>
-  </div>
+
+  <nav id="nav-panel" class="nav-panel" aria-label="Sections">
+    <a href="#origins"><span class="lv">A1</span><span class="i18n" data-lang="en">About me</span><span class="i18n" data-lang="es" style="display:none">Sobre mí</span><span class="i18n" data-lang="zh" style="display:none">關於我</span></a>
+    <a href="#teaching"><span class="lv">A2</span><span class="i18n" data-lang="en">Teaching</span><span class="i18n" data-lang="es" style="display:none">Docencia</span><span class="i18n" data-lang="zh" style="display:none">教學</span></a>
+    <a href="#research"><span class="lv">B1</span><span class="i18n" data-lang="en">Research</span><span class="i18n" data-lang="es" style="display:none">Investigación</span><span class="i18n" data-lang="zh" style="display:none">研究</span></a>
+    <a href="#projects"><span class="lv">B2</span><span class="i18n" data-lang="en">Projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos</span><span class="i18n" data-lang="zh" style="display:none">專案</span></a>
+    <a href="#dreams"><span class="lv">?</span><span class="i18n" data-lang="en">Dream projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos soñados</span><span class="i18n" data-lang="zh" style="display:none">夢想專案</span></a>
+    <a href="#game"><span class="lv">▶</span><span class="i18n" data-lang="en">Name game</span><span class="i18n" data-lang="es" style="display:none">Juego de nombres</span><span class="i18n" data-lang="zh" style="display:none">名字小遊戲</span></a>
+    <a href="#journey"><span class="lv">C1</span><span class="i18n" data-lang="en">The honest part</span><span class="i18n" data-lang="es" style="display:none">La parte honesta</span><span class="i18n" data-lang="zh" style="display:none">誠實的部分</span></a>
+    <a href="#skills"><span class="lv">—</span><span class="i18n" data-lang="en">Toolkit</span><span class="i18n" data-lang="es" style="display:none">Herramientas</span><span class="i18n" data-lang="zh" style="display:none">技能工具</span></a>
+    <a href="#support"><span class="lv">C2</span><span class="i18n" data-lang="en">Work with me</span><span class="i18n" data-lang="es" style="display:none">Trabaja conmigo</span><span class="i18n" data-lang="zh" style="display:none">與我合作</span></a>
+  </nav>
 </div>
 
 <div class="rail" aria-hidden="true">
@@ -248,17 +443,36 @@
       <span class="i18n" data-lang="es" style="display:none">nivel de lectura: variable, a propósito</span>
       <span class="i18n" data-lang="zh" style="display:none">閱讀難度:刻意保持不固定</span>
     </span>
-    <h1 class="title">Paulina Valenzuela<br><span class="accent">Lagos</span></h1>
+    <h1 class="title">
+      <span class="i18n" data-lang="en">Paulina Valenzuela<br><span class="accent">Lagos</span><a class="nas" href="#projects" data-tip="NAS notation — N: the given name I go by · (n.): a name that exists here but is omitted · S: the surname I go by · s: my second surname">(N.(n.)S.s.)</a></span>
+      <span class="i18n" data-lang="es" style="display:none">Paulina Valenzuela<br><span class="accent">Lagos</span><a class="nas" href="#projects" data-tip="Notación NAS — N: el nombre por el que me llaman · (n.): un nombre que existe aquí pero se omite · S: el apellido que uso · s: mi segundo apellido">(N.(n.)S.s.)</a></span>
+      <span class="i18n" data-lang="zh" style="display:none">范<span class="accent">寶琳</span><a class="nas" href="#projects" data-tip="NAS 記法 —— S:我慣用的姓,寫在前 · N-:我的名,由兩個字組成的單一單位">(S.N-)</a></span>
+    </h1>
+    <p class="name-sub-wrap">
+      <span class="i18n" data-lang="en"><span class="name-sub" tabindex="0" data-tip="Name in Chinese characters">范寶琳</span><a class="nas" href="#projects" data-tip="NAS notation — S: the surname I go by, written first · N-: my given name, a single unit of two characters">(S.N-)</a></span>
+      <span class="i18n" data-lang="es" style="display:none"><span class="name-sub" tabindex="0" data-tip="Nombre en caracteres chinos">范寶琳</span><a class="nas" href="#projects" data-tip="Notación NAS — S: el apellido que uso, escrito primero · N-: mi nombre de pila, una sola unidad de dos caracteres">(S.N-)</a></span>
+      <span class="i18n" data-lang="zh" style="display:none"><span class="name-sub" tabindex="0" data-tip="羅馬字母拼寫的姓名">Paulina Andrea Valenzuela Lagos</span><a class="nas" href="#projects" data-tip="NAS 記法 —— N:我慣用的名 · n:存在但不用於稱呼的名 · S:我慣用的姓 · s:我的第二個姓氏">(N.n.S.s.)</a></span>
+    </p>
     <p class="tagline">
       <span class="i18n" data-lang="en">Computational linguist, Spanish instructor, and Ph.D. candidate at NTUST — I build the tools that decide how hard a text feels, and teach the humans reading it.</span>
       <span class="i18n" data-lang="es" style="display:none">Lingüista computacional, profesora de español y candidata a doctora en la NTUST — construyo las herramientas que deciden qué tan difícil se siente un texto, y enseño a las personas que lo leen.</span>
       <span class="i18n" data-lang="zh" style="display:none">計算語言學家、西班牙語教師,現為台灣科技大學博士候選人——我打造用來判斷文本難度的工具,也教導閱讀這些文本的人。</span>
+    </p>
+    <p class="aspiration">
+      <span class="i18n" data-lang="en">Where I'm headed: <b><mark class="teal">EdTech and health tech</mark></b> — language-learning tools that adapt to the reader, and patient-facing tools that make hard-to-see conditions legible. Academia stays firmly on the table; the teacher part never leaves.</span>
+      <span class="i18n" data-lang="es" style="display:none">Hacia dónde voy: <b><mark class="teal">tecnología educativa y tecnología en salud</mark></b> — herramientas de aprendizaje de idiomas que se adaptan a quien lee, y herramientas para pacientes que hacen legibles las condiciones difíciles de ver. La academia sigue firmemente sobre la mesa; lo de profesora no se va nunca.</span>
+      <span class="i18n" data-lang="zh" style="display:none">我的方向:<b><mark class="teal">教育科技與醫療科技</mark></b>——打造能因應讀者調整的語言學習工具,以及讓難以被看見的疾病變得「可讀」的病患端工具。學術這條路仍穩穩在選項之中;而「老師」這個身分,從未離開。</span>
     </p>
     <div class="hero-links">
       <a href="mailto:paoo.ss@gmail.com">Email</a>
       <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
       <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
       <a href="https://github.com/Poln4">GitHub</a>
+      <a href="Paulina_Valenzuela_Lagos_CV.pdf" download>
+        <span class="i18n" data-lang="en">Download CV ↓</span>
+        <span class="i18n" data-lang="es" style="display:none">Descargar CV ↓</span>
+        <span class="i18n" data-lang="zh" style="display:none">下載履歷 ↓</span>
+      </a>
       <a href="#support">
         <span class="i18n" data-lang="en">Support my work →</span>
         <span class="i18n" data-lang="es" style="display:none">Apoya mi trabajo →</span>
@@ -350,6 +564,117 @@
     <p class="ledger-note i18n" data-lang="en">scroll for the full ledger — it's long on purpose</p>
     <p class="ledger-note i18n" data-lang="es" style="display:none">desplázate para ver la lista completa — es larga a propósito</p>
     <p class="ledger-note i18n" data-lang="zh" style="display:none">捲動查看完整教學經歷——刻意保留完整清單</p>
+
+    <h3>
+      <span class="i18n" data-lang="en">Off the page</span>
+      <span class="i18n" data-lang="es" style="display:none">Fuera del papel</span>
+      <span class="i18n" data-lang="zh" style="display:none">紙上之外</span>
+    </h3>
+    <p class="i18n" data-lang="en">Teaching was never only classrooms — though it was often those, in Chile and in Taiwan. It was also a post office in Santiago, where Japanese engineers hunted vocabulary through the stamp displays, and, for a few years, a soccer pitch and a basketball court.</p>
+    <p class="i18n" data-lang="es" style="display:none">Enseñar nunca fue solo salas de clases — aunque muchas veces lo fue, en Chile y en Taiwán. También fue un correo en Santiago, donde ingenieros japoneses buscaban vocabulario entre los sellos, y, por unos años, una cancha de fútbol y una de básquetbol.</p>
+    <p class="i18n" data-lang="zh" style="display:none">教學從來不只發生在教室裡——儘管它經常如此,在智利,也在台灣。它也曾發生在聖地牙哥的一間郵局裡,一群日本工程師在郵票展示櫃之間尋找生詞;而有幾年,它還發生在足球場與籃球場上。</p>
+
+    <div class="gallery">
+      <figure>
+        <img src="images/teaching-spanish-reader.jpg" alt="Paulina pointing at a Spanish graded reader projected on a screen" loading="lazy" width="1100" height="825">
+        <figcaption>
+          <span class="i18n" data-lang="en">Teaching from a Spanish graded reader</span>
+          <span class="i18n" data-lang="es" style="display:none">Enseñando con una lectura graduada en español</span>
+          <span class="i18n" data-lang="zh" style="display:none">用西班牙語分級讀本上課</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/picture-books-classroom.jpg" alt="Paulina laying out English picture books on a desk with students" loading="lazy" width="824" height="1100">
+        <figcaption>
+          <span class="i18n" data-lang="en">Picture books, Taipei classroom</span>
+          <span class="i18n" data-lang="es" style="display:none">Libros ilustrados, aula en Taipéi</span>
+          <span class="i18n" data-lang="zh" style="display:none">繪本課,台北教室</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/spanish-graded-readers.jpg" alt="A shelf of Spanish graded readers" loading="lazy" width="1100" height="825">
+        <figcaption>
+          <span class="i18n" data-lang="en">The graded readers, on a shelf</span>
+          <span class="i18n" data-lang="es" style="display:none">Las lecturas graduadas, en un estante</span>
+          <span class="i18n" data-lang="zh" style="display:none">書架上的分級讀本</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/haitian-program-chile.jpg" alt="Paulina with a student from the Haitian immigrant Spanish programme, who is holding his certificate" loading="lazy" width="825" height="1100">
+        <figcaption>
+          <span class="i18n" data-lang="en">Spanish for Haitian immigrants · PUC, Santiago</span>
+          <span class="i18n" data-lang="es" style="display:none">Español para inmigrantes haitianos · PUC, Santiago</span>
+          <span class="i18n" data-lang="zh" style="display:none">為海地移民開設的西語課・智利天主教大學</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/lexicultural-stamps.jpg" alt="A student photographing a display panel of Japanese stamps at a post office in Santiago" loading="lazy" width="825" height="1100">
+        <figcaption>
+          <span class="i18n" data-lang="en">Lexicultural class at the post office · Santiago</span>
+          <span class="i18n" data-lang="es" style="display:none">Clase lexicultural en el correo · Santiago</span>
+          <span class="i18n" data-lang="zh" style="display:none">郵局裡的語言文化課・聖地牙哥</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/lexicultural-outing.jpg" alt="Two Japanese students examining stamp display panels at a post office in Santiago" loading="lazy" width="825" height="1100">
+        <figcaption>
+          <span class="i18n" data-lang="en">Japanese students on a lexicultural outing</span>
+          <span class="i18n" data-lang="es" style="display:none">Estudiantes japoneses en una salida lexicultural</span>
+          <span class="i18n" data-lang="zh" style="display:none">日本學生的語言文化踏查</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/conference-talk.jpg" alt="Paulina presenting her research on reading illustrated books" loading="lazy" width="726" height="1100">
+        <figcaption>
+          <span class="i18n" data-lang="en">Presenting the illustrated-books study</span>
+          <span class="i18n" data-lang="es" style="display:none">Presentando el estudio sobre libros ilustrados</span>
+          <span class="i18n" data-lang="zh" style="display:none">發表繪本閱讀研究</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/ntust-afl-team.jpg" alt="Paulina with colleagues beside large AFL letters at NTUST" loading="lazy" width="1100" height="825">
+        <figcaption>
+          <span class="i18n" data-lang="en">Applied Foreign Languages, NTUST</span>
+          <span class="i18n" data-lang="es" style="display:none">Lenguas Extranjeras Aplicadas, NTUST</span>
+          <span class="i18n" data-lang="zh" style="display:none">應用外語系,台科大</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/coaching-soccer.jpg" alt="Paulina coaching a huddle of young soccer players" loading="lazy" width="1100" height="733">
+        <figcaption>
+          <span class="i18n" data-lang="en">Coaching soccer · FCBase Taiwan</span>
+          <span class="i18n" data-lang="es" style="display:none">Entrenando fútbol · FCBase Taiwan</span>
+          <span class="i18n" data-lang="zh" style="display:none">足球教練・FCBase Taiwan</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/soccer-medal.jpg" alt="Paulina in a coaching shirt holding a medal and trophy on a pitch" loading="lazy" width="825" height="1100">
+        <figcaption>
+          <span class="i18n" data-lang="en">Second place — coaching season, Taipei</span>
+          <span class="i18n" data-lang="es" style="display:none">Segundo lugar — temporada como entrenadora, Taipéi</span>
+          <span class="i18n" data-lang="zh" style="display:none">亞軍——執教球季,台北</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/coaching-basketball.jpg" alt="Paulina running a basketball drill with a young player" loading="lazy" width="733" height="1100">
+        <figcaption>
+          <span class="i18n" data-lang="en">Basketball drills · Glory Days Sports</span>
+          <span class="i18n" data-lang="es" style="display:none">Entrenamiento de básquetbol · Glory Days Sports</span>
+          <span class="i18n" data-lang="zh" style="display:none">籃球訓練・Glory Days Sports</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/glory-days-sports.jpg" alt="Paulina on court at a youth basketball league event" loading="lazy" width="1100" height="733">
+        <figcaption>
+          <span class="i18n" data-lang="en">Youth basketball league, Taipei</span>
+          <span class="i18n" data-lang="es" style="display:none">Liga juvenil de básquetbol, Taipéi</span>
+          <span class="i18n" data-lang="zh" style="display:none">青少年籃球聯賽,台北</span>
+        </figcaption>
+      </figure>
+    </div>
+    <p class="note i18n" data-lang="en">Children’s faces are blurred on purpose. Consent matters more than a good photograph.</p>
+    <p class="note i18n" data-lang="es" style="display:none">Los rostros de los niños están difuminados a propósito. El consentimiento importa más que una buena fotografía.</p>
+    <p class="note i18n" data-lang="zh" style="display:none">照片中孩子的臉部是刻意模糊處理的。取得同意,比拍到一張好照片更重要。</p>
   </section>
 
   <section id="research">
@@ -541,6 +866,45 @@
     </div>
   </section>
 
+  <section id="game">
+    <p class="kicker"><span class="lvl">▶</span>
+      <span class="i18n" data-lang="en">play</span>
+      <span class="i18n" data-lang="es" style="display:none">juega</span>
+      <span class="i18n" data-lang="zh" style="display:none">來玩</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">Whose name is it, anyway?</span>
+      <span class="i18n" data-lang="es" style="display:none">¿De quién es este nombre?</span>
+      <span class="i18n" data-lang="zh" style="display:none">這是誰的名字?</span>
+    </h2>
+    <p class="lede i18n" data-lang="en">Six names, six ways software gets them wrong. Guess how each one is actually structured — this is the problem my NAS project exists to fix, and the reason I write my own name the way I do.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está estructurado cada uno — este es el problema que mi proyecto NAS busca resolver, y la razón por la que escribo mi propio nombre como lo hago.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">六個名字,六種軟體弄錯它們的方式。猜猜每個名字實際上的結構——這正是我的 NAS 專案想解決的問題,也是我這樣書寫自己名字的原因。</p>
+
+    <div class="game" id="game-box">
+      <div class="game-top">
+        <span id="game-count"></span>
+        <span id="game-tally"></span>
+      </div>
+      <div id="game-play">
+        <p class="game-name" id="game-name"></p>
+        <p class="game-origin" id="game-origin"></p>
+        <p class="game-q" id="game-q"></p>
+        <div class="game-options" id="game-options"></div>
+        <div class="game-why" id="game-why"></div>
+        <div class="game-actions" id="game-actions"></div>
+      </div>
+      <div id="game-end" class="game-final" style="display:none;">
+        <p class="game-score" id="game-score"></p>
+        <p id="game-verdict" style="margin-top:6px;"></p>
+        <div class="game-actions">
+          <button class="btn" type="button" id="game-again"></button>
+          <a class="btn" href="https://github.com/Poln4/nas-project">NAS project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="journey">
     <p class="kicker"><span class="lvl">C1</span>
       <span class="i18n" data-lang="en">the honest part</span>
@@ -557,6 +921,7 @@
       <p>I'm a first-generation college student — nobody in my family had a map for any of this, so I've drawn most of it myself, one scholarship application at a time. Six of them, so far, got me from Chile to South Korea to New York to Taiwan.</p>
       <p>Building Study 1's pipeline meant weeks of debugging my own mistakes, including an elbow-detection bug that was quietly choosing the wrong number of features for the entire feature-selection tournament — it only surfaced because a result looked slightly too convenient to trust. Fixing it meant switching to a stricter method and re-running everything.</p>
       <p>Study 2 meant defending a methodological choice — including affective filter measures — against real pushback, and doing the reading needed to make that case on evidence, not instinct.</p>
+      <p>For a while, coaching was part of the plan too. Then <mark class="gold">Ehlers-Danlos Syndrome</mark> made that impossible — a connective-tissue condition that, after years of frustration and one knee injury too many, meant I had to stop coaching soccer and basketball for good. I even trained and earned a certification as a football statistician, to stay near the game from the sidelines and report matches around Taiwan — but my body wouldn't cooperate with that either. That long, exhausting fight to be heard about my own health is exactly what became <strong>ZebraUp</strong>.</p>
       <p>And underneath all of it: doctoral research, especially self-directed and this technical, is not well-funded work. If you've read this far and think what I'm building is worth backing, that's genuinely the most useful thing you can do next.</p>
     </div>
     <div class="i18n" data-lang="es" style="display:none">
@@ -564,6 +929,7 @@
       <p>Soy la primera de mi familia en ir a la universidad — nadie en mi familia tenía un mapa para nada de esto, así que he ido dibujando el mío, una postulación a beca a la vez. Seis becas, hasta ahora, me han llevado de Chile a Corea del Sur, a Nueva York y a Taiwán.</p>
       <p>Construir el pipeline del Estudio 1 significó semanas depurando mis propios errores, incluyendo un bug en la detección del "codo" que estaba eligiendo silenciosamente el número equivocado de características para todo el torneo de selección — solo salió a la luz porque un resultado se veía demasiado conveniente para confiar en él. Arreglarlo significó cambiar a un método más estricto y volver a correr todo de nuevo.</p>
       <p>El Estudio 2 significó defender una decisión metodológica — incluir medidas de filtro afectivo — frente a un cuestionamiento real, y hacer la lectura necesaria para sostener ese argumento con evidencia, no solo con instinto.</p>
+      <p>Por un tiempo, entrenar también fue parte del plan. Luego el <mark class="gold">Síndrome de Ehlers-Danlos</mark> lo hizo imposible — una condición del tejido conectivo que, tras años de frustración y una lesión de rodilla de más, me obligó a dejar de entrenar fútbol y básquetbol para siempre. Incluso me formé y obtuve una certificación como estadística de fútbol, para seguir cerca del juego desde la banca y reportar partidos por Taiwán — pero mi cuerpo tampoco cooperó con eso. Esa lucha larga y agotadora por ser escuchada sobre mi propia salud es exactamente lo que se convirtió en <strong>ZebraUp</strong>.</p>
       <p>Y bajo todo esto: la investigación doctoral, especialmente cuando es autodirigida y tan técnica, no es un trabajo bien remunerado. Si llegaste hasta aquí leyendo y crees que lo que estoy construyendo vale la pena apoyar, eso es, honestamente, lo más útil que puedes hacer a continuación.</p>
     </div>
     <div class="i18n" data-lang="zh" style="display:none">
@@ -571,6 +937,7 @@
       <p>我是家族裡第一位大學生——家人沒有人能為我指路,所以這條路大多是我自己一步步摸索出來的,靠著一次又一次申請獎學金。到目前為止,六筆獎學金帶我從智利走到韓國、紐約,再到台灣。</p>
       <p>打造研究一的分析流程,意味著花費數週時間除錯——包括一個「拐點偵測」的錯誤,它悄悄地為整個特徵篩選錦標賽選錯了特徵數量,直到某次結果看起來「太完美」而讓我起疑,才發現問題所在。修正這個錯誤,意味著改用更嚴謹的方法,並重新跑一次所有流程。</p>
       <p>研究二則意味著要為一項方法論決定辯護——納入情感濾網的測量——面對真正的質疑,並透過大量文獻閱讀,以證據而非直覺來支撐這個論點。</p>
+      <p>有一段時間,當教練也在我的計畫之中。後來,<mark class="gold">埃勒斯-當洛斯症候群(Ehlers-Danlos)</mark>讓這件事變得不可能——這是一種結締組織疾病;在多年的挫折與又一次膝蓋受傷之後,我不得不徹底放棄足球與籃球的教練工作。我甚至受訓並取得了足球數據統計員的證照,想從場邊繼續靠近這項運動、在台灣各地報導比賽——但我的身體同樣無法配合。正是這場漫長而耗盡心力、為自己的健康發聲的奮鬥,最終化為 <strong>ZebraUp</strong>。</p>
       <p>而在這一切之下:博士研究——尤其是這種自主推動、技術含量高的研究——本來就不是一份能帶來穩定收入的工作。如果你讀到這裡,也認同我正在做的事值得支持,那麼,那正是接下來你能做的最有幫助的事。</p>
     </div>
   </section>
@@ -658,6 +1025,11 @@
           <span class="i18n" data-lang="zh" style="display:none">在 Ko-fi 支持我</span>
         </a>
         <a class="btn" href="https://github.com/sponsors/Poln4">GitHub Sponsors</a>
+        <a class="btn" href="Paulina_Valenzuela_Lagos_CV.pdf" download>
+          <span class="i18n" data-lang="en">Download CV ↓</span>
+          <span class="i18n" data-lang="es" style="display:none">Descargar CV ↓</span>
+          <span class="i18n" data-lang="zh" style="display:none">下載履歷 ↓</span>
+        </a>
       </div>
     </div>
   </section>
@@ -698,13 +1070,16 @@
   const btnEn = document.getElementById('btn-en');
   const btnEs = document.getElementById('btn-es');
   const btnZh = document.getElementById('btn-zh');
+  let currentLang = 'en';
   function applyLang(l){
+    currentLang = l;
     document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
     root.setAttribute('data-lang', l);
     root.lang = l === 'zh' ? 'zh-Hant' : l;
     [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
     ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
     try{ localStorage.setItem('lang', l); }catch(e){}
+    if (gameReady) renderRound();
   }
   let savedLang = 'en';
   try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
@@ -713,16 +1088,236 @@
   btnEs.addEventListener('click', () => applyLang('es'));
   btnZh.addEventListener('click', () => applyLang('zh'));
 
+  const menuBtn = document.getElementById('menu-btn');
+  const navPanel = document.getElementById('nav-panel');
+  const controlsEl = document.querySelector('.controls');
+  function setMenu(open){
+    navPanel.classList.toggle('open', open);
+    controlsEl.classList.toggle('expanded', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setMenu(!navPanel.classList.contains('open'));
+  });
+  navPanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('click', (e) => {
+    if (!navPanel.contains(e.target) && e.target !== menuBtn) setMenu(false);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
   const stamps = document.querySelectorAll('.rail-stamp');
   const sections = [...stamps].map(s => document.getElementById(s.dataset.target)).filter(Boolean);
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const idx = sections.indexOf(entry.target);
-      if (idx === -1) return;
-      if (entry.isIntersecting) stamps[idx].classList.add('active');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const idx = sections.indexOf(entry.target);
+        if (idx === -1) return;
+        if (entry.isIntersecting) stamps[idx].classList.add('active');
+      });
+    }, { rootMargin: '-40% 0px -40% 0px' });
+    sections.forEach(s => io.observe(s));
+  }
+
+  /* ---------- name game ---------- */
+  var gameReady = false;
+
+  const NAME_ROUNDS = [
+    {
+      name: '范寶琳',
+      origin: { en:'Chinese · Paulina’s own Chinese name', es:'Chino · el nombre chino de Paulina', zh:'中文・Paulina 的中文名' },
+      q: { en:'Which part is the family name?', es:'¿Cuál parte es el apellido?', zh:'哪一部分是姓氏?' },
+      options: [
+        { en:'范 (Fàn)', es:'范 (Fàn)', zh:'范 (Fàn)' },
+        { en:'寶琳 (Bǎo-lín)', es:'寶琳 (Bǎo-lín)', zh:'寶琳 (Bǎo-lín)' }
+      ],
+      answer: 0,
+      why: {
+        en:'In Chinese the family name comes <b>first</b> — 范 (Fàn) — followed by the given name 寶琳. Software that assumes “first name = given name” flips it, and very politely calls her Ms. Bǎo-lín.',
+        es:'En chino el apellido va <b>primero</b> — 范 (Fàn) — seguido del nombre de pila 寶琳. El software que asume que «el primer nombre es el nombre de pila» lo invierte y la llama, muy cortésmente, señorita Bǎo-lín.',
+        zh:'中文的姓氏在<b>前</b>——范——接著才是名字寶琳。若軟體預設「第一個字就是名」,就會顛倒過來,客氣地稱她為「寶琳小姐」。'
+      }
+    },
+    {
+      name: 'Paulina Andrea Valenzuela Lagos',
+      origin: { en:'Chilean · Spanish-language naming', es:'Chileno · nomenclatura hispana', zh:'智利・西語圈命名方式' },
+      q: { en:'Which name would she be alphabetized under?', es:'¿Bajo qué nombre se ordenaría alfabéticamente?', zh:'依字母排序時,她會被歸在哪個名字之下?' },
+      options: [
+        { en:'Andrea', es:'Andrea', zh:'Andrea' },
+        { en:'Valenzuela', es:'Valenzuela', zh:'Valenzuela' },
+        { en:'Lagos', es:'Lagos', zh:'Lagos' }
+      ],
+      answer: 1,
+      why: {
+        en:'Spanish-speaking countries use <b>two</b> surnames: the father’s (Valenzuela) then the mother’s (Lagos). She files under Valenzuela. A form with a single “last name” box grabs Lagos instead — and quietly deletes half her family.',
+        es:'Los países hispanohablantes usan <b>dos</b> apellidos: el paterno (Valenzuela) y luego el materno (Lagos). Se ordena bajo Valenzuela. Un formulario con una sola casilla de «apellido» toma Lagos — y borra en silencio a la mitad de su familia.',
+        zh:'西語國家使用<b>兩個</b>姓氏:父姓(Valenzuela)在前,母姓(Lagos)在後,排序時歸在 Valenzuela。只有單一「姓氏」欄位的表單會抓走 Lagos,悄悄刪掉她一半的家族。'
+      }
+    },
+    {
+      name: 'Jón Einarsson',
+      origin: { en:'Icelandic', es:'Islandés', zh:'冰島' },
+      q: { en:'What is “Einarsson”?', es:'¿Qué es «Einarsson»?', zh:'「Einarsson」是什麼?' },
+      options: [
+        { en:'A family name passed down', es:'Un apellido heredado', zh:'世代相傳的家族姓氏' },
+        { en:'“Einar’s son” — it changes every generation', es:'«Hijo de Einar» — cambia en cada generación', zh:'「Einar 之子」——每一代都會改變' }
+      ],
+      answer: 1,
+      why: {
+        en:'Icelandic names are <b>patronymic</b>: Jón, son of Einar. His own children would be Jónsson or Jónsdóttir — never Einarsson. There is no shared family name at all, which is why the Icelandic phone book is alphabetized by <em>given</em> name.',
+        es:'Los nombres islandeses son <b>patronímicos</b>: Jón, hijo de Einar. Sus propios hijos serían Jónsson o Jónsdóttir — nunca Einarsson. No existe un apellido familiar compartido, y por eso la guía telefónica islandesa se ordena por el <em>nombre de pila</em>.',
+        zh:'冰島採用<b>父名制</b>:Jón 是 Einar 之子。他自己的孩子會是 Jónsson 或 Jónsdóttir,而不會是 Einarsson。家族之間根本沒有共同姓氏——這也是為什麼冰島電話簿是按<em>名字</em>排序的。'
+      }
+    },
+    {
+      name: 'Sukarno',
+      origin: { en:'Indonesian', es:'Indonesio', zh:'印尼' },
+      q: { en:'What is his surname?', es:'¿Cuál es su apellido?', zh:'他的姓氏是什麼?' },
+      options: [
+        { en:'Sukarno', es:'Sukarno', zh:'Sukarno' },
+        { en:'He does not have one', es:'No tiene', zh:'他沒有姓氏' }
+      ],
+      answer: 1,
+      why: {
+        en:'<b>Mononyms</b> are common in Indonesia — the country’s first president went by one name, full stop. Systems that require a surname force people to duplicate their name, type a placeholder, or invent a family they never had.',
+        es:'Los <b>mononímicos</b> son comunes en Indonesia — el primer presidente del país usaba un solo nombre, y punto. Los sistemas que exigen un apellido obligan a la gente a duplicar su nombre, escribir un relleno, o inventar una familia que nunca tuvo.',
+        zh:'<b>單名</b>在印尼很常見——印尼首任總統就只有一個名字。強制要求填寫姓氏的系統,會逼人重複輸入自己的名字、隨便填個字,或憑空捏造一個從來不存在的家族。'
+      }
+    },
+    {
+      name: 'María del Carmen Rodríguez García',
+      origin: { en:'Spanish · compound given name', es:'Español · nombre compuesto', zh:'西班牙・複合名' },
+      q: { en:'What is her given name?', es:'¿Cuál es su nombre de pila?', zh:'她的「名字」是哪一個?' },
+      options: [
+        { en:'María', es:'María', zh:'María' },
+        { en:'María del Carmen', es:'María del Carmen', zh:'María del Carmen' },
+        { en:'Carmen', es:'Carmen', zh:'Carmen' }
+      ],
+      answer: 1,
+      why: {
+        en:'“María del Carmen” is <b>one</b> compound given name, not two separate ones. Split it at the space and you start sending letters to “Dear María” — a name she may never once have been called. Her friends most likely call her Carmen, or Maricarmen.',
+        es:'«María del Carmen» es <b>un solo</b> nombre compuesto, no dos nombres separados. Si lo cortas en el espacio, terminas escribiendo «Estimada María» — un nombre con el que quizá nunca la han llamado. Sus amigas probablemente le dicen Carmen, o Maricarmen.',
+        zh:'「María del Carmen」是<b>一個</b>複合名,而不是兩個分開的名字。若從空格處切開,你寄出的信會寫著「親愛的 María」——一個她可能從沒被這樣叫過的名字。她的朋友多半叫她 Carmen 或 Maricarmen。'
+      }
+    },
+    {
+      name: 'Nguyễn Thị Hương',
+      origin: { en:'Vietnamese', es:'Vietnamita', zh:'越南' },
+      q: { en:'What would people actually call her?', es:'¿Cómo la llamaría la gente en realidad?', zh:'人們實際上會怎麼稱呼她?' },
+      options: [
+        { en:'Ms. Nguyễn', es:'Sra. Nguyễn', zh:'Nguyễn 女士' },
+        { en:'Ms. Hương', es:'Sra. Hương', zh:'Hương 女士' }
+      ],
+      answer: 1,
+      why: {
+        en:'Vietnamese order puts the family name first (Nguyễn — shared by roughly 40% of the country), then a middle name, then the given name. But people are addressed by their <b>given</b> name: Ms. Hương. Sort a Vietnamese list by family name and almost half of it lands in one bucket.',
+        es:'El orden vietnamita pone primero el apellido (Nguyễn — compartido por cerca del 40% del país), luego un nombre intermedio, y al final el nombre de pila. Pero a las personas se las trata por su <b>nombre de pila</b>: Sra. Hương. Ordena una lista vietnamita por apellido y casi la mitad cae en una sola casilla.',
+        zh:'越南的順序是姓氏在前(Nguyễn——全國約四成的人都姓阮),接著是中間名,最後才是名字。但人們是以<b>名字</b>相稱的:Hương 女士。若把越南名單按姓氏排序,幾乎一半的人都會擠進同一格。'
+      }
+    }
+  ];
+
+  const GT = {
+    count:   { en:'Name %a of %b', es:'Nombre %a de %b', zh:'第 %a / %b 個名字' },
+    tally:   { en:'Correct: %s', es:'Aciertos: %s', zh:'答對:%s' },
+    next:    { en:'Next name →', es:'Siguiente nombre →', zh:'下一個名字 →' },
+    results: { en:'See results →', es:'Ver resultados →', zh:'看結果 →' },
+    again:   { en:'Play again', es:'Jugar de nuevo', zh:'再玩一次' },
+    high:    { en:'You already design better forms than most software does.', es:'Ya diseñas mejores formularios que la mayoría del software.', zh:'你設計表單的功力,已經勝過大多數軟體了。' },
+    mid:     { en:'Close — and every one of these breaks a real system somewhere today.', es:'Cerca — y cada uno de estos rompe algún sistema real hoy mismo.', zh:'很接近了——而這裡的每一種情況,今天都還在弄壞某個真實系統。' },
+    low:     { en:'Which is exactly the point: none of this is obvious, and forms almost never ask.', es:'Y ese es justamente el punto: nada de esto es obvio, y los formularios casi nunca preguntan.', zh:'而這正是重點:這些都不是理所當然的,但表單幾乎從不詢問。' }
+  };
+
+  const gEls = {
+    count: document.getElementById('game-count'),
+    tally: document.getElementById('game-tally'),
+    play: document.getElementById('game-play'),
+    name: document.getElementById('game-name'),
+    origin: document.getElementById('game-origin'),
+    q: document.getElementById('game-q'),
+    options: document.getElementById('game-options'),
+    why: document.getElementById('game-why'),
+    actions: document.getElementById('game-actions'),
+    end: document.getElementById('game-end'),
+    score: document.getElementById('game-score'),
+    verdict: document.getElementById('game-verdict'),
+    again: document.getElementById('game-again')
+  };
+
+  let gIdx = 0, gScore = 0, gPicked = null;
+
+  function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
+
+  function renderRound(){
+    const total = NAME_ROUNDS.length;
+
+    if (gIdx >= total){
+      gEls.play.style.display = 'none';
+      gEls.end.style.display = '';
+      gEls.count.textContent = '';
+      gEls.tally.textContent = '';
+      gEls.score.textContent = gScore + ' / ' + total;
+      gEls.verdict.textContent = gScore === total ? gt(GT.high) : (gScore >= total - 2 ? gt(GT.mid) : gt(GT.low));
+      gEls.again.textContent = gt(GT.again);
+      return;
+    }
+
+    gEls.play.style.display = '';
+    gEls.end.style.display = 'none';
+
+    const r = NAME_ROUNDS[gIdx];
+    gEls.count.textContent = gt(GT.count).replace('%a', gIdx + 1).replace('%b', total);
+    gEls.tally.textContent = gt(GT.tally).replace('%s', gScore);
+    gEls.name.textContent = r.name;
+    gEls.origin.textContent = gt(r.origin);
+    gEls.q.textContent = gt(r.q);
+
+    gEls.options.innerHTML = '';
+    r.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'opt';
+      b.textContent = gt(opt);
+      if (gPicked !== null){
+        b.disabled = true;
+        if (i === r.answer) b.classList.add('correct');
+        else if (i === gPicked) b.classList.add('wrong');
+        else b.classList.add('muted');
+      } else {
+        b.addEventListener('click', () => pick(i));
+      }
+      gEls.options.appendChild(b);
     });
-  }, { rootMargin: '-40% 0px -40% 0px' });
-  sections.forEach(s => io.observe(s));
+
+    gEls.actions.innerHTML = '';
+    if (gPicked !== null){
+      gEls.why.innerHTML = gt(r.why);
+      gEls.why.classList.add('show');
+      const nxt = document.createElement('button');
+      nxt.type = 'button';
+      nxt.className = 'btn primary';
+      nxt.textContent = (gIdx === total - 1) ? gt(GT.results) : gt(GT.next);
+      nxt.addEventListener('click', () => { gIdx++; gPicked = null; renderRound(); });
+      gEls.actions.appendChild(nxt);
+    } else {
+      gEls.why.classList.remove('show');
+      gEls.why.innerHTML = '';
+    }
+  }
+
+  function pick(i){
+    if (gPicked !== null) return;
+    gPicked = i;
+    if (i === NAME_ROUNDS[gIdx].answer) gScore++;
+    renderRound();
+  }
+
+  gEls.again.addEventListener('click', () => {
+    gIdx = 0; gScore = 0; gPicked = null; renderRound();
+  });
+
+  gameReady = true;
+  renderRound();
 </script>
 
 <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
