@@ -391,6 +391,36 @@
     margin:0 0 28px; max-width:56ch;
   }
   .aspiration b{ font-weight:600; }
+
+  /* bridges between sections — a line of connective tissue, not just a rule */
+  .bridge{
+    font-family:var(--font-mono); font-size:13px; font-style:italic;
+    color:var(--teal); border-left:2px solid var(--teal);
+    padding-left:14px; margin:0 0 26px; max-width:60ch;
+  }
+
+  /* scroll-reveal: sections settle into place instead of just appearing */
+  section.reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  section.reveal.in{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ section.reveal{ opacity:1; transform:none; transition:none; } }
+
+  /* recruiter view: hidden by default, revealed only when the toggle is on */
+  .tldr{ display:none; }
+  html[data-mode="recruiter"] .tldr{
+    display:block; border:1.5px solid var(--teal); border-radius:8px;
+    padding:16px 18px 4px; background:var(--bg-panel); margin:0 0 20px;
+  }
+  .tldr b{ color:var(--teal); }
+  html[data-mode="recruiter"] section.collapsible > .story{ display:none; }
+  html[data-mode="recruiter"] section.collapsible.expanded > .story{ display:block; }
+  .story-toggle{ display:none; }
+  html[data-mode="recruiter"] .story-toggle{
+    display:inline-flex; align-items:center; gap:6px; margin:0 0 24px;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);
+    background:transparent; border:1.5px dashed var(--ink-soft); border-radius:6px;
+    padding:6px 12px; cursor:pointer; transition:all .2s ease;
+  }
+  .story-toggle:hover{ border-color:var(--teal); color:var(--teal); }
 </style>
 </head>
 <body>
@@ -411,6 +441,18 @@
       <button id="btn-en" type="button">EN</button>
       <button id="btn-es" type="button">ES</button>
       <button id="btn-zh" type="button">中</button>
+    </div>
+    <div class="toggle-group" role="group" aria-label="Reading mode">
+      <button id="btn-story" type="button">
+        <span class="i18n" data-lang="en">full story</span>
+        <span class="i18n" data-lang="es" style="display:none">historia completa</span>
+        <span class="i18n" data-lang="zh" style="display:none">完整故事</span>
+      </button>
+      <button id="btn-recruiter" type="button">
+        <span class="i18n" data-lang="en">recruiter view</span>
+        <span class="i18n" data-lang="es" style="display:none">vista para reclutadores</span>
+        <span class="i18n" data-lang="zh" style="display:none">人資檢視</span>
+      </button>
     </div>
   </div>
 
@@ -496,7 +538,7 @@
     </div>
   </header>
 
-  <section id="origins">
+  <section id="origins" class="reveal collapsible">
     <p class="kicker"><span class="lvl">A1</span>
       <span class="i18n" data-lang="en">origins</span>
       <span class="i18n" data-lang="es" style="display:none">orígenes</span>
@@ -508,6 +550,14 @@
       <span class="i18n" data-lang="zh" style="display:none">一切的起點</span>
     </h2>
 
+    <div class="tldr">
+      <p class="i18n" data-lang="en">First-generation college graduate. B.A. in Letters (linguistics &amp; Hispanic literature), Pontifical Catholic University of Chile — first published paper in 2019. B.Ed. in Secondary Education on a government Teacher's Vocation Scholarship, plus a year teaching in the U.S. (Union College, NY).</p>
+      <p class="i18n" data-lang="es" style="display:none">Primera generación universitaria de mi familia. Licenciatura en Letras (mención en lingüística y literatura hispánica), Pontificia Universidad Católica de Chile — primer paper publicado en 2019. Licenciatura en Educación Secundaria con Beca Vocación de Profesor del gobierno de Chile, más un año de docencia en EE.UU. (Union College, NY).</p>
+      <p class="i18n" data-lang="zh" style="display:none">家族中第一位大學生。西班牙語文學與語言學學士,智利天主教大學——2019年發表首篇論文。以智利政府「教師志業獎學金」取得中等教育學士學位,並在美國Union College任教一年。</p>
+    </div>
+    <button type="button" class="story-toggle" data-target="origins"></button>
+
+    <div class="story">
     <div class="i18n" data-lang="en">
       <p class="lede">I was the first person in my family to go to college — a Licenciate in Letters, with a mention in linguistics and Hispanic literature, at the Pontifical Catholic University of Chile (PUC). My parents always said education was the one inheritance they could give me. That stuck.</p>
       <p>At PUC I minored in Asian Studies, which is how I ended up co-organizing an international seminar on Korean studies, placing 4th in a national essay on Korea, and — with a part-time job funding the trip myself — spending a summer studying Korean at Seoul National University. That circle of friends, mostly exchange students from across Asia, is a big part of why I ended up teaching Spanish to Asian learners for a living.</p>
@@ -526,9 +576,13 @@
       <p>我的大學畢業論文源自一個很小的契機:朋友們常問我為什麼西班牙語冠詞(el、la、un、una…)這麼難掌握,而我答不出令人滿意的答案。於是我開始研究這個問題。研究成果〈西班牙語冠詞作為第二語言的使用與習得〉於2019年發表於《Logos: Revista de Lingüística, Filosofía y Literatura》,與指導教授Gloria Toledo博士合著。我是在一場車禍恢復期間完成這項研究的,這讓我很早就明白:研究是少數能陪你撐過艱難一年的事物之一。</p>
       <p>接著,我在智利政府「教師志業獎學金」的資助下,取得中等教育學士學位;隨後在紐約Union College擔任語言助教一年,也是在那時開始嘗試在課堂中運用科技(包括VR)。</p>
     </div>
+    </div>
   </section>
 
-  <section id="teaching">
+  <section id="teaching" class="reveal collapsible">
+    <p class="bridge i18n" data-lang="en">That teacher's-vocation scholarship didn't end at graduation — it turned into eighteen classrooms across three countries.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Esa beca de vocación de profesor no terminó con la titulación — se convirtió en dieciocho salas de clases en tres países.</p>
+    <p class="bridge i18n" data-lang="zh" style="display:none">那筆教師志業獎學金並沒有隨畢業而結束——它變成了橫跨三個國家、共十八個教學職位的經歷。</p>
     <p class="kicker"><span class="lvl">A2</span>
       <span class="i18n" data-lang="en">teaching</span>
       <span class="i18n" data-lang="es" style="display:none">docencia</span>
@@ -542,6 +596,18 @@
     <p class="lede i18n" data-lang="en">Before "researcher" was on the business card, "teacher" was — and still is. Spanish, English, kids, adults, DELE candidates, exchange students, mining engineers learning survival Spanish: I've taught most of it, across three countries.</p>
     <p class="lede i18n" data-lang="es" style="display:none">Antes de que "investigadora" apareciera en la tarjeta de presentación, ya decía "profesora" — y todavía lo dice. Español, inglés, niños, adultos, candidatos al DELE, estudiantes de intercambio, ingenieros de minería aprendiendo español de supervivencia: he enseñado casi de todo, en tres países.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">在「研究者」這個頭銜出現之前,「老師」就已經在我的履歷上了——現在也還是。西班牙語、英語、兒童、成人、DELE考生、交換學生、學西班牙語求生用語的礦業工程師:我幾乎教過所有類型的學生,足跡橫跨三個國家。</p>
+
+    <div class="tldr">
+      <p class="i18n" data-lang="en">18 teaching roles across Chile, the U.S., and Taiwan (2015–present): K-12, adult education, DELE exam prep, corporate language training, and an EMI Teaching Assistantship at NTUST (Best Tutor award, 2021).</p>
+      <p class="i18n" data-lang="es" style="display:none">18 puestos de docencia en Chile, EE.UU. y Taiwán (2015–presente): K-12, educación de adultos, preparación DELE, formación corporativa de idiomas, y ayudantía EMI en la NTUST (premio Best Tutor, 2021).</p>
+      <p class="i18n" data-lang="zh" style="display:none">2015年至今,在智利、美國與台灣共擔任18個教學職位:K-12、成人教育、DELE考試準備、企業語言培訓,以及台灣科技大學EMI教學助理(2021年獲頒Best Tutor獎)。</p>
+    </div>
+
+    <div class="tagrow">
+      <span class="tag">K-12</span><span class="tag">Adult Education</span><span class="tag">DELE Prep</span>
+      <span class="tag">EMI</span><span class="tag">Curriculum Design</span><span class="tag">EdTech (VR / ChatGPT)</span>
+      <span class="tag">Corporate Language Training</span>
+    </div>
 
     <div class="ledger">
       <div class="ledger-row"><span class="yr">2015</span><span class="role"><b>Middlebury College Chile</b> — Spanish Teacher (Santiago)</span></div>
@@ -567,6 +633,9 @@
     <p class="ledger-note i18n" data-lang="es" style="display:none">desplázate para ver la lista completa — es larga a propósito</p>
     <p class="ledger-note i18n" data-lang="zh" style="display:none">捲動查看完整教學經歷——刻意保留完整清單</p>
 
+    <button type="button" class="story-toggle" data-target="teaching"></button>
+
+    <div class="story">
     <h3>
       <span class="i18n" data-lang="en">Off the page</span>
       <span class="i18n" data-lang="es" style="display:none">Fuera del papel</span>
@@ -677,9 +746,13 @@
     <p class="note i18n" data-lang="en">Children’s faces are blurred on purpose. Consent matters more than a good photograph.</p>
     <p class="note i18n" data-lang="es" style="display:none">Los rostros de los niños están difuminados a propósito. El consentimiento importa más que una buena fotografía.</p>
     <p class="note i18n" data-lang="zh" style="display:none">照片中孩子的臉部是刻意模糊處理的。取得同意,比拍到一張好照片更重要。</p>
+    </div>
   </section>
 
-  <section id="research">
+  <section id="research" class="reveal collapsible">
+    <p class="bridge i18n" data-lang="en">Thousands of students later, one question kept resurfacing: why do some texts feel so much harder than others? That question became a dissertation.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Después de miles de estudiantes, una pregunta seguía apareciendo: ¿por qué algunos textos se sienten mucho más difíciles que otros? Esa pregunta se convirtió en una tesis doctoral.</p>
+    <p class="bridge i18n" data-lang="zh" style="display:none">教過數千名學生之後,一個問題不斷浮現:為什麼有些文本讀起來就是比較難?這個問題,後來變成了一篇博士論文。</p>
     <p class="kicker"><span class="lvl">B1</span>
       <span class="i18n" data-lang="en">research</span>
       <span class="i18n" data-lang="es" style="display:none">investigación</span>
@@ -691,6 +764,21 @@
       <span class="i18n" data-lang="zh" style="display:none">「可讀性」在我手中的意義</span>
     </h2>
 
+    <div class="tldr">
+      <p class="i18n" data-lang="en">Ph.D. candidate, Digital Learning &amp; Education, NTUST. Dissertation builds a Spanish readability model (238 linguistic features, ~0.96 QWK, ~87% accuracy on 822 CEFR-labelled texts) and validates it against real learner perception. M.A. thesis (2020–2022) compared graded readers vs. authentic texts. Presented at 4 international venues; 1 publication, 1 in review, 2 more queued.</p>
+      <p class="i18n" data-lang="es" style="display:none">Candidata a doctora, Aprendizaje Digital y Educación, NTUST. La tesis construye un modelo de legibilidad en español (238 características lingüísticas, ~0.96 QWK, ~87% de precisión en 822 textos etiquetados según el MCER) y lo valida frente a la percepción real de aprendices. La tesis de maestría (2020–2022) comparó lecturas graduadas con textos auténticos. Presentada en 4 sedes internacionales; 1 publicación, 1 en revisión, 2 más en cola.</p>
+      <p class="i18n" data-lang="zh" style="display:none">台灣科技大學數位學習與教育研究所博士候選人。博士論文建立了一套西班牙語可讀性模型(238項語言特徵,QWK約0.96,對822篇CEFR分級文本的分類準確率約87%),並以真實學習者感受加以驗證。碩士論文(2020–2022)比較分級讀本與真實文本。已於4個國際場合發表;1篇已刊登、1篇審稿中、另有2篇排隊中。</p>
+    </div>
+
+    <div class="tagrow">
+      <span class="tag">NLP</span><span class="tag">Readability Modeling</span><span class="tag">Transformers (BERT / BERTIN)</span>
+      <span class="tag">Feature Engineering</span><span class="tag">CatBoost</span><span class="tag">Corpus Linguistics</span>
+      <span class="tag">Statistical Modeling</span><span class="tag">Mixed-Methods Research</span><span class="tag">Python</span><span class="tag">R</span>
+    </div>
+
+    <button type="button" class="story-toggle" data-target="research"></button>
+
+    <div class="story">
     <div class="i18n" data-lang="en">
       <p class="lede">My doctoral dissertation, <em>"Assessing Text Readability in Spanish as a Foreign Language: Computational Modelling and Human Judgment,"</em> is a two-study pipeline: build a model that grades Spanish text difficulty as reliably as a trained rater, then check whether real learners actually experience difficulty the way the model predicts.</p>
       <h3>Study 1 — a hybrid readability model</h3>
@@ -709,6 +797,7 @@
       <p>一個依CEFR分級標註的專門語料庫(分級讀本與DELE考試文章),輸入一套涵蓋六大類、共238項語言特徵的分析流程——詞彙、句法、銜接、傳統指標、構詞與詞彙難度——部分特徵由我自行開發的兩項工具 <strong>SpanishMorphAnalyzer</strong> 與 <strong>VocabFeatureExtractor</strong> 擷取。以語言特徵為基礎的模型與以Transformer為基礎的模型(BETO、MarIA、BERTIN)進行直接比較。</p>
       <p>整個流程的核心是<mark class="teal">「加權特徵共識錦標賽」</mark>——六種特徵篩選方法共同「投票」決定哪些特徵真正重要,並刻意將共線性修剪步驟安排在錦標賽之後,而非之前。</p>
     </div>
+    </div>
 
     <div class="metric-row">
       <div class="metric"><div class="num">~0.96</div><div class="lab i18n" data-lang="en">QWK · BERTIN + CatBoost hybrid</div><div class="lab i18n" data-lang="es" style="display:none">QWK · combinación BERTIN + CatBoost</div><div class="lab i18n" data-lang="zh" style="display:none">QWK・BERTIN + CatBoost 混合模型</div></div>
@@ -717,6 +806,7 @@
       <div class="metric"><div class="num">238</div><div class="lab i18n" data-lang="en">linguistic features</div><div class="lab i18n" data-lang="es" style="display:none">características lingüísticas</div><div class="lab i18n" data-lang="zh" style="display:none">項語言特徵</div></div>
     </div>
 
+    <div class="story">
     <div class="i18n" data-lang="en">
       <p>The best model pairs BERTIN with CatBoost — the <strong>"BERTIN paradox":</strong> weakest model alone, strongest as a hybrid partner. It also holds up well against MultiAzterTest, the existing benchmark, beating it on CEFR discrimination while correlating strongly with it (ρ = 0.738).</p>
       <h3>Study 2 — does difficulty <em>feel</em> the way the model says it should?</h3>
@@ -741,9 +831,13 @@
       <p>我在NTUST的應用外語碩士學位(2020–2022),由李思穎(Sy-Ying Lee)教授指導,探討的是同一個問題的縮小版:對西語初學者而言,分級讀本與真實插畫童書,哪一種是更好的入門教材?透過比較兩種文本在動詞多樣性、頻率、語氣與時態上的語料分析,加上一項為期12週、以台灣西班牙語主修學生為對象的研究,最終完成了一份170頁的論文——也是後來一切研究的起點。</p>
       <div class="note">曾於英國Edge Hill University、哥倫比亞大學Teachers College、塔什干Westminster International University、國立臺北商業大學發表。另有兩篇分別探討研究一與研究二的論文,已投稿至第十二屆亞洲西班牙語學者協會(AAH)國際大會。</div>
     </div>
+    </div>
   </section>
 
-  <section id="game">
+  <section id="game" class="reveal collapsible">
+    <p class="bridge i18n" data-lang="en">A short detour before the project list — the same instinct that drives the readability research, applied to something you can play with in ten seconds.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Un pequeño desvío antes de la lista de proyectos — el mismo instinto detrás de la investigación de legibilidad, aplicado a algo con lo que puedes jugar en diez segundos.</p>
+    <p class="bridge i18n" data-lang="zh" style="display:none">在專案列表之前的一段小插曲——與可讀性研究背後同樣的直覺,用一個十秒鐘就能上手的小遊戲呈現。</p>
     <p class="kicker"><span class="lvl">▶</span>
       <span class="i18n" data-lang="en">play</span>
       <span class="i18n" data-lang="es" style="display:none">juega</span>
@@ -754,6 +848,15 @@
       <span class="i18n" data-lang="es" style="display:none">¿De quién es este nombre?</span>
       <span class="i18n" data-lang="zh" style="display:none">這是誰的名字?</span>
     </h2>
+
+    <div class="tldr">
+      <p class="i18n" data-lang="en">An interactive demo built on the <b>NAS project</b> (see Projects below) — a system for handling diverse name structures in software. Optional; skip straight to Projects if you'd rather.</p>
+      <p class="i18n" data-lang="es" style="display:none">Una demostración interactiva basada en el <b>proyecto NAS</b> (ver Proyectos más abajo) — un sistema para manejar la diversidad de estructuras de nombres en el software. Opcional; puedes ir directo a Proyectos si prefieres.</p>
+      <p class="i18n" data-lang="zh" style="display:none">一個以<b>NAS專案</b>(見下方「專案」)為基礎的互動示範——一套用來處理軟體中多元姓名結構的系統。此區塊為選讀內容,也可以直接跳到「專案」。</p>
+    </div>
+    <button type="button" class="story-toggle" data-target="game"></button>
+
+    <div class="story">
     <p class="lede i18n" data-lang="en">Six names, six ways software gets them wrong. Guess how each one is really built — starting with the two I signed this page with. There is a reason I write my name the way I do; by the end you will have it.</p>
     <p class="lede i18n" data-lang="es" style="display:none">Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está construido cada uno — empezando por los dos con los que firmé esta página. Hay una razón por la que escribo mi nombre así; al final la vas a tener.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">六個名字,六種軟體弄錯它們的方式。猜猜每個名字實際的結構——就從我在這一頁署名的那兩個開始。我這樣書寫自己的名字是有原因的;玩到最後,你就會知道。</p>
@@ -780,9 +883,10 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <section id="projects">
+  <section id="projects" class="reveal">
     <p class="kicker"><span class="lvl">B2</span>
       <span class="i18n" data-lang="en">projects</span>
       <span class="i18n" data-lang="es" style="display:none">proyectos</span>
@@ -815,7 +919,7 @@
         <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
         <a href="https://github.com/Poln4/ZebraUp">github.com/Poln4/ZebraUp →</a>
       </div>
-      <div class="tagrow"><span class="tag">Dart</span><span class="tag">health tech</span></div>
+      <div class="tagrow"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">health tech</span><span class="tag">mHealth</span><span class="tag">Patient Advocacy</span><span class="tag">UX Writing</span></div>
     </div>
 
     <div class="grid two" style="margin-top:26px;">
@@ -825,7 +929,7 @@
         <p class="i18n" data-lang="es" style="display:none">La arquitectura híbrida detrás del Estudio 1 — características lingüísticas tradicionales combinadas con embeddings de transformers, sobre un corpus propio y depurado de más de 800 textos en español.</p>
         <p class="i18n" data-lang="zh" style="display:none">研究一背後的混合式架構——將傳統語言特徵與Transformer嵌入向量結合,建立在一個經過清理、超過800篇文本的西班牙語自建語料庫之上。</p>
         <a class="link" href="https://carla-esp.streamlit.app"> CARLA - esp →</a>
-        <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span></div>
+        <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Feature Engineering</span><span class="tag">Streamlit</span></div>
       </div>
       <div class="card">
         <h4>Reading Club</h4>
@@ -833,7 +937,7 @@
         <p class="i18n" data-lang="es" style="display:none">Una iniciativa de lectura extensiva y el sitio que la aloja, además de un período como Contribuidora de proyecto EdTech para The Other Way Spanish, llevando la misma idea a un club de lectura comunitario.</p>
         <p class="i18n" data-lang="zh" style="display:none">一項廣泛閱讀計畫,以及承載這項計畫的網站;此外我也曾擔任The Other Way Spanish的EdTech專案貢獻者,將同樣的理念延伸為一個社群式讀書會。</p>
         <a class="link" href="https://poln4.pythonanywhere.com">Reading Club →</a>
-        <div class="tagrow"><span class="tag">Flask</span><span class="tag">EdTech</span></div>
+        <div class="tagrow"><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">EdTech</span><span class="tag">Extensive Reading</span><span class="tag">Community Building</span></div>
       </div>
       <div class="card">
         <h4>NAS Project</h4>
@@ -841,7 +945,19 @@
         <p class="i18n" data-lang="es" style="display:none">La respuesta al juego de más arriba. Un sistema diseñado para reconocer y respetar la diversidad de estructuras y preferencias en los nombres de las personas — porque la mayoría del software todavía asume que todos los nombres encajan en un solo modelo occidental.</p>
         <p class="i18n" data-lang="zh" style="display:none">上面那個遊戲的答案。一套用來尊重並辨識多元姓名結構與命名偏好的系統——因為大多數軟體仍預設所有人的姓名都符合單一西方命名模板。</p>
         <a class="link" href="https://github.com/Poln4/nas-project">github.com/Poln4/nas-project →</a>
-        <div class="tagrow"><span class="tag">Python</span></div>
+        <div class="tagrow"><span class="tag">Python</span><span class="tag">Internationalization (i18n)</span><span class="tag">Data Modeling</span><span class="tag">Inclusive Design</span></div>
+      </div>
+      <div class="card">
+        <h4>
+          <span class="i18n" data-lang="en">Tone Stamp</span>
+          <span class="i18n" data-lang="es" style="display:none">Tone Stamp</span>
+          <span class="i18n" data-lang="zh" style="display:none">Tone Stamp</span>
+        </h4>
+        <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my Spanish readability work, aimed at a language I'm still learning myself.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación — el mismo instinto detrás de mi trabajo de legibilidad en español, aplicado a un idioma que yo misma sigo aprendiendo.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在西班牙語可讀性研究中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。</p>
+        <a class="link" href="https://tonestamp.netlify.app">tonestamp.netlify.app →</a>
+        <div class="tagrow"><span class="tag">EdTech</span><span class="tag">Chinese Pedagogy</span><span class="tag">Readability</span><span class="tag">Visualization</span></div>
       </div>
     </div>
 
@@ -869,7 +985,10 @@
     <p class="i18n" data-lang="zh" style="display:none;margin-top:18px;">此外,我自2022年起為《Revista Literatura y Lingüística》期刊審稿,並自2020年起擔任The Ehlers-Danlos Society的英西文校對與翻譯志工,協助翻譯關於EDS的學術醫學論文。</p>
   </section>
 
-  <section id="dreams">
+  <section id="dreams" class="reveal collapsible">
+    <p class="bridge i18n" data-lang="en">Not everything below has shipped yet. These are the ones still living mostly in my head.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">No todo lo de abajo está terminado. Estas son las ideas que todavía viven, sobre todo, en mi cabeza.</p>
+    <p class="bridge i18n" data-lang="zh" style="display:none">以下這些還沒有真正完成。它們大多還活在我腦子裡。</p>
     <p class="kicker"><span class="lvl">?</span>
       <span class="i18n" data-lang="en">dream projects</span>
       <span class="i18n" data-lang="es" style="display:none">proyectos soñados</span>
@@ -880,6 +999,15 @@
       <span class="i18n" data-lang="es" style="display:none">Todavía no construidos — pero rondando mi cabeza seguido</span>
       <span class="i18n" data-lang="zh" style="display:none">還沒動工——但常常在我腦中盤旋</span>
     </h2>
+
+    <div class="tldr">
+      <p class="i18n" data-lang="en">Two concepts, both still in my head: <b>leehzn</b>, a graded Spanish-reading platform for Korean/Chinese/Japanese speakers, and <b>El Vecindario</b>, a visual-novel Spanish-learning game built around active production and zero-punishment failure.</p>
+      <p class="i18n" data-lang="es" style="display:none">Dos conceptos, ambos todavía en mi cabeza: <b>leehzn</b>, una plataforma de lectura graduada en español para hablantes de coreano, chino y japonés, y <b>El Vecindario</b>, un juego de aprendizaje de español estilo novela visual, centrado en la producción activa y el error sin castigo.</p>
+      <p class="i18n" data-lang="zh" style="display:none">兩項仍停留在構想階段的計畫:<b>leehzn</b>,一個為韓語、中文、日語母語者設計的西班牙語分級閱讀平台;以及<b>El Vecindario</b>,一款以主動產出與「零懲罰式犯錯」為核心的視覺小說式西班牙語學習遊戲。</p>
+    </div>
+    <button type="button" class="story-toggle" data-target="dreams"></button>
+
+    <div class="story">
     <p class="lede i18n" data-lang="en">Ideas I keep coming back to, in various stages of "not real yet." Listed here so I stay honest about the gap between dreaming them and shipping them.</p>
     <p class="lede i18n" data-lang="es" style="display:none">Ideas a las que sigo volviendo, en distintos grados de "todavía no son reales." Las dejo acá para ser honesta sobre la distancia entre soñarlas y construirlas.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">這些是我不斷回頭想起的點子,處於各種「還不算真實存在」的階段。放在這裡,是為了誠實面對「想到」與「做出來」之間的距離。</p>
@@ -894,21 +1022,20 @@
         <div class="tagrow"><span class="tag i18n" data-lang="en">not public yet</span><span class="tag i18n" data-lang="es" style="display:none">aún no público</span><span class="tag i18n" data-lang="zh" style="display:none">尚未公開</span></div>
       </div>
       <div class="card">
-        <h4>
-          <span class="i18n" data-lang="en">Colored Chinese-character reader</span>
-          <span class="i18n" data-lang="es" style="display:none">Lector de caracteres chinos a color</span>
-          <span class="i18n" data-lang="zh" style="display:none">彩色漢字閱讀工具</span>
-        </h4>
-        <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my Spanish readability work, aimed at a language I'm still learning myself.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación — el mismo instinto detrás de mi trabajo de legibilidad en español, aplicado a un idioma que yo misma sigo aprendiendo.</p>
-        <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在西班牙語可讀性研究中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。</p>
-        <a class= "link" href="https://tonestamp.netlify.app">Tone Stamp  →</a>
-        <div class="tagrow"><span class="tag i18n" data-lang="en">idea stage</span><span class="tag i18n" data-lang="es" style="display:none">etapa de idea</span><span class="tag i18n" data-lang="zh" style="display:none">構想階段</span></div>
+        <h4>El Vecindario</h4>
+        <p class="i18n" data-lang="en">A visual-novel Spanish-learning game designed against the "streak trap" — no health bars, no game over. Vocabulary is acquired by dragging mystery words onto context, not translation; sentences are built from word-blocks to force active production instead of multiple choice. Starts in a soft-landing family home (A1) and expands into a full neighborhood — market, deliveries, a lost-internet crisis — through A2.</p>
+        <p class="i18n" data-lang="es" style="display:none">Un juego de aprendizaje de español estilo novela visual, diseñado contra la "trampa de la racha" — sin barras de vida, sin Game Over. El vocabulario se adquiere arrastrando palabras misteriosas hacia el contexto, no hacia una traducción; las frases se construyen con bloques de palabras para forzar la producción activa en vez de la simple selección múltiple. Empieza en un aterrizaje suave en casa de familia (A1) y se expande a todo un vecindario — mercado, delivery, una crisis sin internet — hasta A2.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一款以視覺小說形式呈現的西班牙語學習遊戲,刻意對抗「連續打卡陷阱」——沒有生命值,沒有Game Over。詞彙透過將「神秘單字」拖曳到情境中習得,而非直接翻譯;句子則透過拖曳詞塊組合而成,強迫主動產出而非單純選擇題作答。從一個溫和著陸的家庭場景(A1)開始,逐步擴展到整個街區——市場、外送任務、網路中斷危機——直到A2程度。</p>
+        <div class="tagrow"><span class="tag i18n" data-lang="en">idea stage</span><span class="tag i18n" data-lang="es" style="display:none">etapa de idea</span><span class="tag i18n" data-lang="zh" style="display:none">構想階段</span><span class="tag">Game Design</span><span class="tag">Failing Forward</span><span class="tag">SLA Pedagogy</span></div>
       </div>
+    </div>
     </div>
   </section>
 
-  <section id="journey">
+  <section id="journey" class="reveal collapsible">
+    <p class="bridge i18n" data-lang="en">None of the above happened as smoothly as a list makes it look. Here's the part usually left out.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Nada de lo anterior ocurrió tan sin problemas como lo hace ver una lista. Esta es la parte que normalmente se omite.</p>
+    <p class="bridge i18n" data-lang="zh" style="display:none">上面這一切,都不像清單看起來那樣順利。以下是通常被省略的部分。</p>
     <p class="kicker"><span class="lvl">C1</span>
       <span class="i18n" data-lang="en">the honest part</span>
       <span class="i18n" data-lang="es" style="display:none">la parte honesta</span>
@@ -919,6 +1046,15 @@
       <span class="i18n" data-lang="es" style="display:none">El proceso desordenado</span>
       <span class="i18n" data-lang="zh" style="display:none">混亂的中間過程</span>
     </h2>
+
+    <div class="tldr">
+      <p class="i18n" data-lang="en">First-generation student; 6 scholarships took me from Chile to South Korea, New York, and Taiwan. Independently debugged a critical feature-selection bug in the dissertation pipeline. Defended a contested methodological choice through peer review. Stopped competitive coaching due to Ehlers-Danlos Syndrome — the experience that led directly to building ZebraUp.</p>
+      <p class="i18n" data-lang="es" style="display:none">Primera generación universitaria; 6 becas me llevaron de Chile a Corea del Sur, Nueva York y Taiwán. Depuré de forma independiente un error crítico de selección de características en el pipeline de la tesis. Defendí una decisión metodológica cuestionada durante la revisión por pares. Dejé de entrenar de forma competitiva por el Síndrome de Ehlers-Danlos — la experiencia que llevó directamente a construir ZebraUp.</p>
+      <p class="i18n" data-lang="zh" style="display:none">家族第一代大學生;6筆獎學金帶我從智利到韓國、紐約與台灣。獨立除錯了論文分析流程中一個關鍵的特徵篩選錯誤。在同儕審查中為一項受質疑的方法論決定辯護。因埃勒斯-當洛斯症候群而停止競技教練工作——這段經歷直接促成了ZebraUp的誕生。</p>
+    </div>
+    <button type="button" class="story-toggle" data-target="journey"></button>
+
+    <div class="story">
     <div class="i18n" data-lang="en">
       <p class="lede">A live CV usually hides the parts that weren't smooth. Here's some of what actually got me here.</p>
       <p>I'm a first-generation college student — nobody in my family had a map for any of this, so I've drawn most of it myself, one scholarship application at a time. Six of them, so far, got me from Chile to South Korea to New York to Taiwan.</p>
@@ -943,9 +1079,13 @@
       <p>有一段時間,當教練也在我的計畫之中。後來,<mark class="gold">埃勒斯-當洛斯症候群(Ehlers-Danlos)</mark>讓這件事變得不可能——這是一種結締組織疾病;在多年的挫折與又一次膝蓋受傷之後,我不得不徹底放棄足球與籃球的教練工作。我甚至受訓並取得了足球數據統計員的證照,想從場邊繼續靠近這項運動、在台灣各地報導比賽——但我的身體同樣無法配合。正是這場漫長而耗盡心力、為自己的健康發聲的奮鬥,最終化為 <strong>ZebraUp</strong>。</p>
       <p>而在這一切之下:博士研究——尤其是這種自主推動、技術含量高的研究——本來就不是一份能帶來穩定收入的工作。如果你讀到這裡,也認同我正在做的事值得支持,那麼,那正是接下來你能做的最有幫助的事。</p>
     </div>
+    </div>
   </section>
 
-  <section id="skills">
+  <section id="skills" class="reveal">
+    <p class="bridge i18n" data-lang="en">All of the above runs on a fairly specific toolkit.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Todo lo anterior funciona con un conjunto de herramientas bastante específico.</p>
+    <p class="bridge i18n" data-lang="zh" style="display:none">以上這一切,靠的是一套相當特定的工具組。</p>
     <p class="kicker"><span class="lvl">—</span>
       <span class="i18n" data-lang="en">toolkit</span>
       <span class="i18n" data-lang="es" style="display:none">herramientas</span>
@@ -988,7 +1128,7 @@
     </div>
   </section>
 
-  <section id="support">
+  <section id="support" class="reveal">
     <p class="kicker"><span class="lvl">C2</span>
       <span class="i18n" data-lang="en">what's next</span>
       <span class="i18n" data-lang="es" style="display:none">qué sigue</span>
@@ -1083,6 +1223,7 @@
     ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
     try{ localStorage.setItem('lang', l); }catch(e){}
     if (gameReady) renderRound();
+    if (typeof storyToggles !== 'undefined') storyToggles.forEach(labelStoryToggle);
   }
   let savedLang = 'en';
   try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
@@ -1090,6 +1231,39 @@
   btnEn.addEventListener('click', () => applyLang('en'));
   btnEs.addEventListener('click', () => applyLang('es'));
   btnZh.addEventListener('click', () => applyLang('zh'));
+
+  /* ---------- recruiter view ---------- */
+  const btnStory = document.getElementById('btn-story');
+  const btnRecruiter = document.getElementById('btn-recruiter');
+  const STORY_TOGGLE_T = {
+    collapsed: { en:'Read the full story ↓', es:'Leer la historia completa ↓', zh:'閱讀完整故事 ↓' },
+    expanded:  { en:'Show summary ↑', es:'Ver el resumen ↑', zh:'顯示摘要 ↑' }
+  };
+  var storyToggles = [...document.querySelectorAll('.story-toggle')];
+  function labelStoryToggle(btn){
+    const section = btn.closest('section');
+    const expanded = section && section.classList.contains('expanded');
+    const dict = expanded ? STORY_TOGGLE_T.expanded : STORY_TOGGLE_T.collapsed;
+    btn.textContent = dict[currentLang] || dict.en;
+  }
+  storyToggles.forEach(btn => {
+    labelStoryToggle(btn);
+    btn.addEventListener('click', () => {
+      const section = btn.closest('section');
+      section.classList.toggle('expanded');
+      labelStoryToggle(btn);
+    });
+  });
+  function applyMode(m){
+    if(m === 'recruiter'){ root.setAttribute('data-mode','recruiter'); btnRecruiter.classList.add('active'); btnStory.classList.remove('active'); }
+    else { root.removeAttribute('data-mode'); btnStory.classList.add('active'); btnRecruiter.classList.remove('active'); }
+    try{ localStorage.setItem('mode', m); }catch(e){}
+  }
+  let savedMode = 'story';
+  try{ savedMode = localStorage.getItem('mode') || 'story'; }catch(e){}
+  applyMode(savedMode);
+  btnStory.addEventListener('click', () => applyMode('story'));
+  btnRecruiter.addEventListener('click', () => applyMode('recruiter'));
 
   const menuBtn = document.getElementById('menu-btn');
   const navPanel = document.getElementById('nav-panel');
@@ -1120,6 +1294,18 @@
       });
     }, { rootMargin: '-40% 0px -40% 0px' });
     sections.forEach(s => io.observe(s));
+  }
+
+  const revealSections = document.querySelectorAll('section.reveal');
+  if ('IntersectionObserver' in window){
+    const revealIo = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){ entry.target.classList.add('in'); obs.unobserve(entry.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    revealSections.forEach(s => revealIo.observe(s));
+  } else {
+    revealSections.forEach(s => s.classList.add('in'));
   }
 
   /* ---------- name game ---------- */
