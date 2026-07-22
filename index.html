@@ -64,11 +64,7 @@
 
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
 
-  .hud{
-    position:fixed; top:16px; right:16px; z-index:60;
-    display:flex; flex-direction:column; align-items:flex-end; gap:8px;
-  }
-  .controls{ display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+  .controls{ position:fixed; top:16px; right:16px; z-index:60; display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
   .toggle-group{
     display:flex; align-items:center; gap:0;
     border:2px solid var(--ink); border-radius:24px;
@@ -272,6 +268,7 @@
   }
   .menu-btn:hover, .menu-btn[aria-expanded="true"]{ background:var(--ink); color:var(--bg); }
   .nav-panel{
+    position:fixed; top:104px; right:16px; z-index:59;
     background:var(--bg-panel); border:2px solid var(--ink); border-radius:12px;
     padding:8px; min-width:216px; display:none;
     box-shadow:0 10px 34px rgba(0,0,0,0.16);
@@ -286,15 +283,7 @@
   .nav-panel a .lv{ color:var(--teal); min-width:22px; font-size:11px; }
   .nav-panel a:hover .lv, .nav-panel a:focus-visible .lv{ color:var(--bg); }
   @media (max-width: 520px){
-    .nav-panel{ min-width:0; }
-  }
-  /* On a phone three stacked control rows cover 40% of the width and sit on
-     the hero text. Show only the menu button; the toggles live inside it. */
-  @media (max-width:700px){
-    .hud{ left:16px; }
-    .controls .toggle-group{ display:none; }
-    .controls.expanded .toggle-group{ display:flex; }
-    .nav-panel{ width:100%; }
+    .nav-panel{ left:16px; right:16px; min-width:0; }
   }
 
   /* photo pile — a board of snapshots, not a grid.
@@ -393,37 +382,35 @@
 </head>
 <body>
 
-<div class="hud">
-  <div class="controls">
-    <button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-panel">
-      <span aria-hidden="true">☰</span>
-      <span class="i18n" data-lang="en">menu</span>
-      <span class="i18n" data-lang="es" style="display:none">menú</span>
-      <span class="i18n" data-lang="zh" style="display:none">選單</span>
-    </button>
-    <div class="toggle-group" role="group" aria-label="Theme">
-      <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
-      <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
-    </div>
-    <div class="toggle-group" role="group" aria-label="Language">
-      <button id="btn-en" type="button">EN</button>
-      <button id="btn-es" type="button">ES</button>
-      <button id="btn-zh" type="button">中</button>
-    </div>
+<div class="controls">
+  <button id="menu-btn" class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-panel">
+    <span aria-hidden="true">☰</span>
+    <span class="i18n" data-lang="en">menu</span>
+    <span class="i18n" data-lang="es" style="display:none">menú</span>
+    <span class="i18n" data-lang="zh" style="display:none">選單</span>
+  </button>
+  <div class="toggle-group" role="group" aria-label="Theme">
+    <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+    <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
   </div>
-
-  <nav id="nav-panel" class="nav-panel" aria-label="Sections">
-    <a href="#origins"><span class="lv">A1</span><span class="i18n" data-lang="en">About me</span><span class="i18n" data-lang="es" style="display:none">Sobre mí</span><span class="i18n" data-lang="zh" style="display:none">關於我</span></a>
-    <a href="#teaching"><span class="lv">A2</span><span class="i18n" data-lang="en">Teaching</span><span class="i18n" data-lang="es" style="display:none">Docencia</span><span class="i18n" data-lang="zh" style="display:none">教學</span></a>
-    <a href="#research"><span class="lv">B1</span><span class="i18n" data-lang="en">Research</span><span class="i18n" data-lang="es" style="display:none">Investigación</span><span class="i18n" data-lang="zh" style="display:none">研究</span></a>
-    <a href="#projects"><span class="lv">B2</span><span class="i18n" data-lang="en">Projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos</span><span class="i18n" data-lang="zh" style="display:none">專案</span></a>
-    <a href="#dreams"><span class="lv">?</span><span class="i18n" data-lang="en">Dream projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos soñados</span><span class="i18n" data-lang="zh" style="display:none">夢想專案</span></a>
-    <a href="#game"><span class="lv">▶</span><span class="i18n" data-lang="en">Name game</span><span class="i18n" data-lang="es" style="display:none">Juego de nombres</span><span class="i18n" data-lang="zh" style="display:none">名字小遊戲</span></a>
-    <a href="#journey"><span class="lv">C1</span><span class="i18n" data-lang="en">The honest part</span><span class="i18n" data-lang="es" style="display:none">La parte honesta</span><span class="i18n" data-lang="zh" style="display:none">誠實的部分</span></a>
-    <a href="#skills"><span class="lv">—</span><span class="i18n" data-lang="en">Toolkit</span><span class="i18n" data-lang="es" style="display:none">Herramientas</span><span class="i18n" data-lang="zh" style="display:none">技能工具</span></a>
-    <a href="#support"><span class="lv">C2</span><span class="i18n" data-lang="en">Work with me</span><span class="i18n" data-lang="es" style="display:none">Trabaja conmigo</span><span class="i18n" data-lang="zh" style="display:none">與我合作</span></a>
-  </nav>
+  <div class="toggle-group" role="group" aria-label="Language">
+    <button id="btn-en" type="button">EN</button>
+    <button id="btn-es" type="button">ES</button>
+    <button id="btn-zh" type="button">中</button>
+  </div>
 </div>
+
+<nav id="nav-panel" class="nav-panel" aria-label="Sections">
+  <a href="#origins"><span class="lv">A1</span><span class="i18n" data-lang="en">About me</span><span class="i18n" data-lang="es" style="display:none">Sobre mí</span><span class="i18n" data-lang="zh" style="display:none">關於我</span></a>
+  <a href="#teaching"><span class="lv">A2</span><span class="i18n" data-lang="en">Teaching</span><span class="i18n" data-lang="es" style="display:none">Docencia</span><span class="i18n" data-lang="zh" style="display:none">教學</span></a>
+  <a href="#research"><span class="lv">B1</span><span class="i18n" data-lang="en">Research</span><span class="i18n" data-lang="es" style="display:none">Investigación</span><span class="i18n" data-lang="zh" style="display:none">研究</span></a>
+  <a href="#projects"><span class="lv">B2</span><span class="i18n" data-lang="en">Projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos</span><span class="i18n" data-lang="zh" style="display:none">專案</span></a>
+  <a href="#dreams"><span class="lv">?</span><span class="i18n" data-lang="en">Dream projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos soñados</span><span class="i18n" data-lang="zh" style="display:none">夢想專案</span></a>
+  <a href="#game"><span class="lv">▶</span><span class="i18n" data-lang="en">Name game</span><span class="i18n" data-lang="es" style="display:none">Juego de nombres</span><span class="i18n" data-lang="zh" style="display:none">名字小遊戲</span></a>
+  <a href="#journey"><span class="lv">C1</span><span class="i18n" data-lang="en">The honest part</span><span class="i18n" data-lang="es" style="display:none">La parte honesta</span><span class="i18n" data-lang="zh" style="display:none">誠實的部分</span></a>
+  <a href="#skills"><span class="lv">—</span><span class="i18n" data-lang="en">Toolkit</span><span class="i18n" data-lang="es" style="display:none">Herramientas</span><span class="i18n" data-lang="zh" style="display:none">技能工具</span></a>
+  <a href="#support"><span class="lv">C2</span><span class="i18n" data-lang="en">Work with me</span><span class="i18n" data-lang="es" style="display:none">Trabaja conmigo</span><span class="i18n" data-lang="zh" style="display:none">與我合作</span></a>
+</nav>
 
 <div class="rail" aria-hidden="true">
   <div class="rail-line"></div>
@@ -1090,10 +1077,8 @@
 
   const menuBtn = document.getElementById('menu-btn');
   const navPanel = document.getElementById('nav-panel');
-  const controlsEl = document.querySelector('.controls');
   function setMenu(open){
     navPanel.classList.toggle('open', open);
-    controlsEl.classList.toggle('expanded', open);
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
   menuBtn.addEventListener('click', (e) => {
@@ -1325,5 +1310,8 @@
   kofiwidget2.init('Support me on Ko-fi', '#b8b8b8', 'H5A623H7L3');
   kofiwidget2.draw();
 </script>
+<!-- 100% privacy-first analytics -->
+<script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+
 </body>
 </html>
