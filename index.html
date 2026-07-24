@@ -421,6 +421,22 @@
     padding:6px 12px; cursor:pointer; transition:all .2s ease;
   }
   .story-toggle:hover{ border-color:var(--teal); color:var(--teal); }
+
+  /* reading widgets — small indie tools, not Amazon/Google, styled to match */
+  .reading-widgets{
+    display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start;
+    margin:0 0 20px;
+  }
+  .hardcover-slot{ max-width:320px; }
+  .reading-badge{
+    display:flex; flex-direction:column; gap:4px;
+    border:1.5px dashed var(--ink-soft); border-radius:8px;
+    padding:12px 16px; text-decoration:none; min-width:160px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .reading-badge:hover{ border-color:var(--teal); }
+  .reading-badge-label{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--ink); }
+  .reading-badge-sub{ font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); }
 </style>
 </head>
 <body>
@@ -459,12 +475,13 @@
   <nav id="nav-panel" class="nav-panel" aria-label="Sections">
     <a href="#origins"><span class="lv">A1</span><span class="i18n" data-lang="en">About me</span><span class="i18n" data-lang="es" style="display:none">Sobre mí</span><span class="i18n" data-lang="zh" style="display:none">關於我</span></a>
     <a href="#teaching"><span class="lv">A2</span><span class="i18n" data-lang="en">Teaching</span><span class="i18n" data-lang="es" style="display:none">Docencia</span><span class="i18n" data-lang="zh" style="display:none">教學</span></a>
+    <a href="#reading"><span class="lv">—</span><span class="i18n" data-lang="en">Reading</span><span class="i18n" data-lang="es" style="display:none">Lectura</span><span class="i18n" data-lang="zh" style="display:none">閱讀</span></a>
     <a href="#research"><span class="lv">B1</span><span class="i18n" data-lang="en">Research</span><span class="i18n" data-lang="es" style="display:none">Investigación</span><span class="i18n" data-lang="zh" style="display:none">研究</span></a>
     <a href="#game"><span class="lv">▶</span><span class="i18n" data-lang="en">Name game</span><span class="i18n" data-lang="es" style="display:none">Juego de nombres</span><span class="i18n" data-lang="zh" style="display:none">名字小遊戲</span></a>
     <a href="#projects"><span class="lv">B2</span><span class="i18n" data-lang="en">Projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos</span><span class="i18n" data-lang="zh" style="display:none">專案</span></a>
     <a href="#dreams"><span class="lv">?</span><span class="i18n" data-lang="en">Dream projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos soñados</span><span class="i18n" data-lang="zh" style="display:none">夢想專案</span></a>
-    <a href="#journey"><span class="lv">C1</span><span class="i18n" data-lang="en">The honest part</span><span class="i18n" data-lang="es" style="display:none">La parte honesta</span><span class="i18n" data-lang="zh" style="display:none">誠實的部分</span></a>
     <a href="#skills"><span class="lv">—</span><span class="i18n" data-lang="en">Toolkit</span><span class="i18n" data-lang="es" style="display:none">Herramientas</span><span class="i18n" data-lang="zh" style="display:none">技能工具</span></a>
+    <a href="#journey"><span class="lv">C1</span><span class="i18n" data-lang="en">The honest part</span><span class="i18n" data-lang="es" style="display:none">La parte honesta</span><span class="i18n" data-lang="zh" style="display:none">誠實的部分</span></a>
     <a href="#support"><span class="lv">C2</span><span class="i18n" data-lang="en">Work with me</span><span class="i18n" data-lang="es" style="display:none">Trabaja conmigo</span><span class="i18n" data-lang="zh" style="display:none">與我合作</span></a>
   </nav>
 </div>
@@ -489,22 +506,22 @@
     </span>
     <h1 class="title">
       <span class="i18n" data-lang="en">Paulina Valenzuela<br><span class="accent">Lagos</span><a class="nas" href="#game" data-tip="NAS notation — N: the given name I go by · (n.): a name that exists here but is omitted · S: the surname I go by · s: my second surname">(N.(n.)S.s.)</a></span>
-      <span class="i18n" data-lang="es" style="display:none">Paulina Valenzuela<br><span class="accent">Lagos</span><a class="nas" href="#game" data-tip="Notación NAS — N: el nombre por el que me llaman · (n.): un nombre que existe aquí pero se omite · S: el apellido que uso · s: mi segundo apellido">(N.(n.)S.s.)</a></span>
+      <span class="i18n" data-lang="es" style="display:none">Paulina Valenzuela<br><span class="accent">Lagos</span><a class="nas" href="#game" data-tip="Notación NAS: N es el nombre por el que me llaman · (n.) es un nombre que existe aquí pero se omite · S es el apellido que uso · s es mi segundo apellido">(N.(n.)S.s.)</a></span>
       <span class="i18n" data-lang="zh" style="display:none">范<span class="accent">寶琳</span><a class="nas" href="#game" data-tip="NAS 記法 —— S:我慣用的姓,寫在前 · N-:我的名,由兩個字組成的單一單位">(S.N-)</a></span>
     </h1>
     <p class="name-sub-wrap">
       <span class="i18n" data-lang="en"><span class="name-sub" tabindex="0" data-tip="Name in Chinese characters">范寶琳</span><a class="nas" href="#game" data-tip="NAS notation — S: the surname I go by, written first · N-: my given name, a single unit of two characters">(S.N-)</a></span>
-      <span class="i18n" data-lang="es" style="display:none"><span class="name-sub" tabindex="0" data-tip="Nombre en caracteres chinos">范寶琳</span><a class="nas" href="#game" data-tip="Notación NAS — S: el apellido que uso, escrito primero · N-: mi nombre de pila, una sola unidad de dos caracteres">(S.N-)</a></span>
+      <span class="i18n" data-lang="es" style="display:none"><span class="name-sub" tabindex="0" data-tip="Nombre en caracteres chinos">范寶琳</span><a class="nas" href="#game" data-tip="Notación NAS: S es el apellido que uso, escrito primero · N- es mi nombre de pila, una sola unidad de dos caracteres">(S.N-)</a></span>
       <span class="i18n" data-lang="zh" style="display:none"><span class="name-sub" tabindex="0" data-tip="羅馬字母拼寫的姓名">Paulina Andrea Valenzuela Lagos</span><a class="nas" href="#game" data-tip="NAS 記法 —— N:我慣用的名 · n:存在但不用於稱呼的名 · S:我慣用的姓 · s:我的第二個姓氏">(N.n.S.s.)</a></span>
     </p>
     <p class="tagline">
       <span class="i18n" data-lang="en">Computational linguist, Spanish instructor, and Ph.D. candidate at NTUST — I build the tools that decide how hard a text feels, and teach the humans reading it.</span>
-      <span class="i18n" data-lang="es" style="display:none">Lingüista computacional, profesora de español y candidata a doctora en la NTUST — construyo las herramientas que deciden qué tan difícil se siente un texto, y enseño a las personas que lo leen.</span>
+      <span class="i18n" data-lang="es" style="display:none">Lingüista computacional, profesora de español y candidata a doctora en la NTUST. Construyo las herramientas que deciden qué tan difícil se siente un texto, y enseño a las personas que lo leen.</span>
       <span class="i18n" data-lang="zh" style="display:none">計算語言學家、西班牙語教師,現為台灣科技大學博士候選人——我打造用來判斷文本難度的工具,也教導閱讀這些文本的人。</span>
     </p>
     <p class="aspiration">
       <span class="i18n" data-lang="en">Where I'm headed: <b><mark class="teal">EdTech and health tech</mark></b> — language-learning tools that adapt to the reader, and patient-facing tools that make hard-to-see conditions legible. Academia stays firmly on the table; the teacher part never leaves.</span>
-      <span class="i18n" data-lang="es" style="display:none">Hacia dónde voy: <b><mark class="teal">tecnología educativa y tecnología en salud</mark></b> — herramientas de aprendizaje de idiomas que se adaptan a quien lee, y herramientas para pacientes que hacen legibles las condiciones difíciles de ver. La academia sigue firmemente sobre la mesa; lo de profesora no se va nunca.</span>
+      <span class="i18n" data-lang="es" style="display:none">Hacia dónde voy: <b><mark class="teal">tecnología educativa y tecnología en salud</mark></b>: herramientas de aprendizaje de idiomas que se adaptan a quien lee, y herramientas para pacientes que hacen legibles las condiciones difíciles de ver. La academia sigue firmemente sobre la mesa; lo de profesora no se va nunca.</span>
       <span class="i18n" data-lang="zh" style="display:none">我的方向:<b><mark class="teal">教育科技與醫療科技</mark></b>——打造能因應讀者調整的語言學習工具,以及讓難以被看見的疾病變得「可讀」的病患端工具。學術這條路仍穩穩在選項之中;而「老師」這個身分,從未離開。</span>
     </p>
     <div class="hero-links">
@@ -552,36 +569,42 @@
 
     <div class="tldr">
       <p class="i18n" data-lang="en">First-generation college graduate. B.A. in Letters (linguistics &amp; Hispanic literature), Pontifical Catholic University of Chile — first published paper in 2019. B.Ed. in Secondary Education on a government Teacher's Vocation Scholarship, plus a year teaching in the U.S. (Union College, NY).</p>
-      <p class="i18n" data-lang="es" style="display:none">Primera generación universitaria de mi familia. Licenciatura en Letras (mención en lingüística y literatura hispánica), Pontificia Universidad Católica de Chile — primer paper publicado en 2019. Licenciatura en Educación Secundaria con Beca Vocación de Profesor del gobierno de Chile, más un año de docencia en EE.UU. (Union College, NY).</p>
+      <p class="i18n" data-lang="es" style="display:none">Licenciatura en Letras (mención en lingüística y literatura hispánica), Pontificia Universidad Católica de Chile (primer paper publicado en 2019). Licenciatura en Educación Media con Beca Vocación de Profesor del gobierno de Chile, más un año de docencia en EE.UU. (Union College, NY).</p>
       <p class="i18n" data-lang="zh" style="display:none">家族中第一位大學生。西班牙語文學與語言學學士,智利天主教大學——2019年發表首篇論文。以智利政府「教師志業獎學金」取得中等教育學士學位,並在美國Union College任教一年。</p>
     </div>
     <button type="button" class="story-toggle" data-target="origins"></button>
 
     <div class="story">
     <div class="i18n" data-lang="en">
-      <p class="lede">I was the first person in my family to go to college — a Licenciate in Letters, with a mention in linguistics and Hispanic literature, at the Pontifical Catholic University of Chile (PUC). My parents always said education was the one inheritance they could give me. That stuck.</p>
-      <p>At PUC I minored in Asian Studies, which is how I ended up co-organizing an international seminar on Korean studies, placing 4th in a national essay on Korea, and — with a part-time job funding the trip myself — spending a summer studying Korean at Seoul National University. That circle of friends, mostly exchange students from across Asia, is a big part of why I ended up teaching Spanish to Asian learners for a living.</p>
-      <p>My undergraduate thesis grew out of a genuinely small moment: friends kept asking me why Spanish articles (<em>el, la, un, una…</em>) were so hard to get right, and I couldn't give them a satisfying answer. So I researched it. The result — <mark class="gold">"Uso y adquisición de artículos en español como segunda lengua"</mark> — was published in <em>Logos: Revista de Lingüística, Filosofía y Literatura</em> in 2019, co-written with my advisor, Dra. Gloria Toledo. I finished the underlying research while recovering from a car accident, which taught me early on that research is one of the few things that travels well through a hard year.</p>
-      <p>A second degree, in Secondary Education, followed on a Teacher's Vocation Scholarship from the Chilean government — and a year at Union College in New York as a language assistant, where I first started experimenting with technology (VR included) in the language classroom.</p>
+      <p class="lede">I'm part of the first generation in my family to go to university (except for my aunt Nery). With a lot of interest, and no small amount of difficulty, I earned a Licenciate in Letters, with a mention in linguistics and Hispanic literature, at the Pontifical Catholic University of Chile (PUC). My parents always said education was the one inheritance they could give me. That stuck.</p>
+      <p>I'd always been interested in Japanese, Chinese, and Korean culture, so I took the chance to minor in Asian Studies and join the Study Club Asia. That's where I made my first close friendships with people from Hong Kong, Taipei, Tokyo, Incheon, and elsewhere.</p>
+      <p>Making the most of those opportunities, I co-organized an international seminar on Korean studies, placed 4th in a national essay on Korea, and (funding the trip myself with a part-time job) spent a summer studying Korean at Seoul National University.</p>
+      <p>Learning Korean was deeply satisfying and opened up new interests and dreams for me. Sadly, I haven't been able to keep advancing my Korean since, but it's a dream I haven't given up on.</p>
+      <p>My undergraduate thesis grew out of a small moment: my Asian friends became <a href="#teaching">my first students</a>. And among the many questions they asked, like why <a href="#research">Spanish articles</a> (<em>el, la, un, una…</em>) were so hard to get right, I often didn't have a satisfying answer. So I researched it. The result, "Uso y adquisición de artículos en español como segunda lengua," was published in <em>Logos: Revista de Lingüística, Filosofía y Literatura</em> in 2019, co-written with my advisor, Dra. Gloria Toledo. I finished the underlying research while recovering from a car accident, which taught me early on that research is one of the few things that travels well through a hard year.</p>
+      <p>A second degree, in Educación Media (secondary education), came with a Teacher's Vocation Scholarship from the Chilean government, while I also completed a Diploma in Teaching Spanish as a Foreign Language on a scholarship as the diploma's teaching assistant. After that, a year at Union College in New York as a language assistant was where I first started <a href="#dreams">experimenting with technology</a> (VR included) in the language classroom.</p>
     </div>
     <div class="i18n" data-lang="es" style="display:none">
-      <p class="lede">Fui la primera persona de mi familia en ir a la universidad — Licenciatura en Letras, mención en lingüística y literatura hispánica, en la Pontificia Universidad Católica de Chile (PUC). Mis padres siempre dijeron que la educación era la única herencia que podían darme. Eso se quedó conmigo.</p>
-      <p>En la PUC hice un minor en Estudios Asiáticos, lo que me llevó a co-organizar un seminario internacional de estudios coreanos, obtener el 4º lugar en un ensayo nacional sobre Corea, y — financiando el viaje con un trabajo de medio tiempo — pasar un verano estudiando coreano en la Universidad Nacional de Seúl. Ese círculo de amigos, en su mayoría estudiantes de intercambio de Asia, es una gran parte de por qué terminé enseñando español a estudiantes asiáticos.</p>
-      <p>Mi tesis de pregrado nació de un momento pequeño: mis amigos me preguntaban por qué los artículos en español (<em>el, la, un, una…</em>) eran tan difíciles, y no tenía una respuesta satisfactoria. Así que investigué. El resultado — <mark class="gold">"Uso y adquisición de artículos en español como segunda lengua"</mark> — se publicó en <em>Logos: Revista de Lingüística, Filosofía y Literatura</em> en 2019, junto a mi profesora guía, la Dra. Gloria Toledo. Terminé esa investigación mientras me recuperaba de un accidente automovilístico, lo que me enseñó temprano que la investigación es de las pocas cosas que acompañan bien un año difícil.</p>
-      <p>Una segunda licenciatura, en Educación Secundaria, vino con una Beca Vocación de Profesor del gobierno de Chile — y un año en Union College, en Nueva York, como asistente de idioma, donde empecé a experimentar con tecnología (incluyendo VR) en la sala de clases.</p>
+      <p class="lede">Soy parte de la primera generación de mi familia en ir a la universidad (excepto por mi tía Nery). Con gran interés y dificultad saqué la Licenciatura en Letras, mención en lingüística y literatura hispánica, en la Pontificia Universidad Católica de Chile (PUC). Mis padres siempre dijeron que la educación era la única herencia que podían darme. Eso se quedó conmigo.</p>
+      <p>Siempre tuve interés en las culturas de Japón, China y Corea, por lo que aprovecheé de sacar un minor en Estudios Asiáticos, y a ser parte del Study Club Asia. Allí conocí a mis grandes primeras amistades de Hong-Kong, Taipei, Tokio, Incheon, entre otros. </p> 
+      <p>Aprovechando las oportunidades, puede co-organizar un seminario internacional de estudios coreanos, obtener el 4º lugar en un ensayo nacional sobre Corea, y (financiando el viaje con un trabajo de medio tiempo) pasar un verano estudiando coreano en la Universidad Nacional de Seúl. </p>
+      <p>Aprender coreano fue muy satisfactorio y me abrió nuevos intereses y sueños. Tristemente no he podido avanzar en mi nivel de coreano, pero es un sueño al que no renuncio.</p>
+      <p>Mi tesis de pregrado nació de un momento pequeño: mis amigos asiáticos fueron <a href="#teaching">mis primeros alumnos</a>. Y entre preguntas y preguntas, como por qué <a href="#research">los artículos en español</a> (<em>el, la, un, una…</em>) eran tan difíciles, muchas veces yo no tenía una respuesta satisfactoria. Así que investigué. El resultado, <mark class="gold">"Uso y adquisición de artículos en español como segunda lengua"</mark>, se publicó en <em>Logos: Revista de Lingüística, Filosofía y Literatura</em> en 2019, junto a mi profesora guía, la Dra. Gloria Toledo. Terminé esa investigación mientras me recuperaba de un accidente automovilístico, lo que me enseñó temprano que la investigación es de las pocas cosas que acompañan bien un año difícil.</p>
+      <p>Una segunda licenciatura, en Educación Media (o secundaria), vino con una Beca Vocación de Profesor del gobierno de Chile mientras sacaba el Diplomado de Enseñanza de Español como Lengua Extrajera con una beca como asistente del diplomado. Después, un año en Union College, en Nueva York, como asistente de idioma, fue donde empecé a <a href="#dreams">experimentar con tecnología</a> (incluyendo VR) en la sala de clases.</p>
     </div>
     <div class="i18n" data-lang="zh" style="display:none">
-      <p class="lede">我是家族裡第一個念大學的人——在智利天主教大學(PUC)取得西班牙語文學與語言學學士學位。父母常說,教育是他們唯一能留給我的財富,這句話一直影響著我。</p>
-      <p>在PUC,我輔修亞洲研究,因此參與籌辦國際韓國研究研討會、以一篇關於韓國的文章獲得全國徵文第四名,並靠打工存錢,在首爾大學度過一個暑假學習韓語。那段時期認識的朋友——多數是來自亞洲各地的交換學生——是我後來投入教導亞洲學生西班牙語的重要原因。</p>
-      <p>我的大學畢業論文源自一個很小的契機:朋友們常問我為什麼西班牙語冠詞(el、la、un、una…)這麼難掌握,而我答不出令人滿意的答案。於是我開始研究這個問題。研究成果〈西班牙語冠詞作為第二語言的使用與習得〉於2019年發表於《Logos: Revista de Lingüística, Filosofía y Literatura》,與指導教授Gloria Toledo博士合著。我是在一場車禍恢復期間完成這項研究的,這讓我很早就明白:研究是少數能陪你撐過艱難一年的事物之一。</p>
-      <p>接著,我在智利政府「教師志業獎學金」的資助下,取得中等教育學士學位;隨後在紐約Union College擔任語言助教一年,也是在那時開始嘗試在課堂中運用科技(包括VR)。</p>
+      <p class="lede">我是家族裡第一代大學生之一(我的姑姑Nery例外)。憑著濃厚的興趣,也歷經不少困難,我在智利天主教大學(PUC)取得了西班牙語文學與語言學學士學位。父母常說,教育是他們唯一能留給我的財富,這句話一直影響著我。</p>
+      <p>我一直對日本、中國與韓國的文化很感興趣,因此把握機會輔修亞洲研究,並加入了Study Club Asia。我在那裡結識了人生中第一批深厚的友誼,朋友來自香港、台北、東京、仁川等地。</p>
+      <p>把握這些機會,我協助籌辦了一場國際韓國研究研討會、以一篇關於韓國的文章獲得全國徵文第四名,並靠打工存錢,自費在首爾大學度過一個暑假學習韓語。</p>
+      <p>學習韓語帶給我很大的滿足感,也為我打開了新的興趣與夢想。可惜的是,我後來一直沒能繼續提升韓語程度,但這仍是一個我不曾放棄的夢想。</p>
+      <p>我的大學畢業論文源自一個很小的契機:我的亞洲朋友們成了<a href="#teaching">我最早的學生</a>。在他們接連不斷的提問中,例如為什麼<a href="#research">西班牙語冠詞</a>(el、la、un、una…)這麼難掌握,我常常答不出令人滿意的答案。於是我開始研究這個問題。研究成果〈西班牙語冠詞作為第二語言的使用與習得〉於2019年發表於《Logos: Revista de Lingüística, Filosofía y Literatura》,與指導教授Gloria Toledo博士合著。我是在一場車禍恢復期間完成這項研究的,這讓我很早就明白:研究是少數能陪你撐過艱難一年的事物之一。</p>
+      <p>第二個學位,中等教育學位(Educación Media),是靠智利政府的「教師志業獎學金」取得的;同時,我也以西班牙語作為外語教學文憑課程助教獎學金,完成了「西班牙語作為外語教學文憑」。之後,在紐約Union College擔任語言助教一年,也是在那時開始<a href="#dreams">嘗試在課堂中運用科技</a>(包括VR)。</p>
     </div>
     </div>
   </section>
 
   <section id="teaching" class="reveal collapsible">
     <p class="bridge i18n" data-lang="en">That teacher's-vocation scholarship didn't end at graduation — it turned into eighteen classrooms across three countries.</p>
-    <p class="bridge i18n" data-lang="es" style="display:none">Esa beca de vocación de profesor no terminó con la titulación — se convirtió en dieciocho salas de clases en tres países.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Esa beca de vocación de profesor no terminó con la titulación. Se convirtió en dieciocho salas de clases en tres países.</p>
     <p class="bridge i18n" data-lang="zh" style="display:none">那筆教師志業獎學金並沒有隨畢業而結束——它變成了橫跨三個國家、共十八個教學職位的經歷。</p>
     <p class="kicker"><span class="lvl">A2</span>
       <span class="i18n" data-lang="en">teaching</span>
@@ -594,7 +617,7 @@
       <span class="i18n" data-lang="zh" style="display:none">一間教室,一次一堂課</span>
     </h2>
     <p class="lede i18n" data-lang="en">Before "researcher" was on the business card, "teacher" was — and still is. Spanish, English, kids, adults, DELE candidates, exchange students, mining engineers learning survival Spanish: I've taught most of it, across three countries.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Antes de que "investigadora" apareciera en la tarjeta de presentación, ya decía "profesora" — y todavía lo dice. Español, inglés, niños, adultos, candidatos al DELE, estudiantes de intercambio, ingenieros de minería aprendiendo español de supervivencia: he enseñado casi de todo, en tres países.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Antes de que "investigadora" apareciera en la tarjeta de presentación, ya decía "profesora", y todavía lo dice. Español, inglés, niños, adultos, candidatos al DELE, estudiantes de intercambio, ingenieros de minería aprendiendo español de supervivencia: he enseñado casi de todo, en tres países.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">在「研究者」這個頭銜出現之前,「老師」就已經在我的履歷上了——現在也還是。西班牙語、英語、兒童、成人、DELE考生、交換學生、學西班牙語求生用語的礦業工程師:我幾乎教過所有類型的學生,足跡橫跨三個國家。</p>
 
     <div class="tldr">
@@ -630,7 +653,7 @@
       <div class="ledger-row"><span class="yr">2024–</span><span class="role"><b>NTUST</b> — Teaching Assistant, Applied Foreign Languages; helped bring ChatGPT into a Reading &amp; Writing classroom</span></div>
     </div>
     <p class="ledger-note i18n" data-lang="en">scroll for the full ledger — it's long on purpose</p>
-    <p class="ledger-note i18n" data-lang="es" style="display:none">desplázate para ver la lista completa — es larga a propósito</p>
+    <p class="ledger-note i18n" data-lang="es" style="display:none">desplázate para ver la lista completa: es larga a propósito</p>
     <p class="ledger-note i18n" data-lang="zh" style="display:none">捲動查看完整教學經歷——刻意保留完整清單</p>
 
     <button type="button" class="story-toggle" data-target="teaching"></button>
@@ -642,7 +665,7 @@
       <span class="i18n" data-lang="zh" style="display:none">紙上之外</span>
     </h3>
     <p class="i18n" data-lang="en">Teaching was never only classrooms — though it was often those, in Chile and in Taiwan. It was also a post office in Santiago, where Japanese engineers hunted vocabulary through the stamp displays, and, for a few years, a soccer pitch and a basketball court.</p>
-    <p class="i18n" data-lang="es" style="display:none">Enseñar nunca fue solo salas de clases — aunque muchas veces lo fue, en Chile y en Taiwán. También fue un correo en Santiago, donde ingenieros japoneses buscaban vocabulario entre los sellos, y, por unos años, una cancha de fútbol y una de básquetbol.</p>
+    <p class="i18n" data-lang="es" style="display:none">Enseñar nunca fue solo salas de clases, aunque muchas veces lo fue, en Chile y en Taiwán. También fue un correo en Santiago, donde ingenieros japoneses buscaban vocabulario entre los sellos, y, por unos años, una cancha de fútbol y una de básquetbol.</p>
     <p class="i18n" data-lang="zh" style="display:none">教學從來不只發生在教室裡——儘管它經常如此,在智利,也在台灣。它也曾發生在聖地牙哥的一間郵局裡,一群日本工程師在郵票展示櫃之間尋找生詞;而有幾年,它還發生在足球場與籃球場上。</p>
 
     <div class="gallery">
@@ -722,7 +745,7 @@
         <img src="images/soccer-medal.jpg" alt="Paulina in a coaching shirt holding a medal and trophy on a pitch" loading="lazy" width="825" height="1100">
         <figcaption>
           <span class="i18n" data-lang="en">Second place — coaching season, Taipei</span>
-          <span class="i18n" data-lang="es" style="display:none">Segundo lugar — temporada como entrenadora, Taipéi</span>
+          <span class="i18n" data-lang="es" style="display:none">Segundo lugar, temporada como entrenadora, Taipéi</span>
           <span class="i18n" data-lang="zh" style="display:none">亞軍——執教球季,台北</span>
         </figcaption>
       </figure>
@@ -747,6 +770,35 @@
     <p class="note i18n" data-lang="es" style="display:none">Los rostros de los niños están difuminados a propósito. El consentimiento importa más que una buena fotografía.</p>
     <p class="note i18n" data-lang="zh" style="display:none">照片中孩子的臉部是刻意模糊處理的。取得同意,比拍到一張好照片更重要。</p>
     </div>
+  </section>
+
+  <section id="reading" class="reveal">
+    <p class="kicker"><span class="lvl">—</span>
+      <span class="i18n" data-lang="en">reading</span>
+      <span class="i18n" data-lang="es" style="display:none">lectura</span>
+      <span class="i18n" data-lang="zh" style="display:none">閱讀</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">What I'm reading</span>
+      <span class="i18n" data-lang="es" style="display:none">Qué estoy leyendo</span>
+      <span class="i18n" data-lang="zh" style="display:none">我在讀的書</span>
+    </h2>
+    <p class="lede i18n" data-lang="en">A quick detour before the research gets technical: these are my reading profiles, on tools built by independent creators, not Amazon or Google. No sponsorship here, check them out if you're curious, it's genuine interest.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Un pequeño desvío antes de que la investigación se ponga técnica: estos son mis perfiles de lectura, en herramientas construidas por creadores independientes, no Amazon ni Google. Nada de esto es patrocinado, échales un vistazo si tienes curiosidad, es puro interés genuino.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">在研究內容變得技術性之前,先來一段小插曲:這些是我的閱讀個人頁面,使用的是獨立開發者打造的工具,不是Amazon或Google。這裡沒有任何贊助關係,有興趣的話歡迎看看,純粹是真誠的興趣。</p>
+
+    <div class="reading-widgets">
+      <div class="hardcover-slot">
+        <div data-hardcover-widget data-api-url="https://hardcoverembed.gouthamve.dev" data-username="paulinavl" data-max-width="320" data-show-powered-by="false"></div>
+      </div>
+      <a class="reading-badge" href="https://app.thestorygraph.com/profile/paulinavl" target="_blank" rel="noopener">
+        <span class="reading-badge-label">StoryGraph</span>
+        <span class="reading-badge-sub i18n" data-lang="en">no widget exists yet, profile ↗</span>
+        <span class="reading-badge-sub i18n" data-lang="es" style="display:none">todavía sin widget: perfil ↗</span>
+        <span class="reading-badge-sub i18n" data-lang="zh" style="display:none">尚無小工具,個人頁面 ↗</span>
+      </a>
+    </div>
+    <script src="https://hardcoverembed.gouthamve.dev/static/widget.js"></script>
   </section>
 
   <section id="research" class="reveal collapsible">
@@ -782,20 +834,20 @@
     <div class="i18n" data-lang="en">
       <p class="lede">My doctoral dissertation, <em>"Assessing Text Readability in Spanish as a Foreign Language: Computational Modelling and Human Judgment,"</em> is a two-study pipeline: build a model that grades Spanish text difficulty as reliably as a trained rater, then check whether real learners actually experience difficulty the way the model predicts.</p>
       <h3>Study 1 — a hybrid readability model</h3>
-      <p>A specialized, CEFR-labelled corpus (graded readers and DELE exam passages) feeds a pipeline of 238 linguistic features across six families — lexical, syntactic, cohesion, traditional, morphological, vocabulary — extracted in part with two original tools, <strong>SpanishMorphAnalyzer</strong> and <strong>VocabFeatureExtractor</strong>. Linguistic feature-based models are compared head-to-head against transformer-based models (BETO, MarIA, BERTIN).</p>
-      <p>The centerpiece is a <mark class="teal">Weighted Feature Consensus Tournament</mark> — six feature-selection methods voting on what actually matters, with collinearity pruning deliberately moved to <em>after</em> the tournament rather than before it.</p>
+      <p>A specialized, CEFR-labelled corpus (graded readers and DELE exam passages) feeds a pipeline of 238 linguistic features across six families — lexical, syntactic, cohesion, traditional, morphological, vocabulary — extracted in part with three original tools, <strong>SpanishMorphAnalyzer</strong>, <strong>SpanishComplexityAnalyzer</strong>, and <strong>VocabFeatureExtractor</strong>. Linguistic feature-based models are compared head-to-head against transformer-based models (BETO, MarIA, BERTIN).</p>
+      <p>I also included six feature-selection methods voting on what actually matters, with collinearity pruning deliberately moved to <em>after</em> the tournament rather than before it. That said, the method wasn't more effective than L2 Synthesis feature selection.</p>
     </div>
     <div class="i18n" data-lang="es" style="display:none">
       <p class="lede">Mi tesis doctoral, <em>"Assessing Text Readability in Spanish as a Foreign Language: Computational Modelling and Human Judgment,"</em> es un proceso de dos estudios: construir un modelo que clasifique la dificultad de textos en español con la fiabilidad de un evaluador entrenado, y luego comprobar si los aprendices realmente experimentan esa dificultad como el modelo la predice.</p>
-      <h3>Estudio 1 — un modelo híbrido de legibilidad</h3>
-      <p>Un corpus especializado, etiquetado según el MCER (lecturas graduadas y textos del examen DELE), alimenta un proceso de 238 características lingüísticas en seis familias — léxicas, sintácticas, de cohesión, tradicionales, morfológicas y de vocabulario — extraídas en parte con dos herramientas propias, <strong>SpanishMorphAnalyzer</strong> y <strong>VocabFeatureExtractor</strong>. Los modelos basados en características lingüísticas se comparan directamente con modelos basados en transformers (BETO, MarIA, BERTIN).</p>
-      <p>El centro del proceso es un <mark class="teal">Torneo Ponderado de Consenso de Características</mark> — seis métodos de selección de variables votando qué realmente importa, con la poda de colinealidad movida deliberadamente a después del torneo, no antes.</p>
+      <h3>Estudio 1: un modelo híbrido de legibilidad</h3>
+      <p>Un corpus especializado, etiquetado según el MCER (lecturas graduadas y textos del examen DELE), alimenta un proceso de 238 características lingüísticas en seis familias (léxicas, sintácticas, de cohesión, tradicionales, morfológicas y de vocabulario), extraídas en parte con tres herramientas propias, <strong>SpanishMorphAnalyzer</strong>, <strong>SpanishComplexityAnalyzer</strong> y <strong>VocabFeatureExtractor</strong>. Los modelos basados en características lingüísticas se comparan directamente con modelos basados en transformers (BETO, MarIA, BERTIN).</p>
+      <p>Además, incluí seis métodos de selección de variables votando qué realmente importa, con la poda de colinealidad movida deliberadamente a después del torneo, no antes. Sin embargo, el método no fue más efectivo que L2 Synthesis feature selection.</p>
     </div>
     <div class="i18n" data-lang="zh" style="display:none">
       <p class="lede">我的博士論文《評估西班牙語作為外語的文本可讀性:電腦運算模型與人類判斷》分為兩個研究階段:先建立一個能像訓練有素的評分者一樣準確判斷西班牙語文本難度的模型,再驗證學習者實際感受到的難度是否與模型預測相符。</p>
       <h3>研究一——混合式可讀性模型</h3>
-      <p>一個依CEFR分級標註的專門語料庫(分級讀本與DELE考試文章),輸入一套涵蓋六大類、共238項語言特徵的分析流程——詞彙、句法、銜接、傳統指標、構詞與詞彙難度——部分特徵由我自行開發的兩項工具 <strong>SpanishMorphAnalyzer</strong> 與 <strong>VocabFeatureExtractor</strong> 擷取。以語言特徵為基礎的模型與以Transformer為基礎的模型(BETO、MarIA、BERTIN)進行直接比較。</p>
-      <p>整個流程的核心是<mark class="teal">「加權特徵共識錦標賽」</mark>——六種特徵篩選方法共同「投票」決定哪些特徵真正重要,並刻意將共線性修剪步驟安排在錦標賽之後,而非之前。</p>
+      <p>一個依CEFR分級標註的專門語料庫(分級讀本與DELE考試文章),輸入一套涵蓋六大類、共238項語言特徵的分析流程——詞彙、句法、銜接、傳統指標、構詞與詞彙難度——部分特徵由我自行開發的三項工具 <strong>SpanishMorphAnalyzer</strong>、<strong>SpanishComplexityAnalyzer</strong> 與 <strong>VocabFeatureExtractor</strong> 擷取。以語言特徵為基礎的模型與以Transformer為基礎的模型(BETO、MarIA、BERTIN)進行直接比較。</p>
+      <p>此外,我還納入了六種特徵篩選方法共同「投票」決定哪些特徵真正重要,並刻意將共線性修剪步驟安排在錦標賽之後,而非之前。不過,這個方法的效果並沒有優於L2 Synthesis特徵篩選法。</p>
     </div>
     </div>
 
@@ -808,35 +860,61 @@
 
     <div class="story">
     <div class="i18n" data-lang="en">
-      <p>The best model pairs BERTIN with CatBoost — the <strong>"BERTIN paradox":</strong> weakest model alone, strongest as a hybrid partner. It also holds up well against MultiAzterTest, the existing benchmark, beating it on CEFR discrimination while correlating strongly with it (ρ = 0.738).</p>
+      <p>The best model pairs <a href="#carla-model">BERTIN with CatBoost</a> — the <strong>"BERTIN paradox":</strong> weakest model alone, strongest as a hybrid partner. This model uses 69 features, selected with L2 Synthesis feature selection, not the full 238 from the initial pipeline. It also holds up well against MultiAzterTest, the existing benchmark, beating it on CEFR discrimination while correlating strongly with it (ρ = 0.738).</p>
       <h3>Study 2 — does difficulty <em>feel</em> the way the model says it should?</h3>
       <p>Study 2 triangulates the model's predictions against real perceptions from Mandarin-L1 learners of Spanish, including affective variables like anxiety and engagement, and typological distance. Including affect required making a literature-backed case strong enough to survive real methodological pushback — not just asserting it belonged.</p>
       <h3>Before the Ph.D. — the master's</h3>
-      <p>My M.A. in Applied Foreign Languages (NTUST, 2020–2022), advised by Dra. Sy-Ying Lee, asked a narrower version of the same question: are graded readers or authentic illustrated books better first material for beginning Spanish learners? A corpus analysis of verb variety, frequency, mood, and tense across both text types, plus a 12-week study with Taiwanese Spanish majors, became a 170-page manuscript — and the seed of everything since.</p>
+      <p>My M.A. in Applied Foreign Languages (NTUST, 2020–2022), advised by Dra. Sy-Ying Lee, asked a narrower version of the same question: are graded readers or authentic illustrated books better first material for beginning Spanish learners? A corpus analysis of verb variety, frequency, mood, and tense across both text types, plus a 12-week study with <a href="#teaching">Taiwanese Spanish majors</a>, became a 170-page manuscript — and the seed of everything since.</p>
       <div class="note">Presented at Edge Hill University (UK), Teachers College Columbia University, Westminster International University in Tashkent, and National Taipei University of Business. Two more papers on Study 1 &amp; 2 are queued for the XII Congreso Internacional de la AAH.</div>
+      <p>Alongside all this, a handful of smaller but important milestones pulled me further into the computational side: Text Analytics with Python (edX, 2023), a Professional Python Diploma from PUC (2023), CS50x: Introduction to Computer Science (2023), and CS50's Introduction to Programming with Python (HarvardX, 2026).</p>
     </div>
     <div class="i18n" data-lang="es" style="display:none">
-      <p>El mejor modelo combina BERTIN con CatBoost — la <strong>"paradoja BERTIN":</strong> el más débil por sí solo, el mejor compañero en un híbrido. También supera a MultiAzterTest, el punto de referencia existente, superándolo en discriminación MCER mientras se correlaciona fuertemente con él (ρ = 0.738).</p>
-      <h3>Estudio 2 — ¿la dificultad se <em>siente</em> como dice el modelo?</h3>
-      <p>El Estudio 2 triangula las predicciones del modelo con percepciones reales de aprendices de español con L1 mandarín, incluyendo variables afectivas como ansiedad y compromiso, además de la distancia tipológica. Incluir el factor afectivo exigió construir un argumento respaldado por la literatura lo suficientemente sólido para resistir un cuestionamiento metodológico real — no bastaba con afirmarlo.</p>
-      <h3>Antes del doctorado — la maestría</h3>
-      <p>Mi maestría en Lenguas Extranjeras Aplicadas (NTUST, 2020–2022), guiada por la Dra. Sy-Ying Lee, hizo una versión más acotada de la misma pregunta: ¿son mejores las lecturas graduadas o los libros ilustrados auténticos como primer material para principiantes de español? Un análisis de corpus sobre variedad, frecuencia, modo y tiempo verbal en ambos tipos de texto, más un estudio de 12 semanas con estudiantes taiwaneses de español, se convirtió en un manuscrito de 170 páginas — y la semilla de todo lo que vino después.</p>
+      <p>El mejor modelo combina <a href="#carla-model">BERTIN con CatBoost</a>, la <strong>"paradoja BERTIN":</strong> el más débil por sí solo, el mejor compañero en un híbrido. Este modelo usa 69 características, seleccionadas con L2 Synthesis feature selection, no las 238 completas del pipeline inicial. También supera a MultiAzterTest, el punto de referencia existente, superándolo en discriminación MCER mientras se correlaciona fuertemente con él (ρ = 0.738).</p>
+      <h3>Estudio 2: ¿la dificultad se <em>siente</em> como dice el modelo?</h3>
+      <p>El Estudio 2 triangula las predicciones del modelo con percepciones reales de aprendices de español con L1 mandarín, incluyendo variables afectivas como ansiedad y compromiso, además de la distancia tipológica. Incluir el factor afectivo exigió construir un argumento respaldado por la literatura lo suficientemente sólido para resistir un cuestionamiento metodológico real. No bastaba con afirmarlo.</p>
+      <h3>Antes del doctorado: la maestría</h3>
+      <p>Mi maestría en Lenguas Extranjeras Aplicadas (NTUST, 2020–2022), guiada por la Dra. Sy-Ying Lee, hizo una versión más acotada de la misma pregunta: ¿son mejores las lecturas graduadas o los libros ilustrados auténticos como primer material para principiantes de español? Un análisis de corpus sobre variedad, frecuencia, modo y tiempo verbal en ambos tipos de texto, más un estudio de 12 semanas con <a href="#teaching">estudiantes taiwaneses de español</a>, se convirtió en un manuscrito de 170 páginas, y la semilla de todo lo que vino después.</p>
       <div class="note">Presentado en Edge Hill University (Reino Unido), Teachers College de Columbia University, Westminster International University en Taskent, y National Taipei University of Business. Dos ponencias más sobre los Estudios 1 y 2 están programadas para el XII Congreso Internacional de la AAH.</div>
+      <p>En paralelo a todo esto, otros hitos más pequeños pero importantes me fueron acercando al área computacional: Text Analytics with Python (edX, 2023), un Diplomado en Python Profesional de la PUC (2023), CS50x: Introduction to Computer Science (2023), y CS50's Introduction to Programming with Python (HarvardX, 2026).</p>
     </div>
     <div class="i18n" data-lang="zh" style="display:none">
-      <p>表現最好的模型結合了BERTIN與CatBoost——我稱之為「BERTIN悖論」:單獨使用時最弱,搭配使用時卻是最佳夥伴。此模型也優於現有基準工具MultiAzterTest,在CEFR分級判別上表現更佳,同時與其保持高度相關(ρ = 0.738)。</p>
+      <p>表現最好的模型結合了<a href="#carla-model">BERTIN與CatBoost</a>——我稱之為「BERTIN悖論」:單獨使用時最弱,搭配使用時卻是最佳夥伴。這個模型使用的是69項特徵,以L2 Synthesis特徵篩選法選出,而非最初管線中完整的238項。此模型也優於現有基準工具MultiAzterTest,在CEFR分級判別上表現更佳,同時與其保持高度相關(ρ = 0.738)。</p>
       <h3>研究二——難度感受是否與模型預測相符?</h3>
       <p>研究二將模型預測結果,與以華語為母語的西班牙語學習者的真實感受進行三角驗證,並納入焦慮、投入程度等情感變項,以及語言類型距離。納入情感因素,需要建立足夠有文獻支持的論證,才能通過真正的方法論質疑——單靠主張是不夠的。</p>
       <h3>攻讀博士之前——碩士階段</h3>
-      <p>我在NTUST的應用外語碩士學位(2020–2022),由李思穎(Sy-Ying Lee)教授指導,探討的是同一個問題的縮小版:對西語初學者而言,分級讀本與真實插畫童書,哪一種是更好的入門教材?透過比較兩種文本在動詞多樣性、頻率、語氣與時態上的語料分析,加上一項為期12週、以台灣西班牙語主修學生為對象的研究,最終完成了一份170頁的論文——也是後來一切研究的起點。</p>
+      <p>我在NTUST的應用外語碩士學位(2020–2022),由李思穎(Sy-Ying Lee)教授指導,探討的是同一個問題的縮小版:對西語初學者而言,分級讀本與真實插畫童書,哪一種是更好的入門教材?透過比較兩種文本在動詞多樣性、頻率、語氣與時態上的語料分析,加上一項為期12週、以<a href="#teaching">台灣西班牙語主修學生</a>為對象的研究,最終完成了一份170頁的論文——也是後來一切研究的起點。</p>
       <div class="note">曾於英國Edge Hill University、哥倫比亞大學Teachers College、塔什干Westminster International University、國立臺北商業大學發表。另有兩篇分別探討研究一與研究二的論文,已投稿至第十二屆亞洲西班牙語學者協會(AAH)國際大會。</div>
+      <p>與此同時,還有幾個規模較小、但同樣重要的里程碑,把我進一步帶向電腦運算領域:Text Analytics with Python(edX,2023年)、PUC的專業Python文憑課程(2023年)、CS50x: Introduction to Computer Science(2023年),以及HarvardX的CS50's Introduction to Programming with Python(2026年)。</p>
     </div>
     </div>
+
+    <h3>
+      <span class="i18n" data-lang="en">Publications &amp; reviewing</span>
+      <span class="i18n" data-lang="es" style="display:none">Publicaciones y revisión académica</span>
+      <span class="i18n" data-lang="zh" style="display:none">著作與學術審查</span>
+    </h3>
+    <div class="grid two">
+      <div class="card">
+        <h4>Spanish Graded Readers vs. Authentic Illustrated Texts</h4>
+        <p class="i18n" data-lang="en">Co-authored with Sy-Ying Lee. In active revision for the journal <em>System</em>, after an earlier round at <em>Reading in a Foreign Language</em>.</p>
+        <p class="i18n" data-lang="es" style="display:none">Coescrito con Sy-Ying Lee. En revisión activa para la revista <em>System</em>, tras una ronda anterior en <em>Reading in a Foreign Language</em>.</p>
+        <p class="i18n" data-lang="zh" style="display:none">與李思穎(Sy-Ying Lee)合著,目前正在為期刊《System》進行修訂,先前曾投稿至《Reading in a Foreign Language》。</p>
+      </div>
+      <div class="card">
+        <h4>Uso y adquisición de artículos en español como segunda lengua</h4>
+        <p class="i18n" data-lang="en">Valenzuela &amp; Toledo (2019). <em>Logos: Revista de Lingüística, Filosofía y Literatura</em>, 29(2), 268–285.</p>
+        <p class="i18n" data-lang="es" style="display:none">Valenzuela y Toledo (2019). <em>Logos: Revista de Lingüística, Filosofía y Literatura</em>, 29(2), 268–285.</p>
+        <p class="i18n" data-lang="zh" style="display:none">Valenzuela與Toledo(2019)。刊於《Logos: Revista de Lingüística, Filosofía y Literatura》,29(2),268–285頁。</p>
+      </div>
+    </div>
+    <p class="i18n" data-lang="en" style="margin-top:18px;">I also review for <em>Revista Literatura y Lingüística</em> (since 2022). From 2020 to 2026, until AI translation tools made the role redundant, I volunteered as a proofreader and English–Spanish translator for The Ehlers-Danlos Society, working on academic medical papers about EDS — see <a href="#journey">the honest part</a> for what came after.</p>
+    <p class="i18n" data-lang="es" style="display:none;margin-top:18px;">También reviso artículos para <em>Revista Literatura y Lingüística</em> (desde 2022). Desde 2020 hasta 2026, hasta que las herramientas de IA volvieron redundante ese rol, colaboré como correctora y traductora inglés–español para The Ehlers-Danlos Society, trabajando en artículos académicos médicos sobre el SED (ver <a href="#journey">la parte honesta</a> para lo que vino después).</p>
+    <p class="i18n" data-lang="zh" style="display:none;margin-top:18px;">此外,我自2022年起為《Revista Literatura y Lingüística》期刊審稿。從2020年到2026年,直到AI翻譯工具讓這個角色變得多餘為止,我擔任The Ehlers-Danlos Society的英西文校對與翻譯志工,協助翻譯關於EDS的學術醫學論文——後續發展請見<a href="#journey">誠實的部分</a>。</p>
   </section>
 
   <section id="game" class="reveal collapsible">
     <p class="bridge i18n" data-lang="en">A short detour before the project list — the same instinct that drives the readability research, applied to something you can play with in ten seconds.</p>
-    <p class="bridge i18n" data-lang="es" style="display:none">Un pequeño desvío antes de la lista de proyectos — el mismo instinto detrás de la investigación de legibilidad, aplicado a algo con lo que puedes jugar en diez segundos.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Un pequeño desvío antes de la lista de proyectos: el mismo instinto detrás de la investigación de legibilidad, aplicado a algo con lo que puedes jugar en diez segundos.</p>
     <p class="bridge i18n" data-lang="zh" style="display:none">在專案列表之前的一段小插曲——與可讀性研究背後同樣的直覺,用一個十秒鐘就能上手的小遊戲呈現。</p>
     <p class="kicker"><span class="lvl">▶</span>
       <span class="i18n" data-lang="en">play</span>
@@ -851,14 +929,14 @@
 
     <div class="tldr">
       <p class="i18n" data-lang="en">An interactive demo built on the <b>NAS project</b> (see Projects below) — a system for handling diverse name structures in software. Optional; skip straight to Projects if you'd rather.</p>
-      <p class="i18n" data-lang="es" style="display:none">Una demostración interactiva basada en el <b>proyecto NAS</b> (ver Proyectos más abajo) — un sistema para manejar la diversidad de estructuras de nombres en el software. Opcional; puedes ir directo a Proyectos si prefieres.</p>
+      <p class="i18n" data-lang="es" style="display:none">Una demostración interactiva basada en el <b>proyecto NAS</b> (ver Proyectos más abajo), un sistema para manejar la diversidad de estructuras de nombres en el software. Opcional; puedes ir directo a Proyectos si prefieres.</p>
       <p class="i18n" data-lang="zh" style="display:none">一個以<b>NAS專案</b>(見下方「專案」)為基礎的互動示範——一套用來處理軟體中多元姓名結構的系統。此區塊為選讀內容,也可以直接跳到「專案」。</p>
     </div>
     <button type="button" class="story-toggle" data-target="game"></button>
 
     <div class="story">
     <p class="lede i18n" data-lang="en">Six names, six ways software gets them wrong. Guess how each one is really built — starting with the two I signed this page with. There is a reason I write my name the way I do; by the end you will have it.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está construido cada uno — empezando por los dos con los que firmé esta página. Hay una razón por la que escribo mi nombre así; al final la vas a tener.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está construido cada uno, empezando por los dos con los que firmé esta página. Hay una razón por la que escribo mi nombre así; al final la vas a tener.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">六個名字,六種軟體弄錯它們的方式。猜猜每個名字實際的結構——就從我在這一頁署名的那兩個開始。我這樣書寫自己的名字是有原因的;玩到最後,你就會知道。</p>
 
     <div class="game" id="game-box">
@@ -898,54 +976,65 @@
       <span class="i18n" data-lang="zh" style="display:none">我打造過的東西</span>
     </h2>
     <p class="lede i18n" data-lang="en">Research doesn't stay in papers if I can help it — most of it turns into a tool, a site, or an app.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Si depende de mí, la investigación no se queda solo en papers — casi todo termina convirtiéndose en una herramienta, un sitio o una app.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Si depende de mí, la investigación no se queda solo en papers. Casi todo termina convirtiéndose en una herramienta, un sitio o una app.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">只要能力所及,我的研究不會只停留在論文裡——大多數最後都會變成一項工具、一個網站,或一款應用程式。</p>
 
-    <div class="spotlight">
+    <div class="spotlight" id="carla-model">
+      <h4>The Carla Model</h4>
+      <div class="i18n" data-lang="en">
+        <p>A hybrid architecture behind <a href="#research">Study 1</a> — traditional linguistic features fused with transformer embeddings, on a cleaned custom corpus of 800+ Spanish texts. Building this gave me the technical confidence to start other projects, like <a href="#zebraup">ZebraUp</a>, below.</p>
+      </div>
+      <div class="i18n" data-lang="es" style="display:none">
+        <p>La arquitectura híbrida detrás del <a href="#research">Estudio 1</a>: características lingüísticas tradicionales combinadas con embeddings de transformers, sobre un corpus propio y depurado de más de 800 textos en español. Construir esto me dio la confianza técnica para empezar otros proyectos, como <a href="#zebraup">ZebraUp</a>, más abajo.</p>
+      </div>
+      <div class="i18n" data-lang="zh" style="display:none">
+        <p><a href="#research">研究一</a>背後的混合式架構——將傳統語言特徵與Transformer嵌入向量結合,建立在一個經過清理、超過800篇文本的西班牙語自建語料庫之上。打造這個模型,給了我開始其他專案(例如下方的<a href="#zebraup">ZebraUp</a>)所需的技術信心。</p>
+      </div>
+      <div class="link-row">
+        <a href="https://carla-esp.streamlit.app">carla-esp.streamlit.app →</a>
+      </div>
+      <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Feature Engineering</span><span class="tag">Streamlit</span></div>
+    </div>
+
+    <div class="spotlight" id="zebraup" style="margin-top:26px;">
       <h4>ZebraUp</h4>
       <div class="i18n" data-lang="en">
         <p>Built as an mHealth web app for people navigating rare or hard-to-diagnose conditions — the "zebras," in medical slang, that get overlooked while clinicians look for more common explanations. ZebraUp helps patients walk into short consultations with concrete data instead of a blurred memory of symptoms: structured symptom tracking, a timeline they can hand to a new specialist, and language built around how patients actually describe what's happening to them, not just clinical checklists.</p>
-        <p>I'm currently gathering structured data on how patients with complex, multi-system conditions communicate with their care teams — where that communication breaks down, and what actually helps — with the aim of publishing a study that uses ZebraUp as its case study.</p>
+        <p>I'm currently gathering structured data on how patients with complex, multi-system conditions communicate with their care teams — where that communication breaks down, and what actually helps — with the aim of publishing a study that uses ZebraUp as its case study. More on why I built this in <a href="#journey">the honest part</a>.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>Construida como una app web de salud móvil para personas que navegan condiciones raras o difíciles de diagnosticar — las "cebras", en la jerga médica, que quedan sin ver mientras los clínicos buscan explicaciones más comunes. ZebraUp ayuda a los pacientes a llegar a consultas breves con datos concretos en vez de un recuerdo difuso de sus síntomas: seguimiento estructurado de síntomas, una línea de tiempo que pueden entregar a un nuevo especialista, y un lenguaje construido a partir de cómo los pacientes realmente describen lo que les pasa, no solo listas clínicas de verificación.</p>
-        <p>Actualmente estoy recopilando datos estructurados sobre cómo se comunican con sus equipos médicos las personas con condiciones complejas y multisistémicas — dónde se rompe esa comunicación y qué realmente ayuda — con el objetivo de publicar un estudio que use ZebraUp como caso de estudio.</p>
+        <p>Construida como una app web de salud móvil para personas que navegan condiciones raras o difíciles de diagnosticar (las "cebras", en la jerga médica, que quedan sin ver mientras los clínicos buscan explicaciones más comunes). ZebraUp ayuda a los pacientes a llegar a consultas breves con datos concretos en vez de un recuerdo difuso de sus síntomas: seguimiento estructurado de síntomas, una línea de tiempo que pueden entregar a un nuevo especialista, y un lenguaje construido a partir de cómo los pacientes realmente describen lo que les pasa, no solo listas clínicas de verificación.</p>
+        <p>Actualmente estoy recopilando datos estructurados sobre cómo se comunican con sus equipos médicos las personas con condiciones complejas y multisistémicas (dónde se rompe esa comunicación y qué realmente ayuda), con el objetivo de publicar un estudio que use ZebraUp como caso de estudio. Más sobre por qué construí esto en <a href="#journey">la parte honesta</a>.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
         <p>這是一款為罕見或難以診斷疾病患者打造的行動醫療網頁應用程式。醫學術語中的「斑馬」,指的是那些在醫師優先考慮常見診斷時,容易被忽略的病例。ZebraUp協助病患在短暫的門診時間裡,帶著具體的資料而非模糊的症狀記憶進入診間:結構化的症狀紀錄、可交給新專科醫師參考的時間軸,以及貼近病患實際描述症狀方式(而非僅是臨床檢核表)所設計的用語。</p>
-        <p>我目前正在蒐集結構化資料,了解患有複雜、多系統疾病的病患如何與醫療團隊溝通——溝通在哪裡出現斷點、什麼真正有幫助——目標是發表一篇以ZebraUp作為案例研究的論文。</p>
+        <p>我目前正在蒐集結構化資料,了解患有複雜、多系統疾病的病患如何與醫療團隊溝通——溝通在哪裡出現斷點、什麼真正有幫助——目標是發表一篇以ZebraUp作為案例研究的論文。關於我為何打造這個工具,更多細節請見<a href="#journey">誠實的部分</a>。</p>
       </div>
       <div class="link-row">
         <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
         <a href="https://github.com/Poln4/ZebraUp">github.com/Poln4/ZebraUp →</a>
+        <a href="https://bsky.app/profile/zebraup.bsky.social">@zebraup on Bluesky →</a>
       </div>
       <div class="tagrow"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">health tech</span><span class="tag">mHealth</span><span class="tag">Patient Advocacy</span><span class="tag">UX Writing</span></div>
     </div>
 
     <div class="grid two" style="margin-top:26px;">
       <div class="card">
-        <h4>The Carla Model</h4>
-        <p class="i18n" data-lang="en">A hybrid architecture behind Study 1 — traditional linguistic features fused with transformer embeddings, on a cleaned custom corpus of 800+ Spanish texts.</p>
-        <p class="i18n" data-lang="es" style="display:none">La arquitectura híbrida detrás del Estudio 1 — características lingüísticas tradicionales combinadas con embeddings de transformers, sobre un corpus propio y depurado de más de 800 textos en español.</p>
-        <p class="i18n" data-lang="zh" style="display:none">研究一背後的混合式架構——將傳統語言特徵與Transformer嵌入向量結合,建立在一個經過清理、超過800篇文本的西班牙語自建語料庫之上。</p>
-        <a class="link" href="https://carla-esp.streamlit.app"> CARLA - esp →</a>
-        <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Feature Engineering</span><span class="tag">Streamlit</span></div>
+        <h4>NAS Project</h4>
+        <p class="i18n" data-lang="en">The answer to <a href="#game">the game above</a>. A system built to acknowledge and respect diverse name structures and preferences — because most software still assumes everyone's name fits one Western template.</p>
+        <p class="i18n" data-lang="es" style="display:none">La respuesta al <a href="#game">juego de más arriba</a>. Un sistema diseñado para reconocer y respetar la diversidad de estructuras y preferencias en los nombres de las personas, porque la mayoría del software todavía asume que todos los nombres encajan en un solo modelo occidental.</p>
+        <p class="i18n" data-lang="zh" style="display:none"><a href="#game">上面那個遊戲</a>的答案。一套用來尊重並辨識多元姓名結構與命名偏好的系統——因為大多數軟體仍預設所有人的姓名都符合單一西方命名模板。</p>
+        <a class="link" href="https://github.com/Poln4/nas-project">github.com/Poln4/nas-project →</a>
+        <div class="tagrow"><span class="tag">Python</span><span class="tag">Internationalization (i18n)</span><span class="tag">Data Modeling</span><span class="tag">Inclusive Design</span></div>
       </div>
       <div class="card">
         <h4>Reading Club</h4>
-        <p class="i18n" data-lang="en">An extensive-reading initiative and the site that hosts it, plus a stint as EdTech Project Contributor for The Other Way Spanish, building the same idea into a community reading club.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una iniciativa de lectura extensiva y el sitio que la aloja, además de un período como Contribuidora de proyecto EdTech para The Other Way Spanish, llevando la misma idea a un club de lectura comunitario.</p>
-        <p class="i18n" data-lang="zh" style="display:none">一項廣泛閱讀計畫,以及承載這項計畫的網站;此外我也曾擔任The Other Way Spanish的EdTech專案貢獻者,將同樣的理念延伸為一個社群式讀書會。</p>
+        <p class="i18n" data-lang="en">An <a href="#teaching">extensive-reading</a> initiative and the site that hosts it, plus a stint as EdTech Project Contributor for The Other Way Spanish, building the same idea into a community reading club.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una iniciativa de <a href="#teaching">lectura extensiva</a> y el sitio que la aloja, además de un período como Contribuidora de proyecto EdTech para The Other Way Spanish, llevando la misma idea a un club de lectura comunitario.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一項<a href="#teaching">廣泛閱讀</a>計畫,以及承載這項計畫的網站;此外我也曾擔任The Other Way Spanish的EdTech專案貢獻者,將同樣的理念延伸為一個社群式讀書會。</p>
         <a class="link" href="https://poln4.pythonanywhere.com">Reading Club →</a>
+        <a class="link" href="https://bsky.app/profile/clubdelecturaele.bsky.social">@clubdelecturaele on Bluesky →</a>
         <div class="tagrow"><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">EdTech</span><span class="tag">Extensive Reading</span><span class="tag">Community Building</span></div>
-      </div>
-      <div class="card">
-        <h4>NAS Project</h4>
-        <p class="i18n" data-lang="en">The answer to the game above. A system built to acknowledge and respect diverse name structures and preferences — because most software still assumes everyone's name fits one Western template.</p>
-        <p class="i18n" data-lang="es" style="display:none">La respuesta al juego de más arriba. Un sistema diseñado para reconocer y respetar la diversidad de estructuras y preferencias en los nombres de las personas — porque la mayoría del software todavía asume que todos los nombres encajan en un solo modelo occidental.</p>
-        <p class="i18n" data-lang="zh" style="display:none">上面那個遊戲的答案。一套用來尊重並辨識多元姓名結構與命名偏好的系統——因為大多數軟體仍預設所有人的姓名都符合單一西方命名模板。</p>
-        <a class="link" href="https://github.com/Poln4/nas-project">github.com/Poln4/nas-project →</a>
-        <div class="tagrow"><span class="tag">Python</span><span class="tag">Internationalization (i18n)</span><span class="tag">Data Modeling</span><span class="tag">Inclusive Design</span></div>
       </div>
       <div class="card">
         <h4>
@@ -953,36 +1042,13 @@
           <span class="i18n" data-lang="es" style="display:none">Tone Stamp</span>
           <span class="i18n" data-lang="zh" style="display:none">Tone Stamp</span>
         </h4>
-        <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my Spanish readability work, aimed at a language I'm still learning myself.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación — el mismo instinto detrás de mi trabajo de legibilidad en español, aplicado a un idioma que yo misma sigo aprendiendo.</p>
-        <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在西班牙語可讀性研究中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。</p>
+        <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my <a href="#research">Spanish readability work</a>, aimed at a language I'm still learning myself.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación, el mismo instinto detrás de mi <a href="#research">trabajo de legibilidad</a> en español, aplicado a un idioma que yo misma sigo aprendiendo.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在<a href="#research">西班牙語可讀性研究</a>中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。</p>
         <a class="link" href="https://tonestamp.netlify.app">tonestamp.netlify.app →</a>
         <div class="tagrow"><span class="tag">EdTech</span><span class="tag">Chinese Pedagogy</span><span class="tag">Readability</span><span class="tag">Visualization</span></div>
       </div>
     </div>
-
-    <h3>
-      <span class="i18n" data-lang="en">Publications &amp; reviewing</span>
-      <span class="i18n" data-lang="es" style="display:none">Publicaciones y revisión académica</span>
-      <span class="i18n" data-lang="zh" style="display:none">著作與學術審查</span>
-    </h3>
-    <div class="grid two">
-      <div class="card">
-        <h4>Spanish Graded Readers vs. Authentic Illustrated Texts</h4>
-        <p class="i18n" data-lang="en">Co-authored with Sy-Ying Lee. In active revision for the journal <em>System</em>, after an earlier round at <em>Reading in a Foreign Language</em>.</p>
-        <p class="i18n" data-lang="es" style="display:none">Coescrito con Sy-Ying Lee. En revisión activa para la revista <em>System</em>, tras una ronda anterior en <em>Reading in a Foreign Language</em>.</p>
-        <p class="i18n" data-lang="zh" style="display:none">與李思穎(Sy-Ying Lee)合著,目前正在為期刊《System》進行修訂,先前曾投稿至《Reading in a Foreign Language》。</p>
-      </div>
-      <div class="card">
-        <h4>Uso y adquisición de artículos en español como segunda lengua</h4>
-        <p class="i18n" data-lang="en">Valenzuela &amp; Toledo (2019). <em>Logos: Revista de Lingüística, Filosofía y Literatura</em>, 29(2), 268–285.</p>
-        <p class="i18n" data-lang="es" style="display:none">Valenzuela y Toledo (2019). <em>Logos: Revista de Lingüística, Filosofía y Literatura</em>, 29(2), 268–285.</p>
-        <p class="i18n" data-lang="zh" style="display:none">Valenzuela與Toledo(2019)。刊於《Logos: Revista de Lingüística, Filosofía y Literatura》,29(2),268–285頁。</p>
-      </div>
-    </div>
-    <p class="i18n" data-lang="en" style="margin-top:18px;">I also review for <em>Revista Literatura y Lingüística</em> (since 2022), and volunteer as a proofreader and English–Spanish translator for The Ehlers-Danlos Society, working on academic medical papers about EDS (since 2020).</p>
-    <p class="i18n" data-lang="es" style="display:none;margin-top:18px;">También reviso artículos para <em>Revista Literatura y Lingüística</em> (desde 2022), y colaboro como correctora y traductora inglés–español para The Ehlers-Danlos Society, trabajando en artículos académicos médicos sobre el SED (desde 2020).</p>
-    <p class="i18n" data-lang="zh" style="display:none;margin-top:18px;">此外,我自2022年起為《Revista Literatura y Lingüística》期刊審稿,並自2020年起擔任The Ehlers-Danlos Society的英西文校對與翻譯志工,協助翻譯關於EDS的學術醫學論文。</p>
   </section>
 
   <section id="dreams" class="reveal collapsible">
@@ -996,7 +1062,7 @@
     </p>
     <h2>
       <span class="i18n" data-lang="en">Draft v.1.0 — in my head, often</span>
-      <span class="i18n" data-lang="es" style="display:none">Todavía no construidos — pero rondando mi cabeza seguido</span>
+      <span class="i18n" data-lang="es" style="display:none">Todavía no construidos, pero rondando mi cabeza seguido</span>
       <span class="i18n" data-lang="zh" style="display:none">還沒動工——但常常在我腦中盤旋</span>
     </h2>
 
@@ -1015,69 +1081,19 @@
     <div class="grid two">
       <div class="card">
         <h4>leehzn</h4>
-        <p class="i18n" data-lang="en">A graded Spanish-reading platform built specifically for Korean, Chinese, and Japanese speakers — contrastive grammar explained from each native language, levels calibrated with my own CARLA readability model, real Latin American Spanish from day one.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una plataforma de lectura graduada de español construida específicamente para hablantes de coreano, chino y japonés — gramática contrastiva explicada desde cada lengua materna, niveles calibrados con mi propio modelo de legibilidad CARLA, español latinoamericano real desde el primer día.</p>
-        <p class="i18n" data-lang="zh" style="display:none">一個專為韓語、中文、日語母語者設計的西班牙語分級閱讀平台——依母語提供對比語法說明,難度分級以我自行開發的CARLA可讀性模型校準,從第一天就採用道地的拉丁美洲西班牙語。</p>
+        <p class="i18n" data-lang="en">A graded Spanish-reading platform built specifically for Korean, Chinese, and Japanese speakers — contrastive grammar explained from each native language, levels calibrated with my own <a href="#carla-model">CARLA readability model</a>, real Latin American Spanish from day one.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una plataforma de lectura graduada de español construida específicamente para hablantes de coreano, chino y japonés: gramática contrastiva explicada desde cada lengua materna, niveles calibrados con mi propio <a href="#carla-model">modelo de legibilidad CARLA</a>, español latinoamericano real desde el primer día.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一個專為韓語、中文、日語母語者設計的西班牙語分級閱讀平台——依母語提供對比語法說明,難度分級以我自行開發的<a href="#carla-model">CARLA可讀性模型</a>校準,從第一天就採用道地的拉丁美洲西班牙語。</p>
         <a class="link" href="https://leehzn.netlify.app">Leehzn →</a>
         <div class="tagrow"><span class="tag i18n" data-lang="en">not public yet</span><span class="tag i18n" data-lang="es" style="display:none">aún no público</span><span class="tag i18n" data-lang="zh" style="display:none">尚未公開</span></div>
       </div>
       <div class="card">
         <h4>El Vecindario</h4>
         <p class="i18n" data-lang="en">A visual-novel Spanish-learning game designed against the "streak trap" — no health bars, no game over. Vocabulary is acquired by dragging mystery words onto context, not translation; sentences are built from word-blocks to force active production instead of multiple choice. Starts in a soft-landing family home (A1) and expands into a full neighborhood — market, deliveries, a lost-internet crisis — through A2.</p>
-        <p class="i18n" data-lang="es" style="display:none">Un juego de aprendizaje de español estilo novela visual, diseñado contra la "trampa de la racha" — sin barras de vida, sin Game Over. El vocabulario se adquiere arrastrando palabras misteriosas hacia el contexto, no hacia una traducción; las frases se construyen con bloques de palabras para forzar la producción activa en vez de la simple selección múltiple. Empieza en un aterrizaje suave en casa de familia (A1) y se expande a todo un vecindario — mercado, delivery, una crisis sin internet — hasta A2.</p>
+        <p class="i18n" data-lang="es" style="display:none">Un juego de aprendizaje de español estilo novela visual, diseñado contra la "trampa de la racha": sin barras de vida, sin Game Over. El vocabulario se adquiere arrastrando palabras misteriosas hacia el contexto, no hacia una traducción; las frases se construyen con bloques de palabras para forzar la producción activa en vez de la simple selección múltiple. Empieza en un aterrizaje suave en casa de familia (A1) y se expande a todo un vecindario (mercado, delivery, una crisis sin internet) hasta A2.</p>
         <p class="i18n" data-lang="zh" style="display:none">一款以視覺小說形式呈現的西班牙語學習遊戲,刻意對抗「連續打卡陷阱」——沒有生命值,沒有Game Over。詞彙透過將「神秘單字」拖曳到情境中習得,而非直接翻譯;句子則透過拖曳詞塊組合而成,強迫主動產出而非單純選擇題作答。從一個溫和著陸的家庭場景(A1)開始,逐步擴展到整個街區——市場、外送任務、網路中斷危機——直到A2程度。</p>
         <div class="tagrow"><span class="tag i18n" data-lang="en">idea stage</span><span class="tag i18n" data-lang="es" style="display:none">etapa de idea</span><span class="tag i18n" data-lang="zh" style="display:none">構想階段</span><span class="tag">Game Design</span><span class="tag">Failing Forward</span><span class="tag">SLA Pedagogy</span></div>
       </div>
-    </div>
-    </div>
-  </section>
-
-  <section id="journey" class="reveal collapsible">
-    <p class="bridge i18n" data-lang="en">None of the above happened as smoothly as a list makes it look. Here's the part usually left out.</p>
-    <p class="bridge i18n" data-lang="es" style="display:none">Nada de lo anterior ocurrió tan sin problemas como lo hace ver una lista. Esta es la parte que normalmente se omite.</p>
-    <p class="bridge i18n" data-lang="zh" style="display:none">上面這一切,都不像清單看起來那樣順利。以下是通常被省略的部分。</p>
-    <p class="kicker"><span class="lvl">C1</span>
-      <span class="i18n" data-lang="en">the honest part</span>
-      <span class="i18n" data-lang="es" style="display:none">la parte honesta</span>
-      <span class="i18n" data-lang="zh" style="display:none">誠實的部分</span>
-    </p>
-    <h2>
-      <span class="i18n" data-lang="en">The messy middle</span>
-      <span class="i18n" data-lang="es" style="display:none">El proceso desordenado</span>
-      <span class="i18n" data-lang="zh" style="display:none">混亂的中間過程</span>
-    </h2>
-
-    <div class="tldr">
-      <p class="i18n" data-lang="en">First-generation student; 6 scholarships took me from Chile to South Korea, New York, and Taiwan. Independently debugged a critical feature-selection bug in the dissertation pipeline. Defended a contested methodological choice through peer review. Stopped competitive coaching due to Ehlers-Danlos Syndrome — the experience that led directly to building ZebraUp.</p>
-      <p class="i18n" data-lang="es" style="display:none">Primera generación universitaria; 6 becas me llevaron de Chile a Corea del Sur, Nueva York y Taiwán. Depuré de forma independiente un error crítico de selección de características en el pipeline de la tesis. Defendí una decisión metodológica cuestionada durante la revisión por pares. Dejé de entrenar de forma competitiva por el Síndrome de Ehlers-Danlos — la experiencia que llevó directamente a construir ZebraUp.</p>
-      <p class="i18n" data-lang="zh" style="display:none">家族第一代大學生;6筆獎學金帶我從智利到韓國、紐約與台灣。獨立除錯了論文分析流程中一個關鍵的特徵篩選錯誤。在同儕審查中為一項受質疑的方法論決定辯護。因埃勒斯-當洛斯症候群而停止競技教練工作——這段經歷直接促成了ZebraUp的誕生。</p>
-    </div>
-    <button type="button" class="story-toggle" data-target="journey"></button>
-
-    <div class="story">
-    <div class="i18n" data-lang="en">
-      <p class="lede">A live CV usually hides the parts that weren't smooth. Here's some of what actually got me here.</p>
-      <p>I'm a first-generation college student — nobody in my family had a map for any of this, so I've drawn most of it myself, one scholarship application at a time. Six of them, so far, got me from Chile to South Korea to New York to Taiwan.</p>
-      <p>Building Study 1's pipeline meant weeks of debugging my own mistakes, including an elbow-detection bug that was quietly choosing the wrong number of features for the entire feature-selection tournament — it only surfaced because a result looked slightly too convenient to trust. Fixing it meant switching to a stricter method and re-running everything.</p>
-      <p>Study 2 meant defending a methodological choice — including affective filter measures — against real pushback, and doing the reading needed to make that case on evidence, not instinct.</p>
-      <p>For a while, coaching was part of the plan too. Then <mark class="gold">Ehlers-Danlos Syndrome</mark> made that impossible — a connective-tissue condition that, after years of frustration and one knee injury too many, meant I had to stop coaching soccer and basketball for good. I even trained and earned a certification as a football statistician, to stay near the game from the sidelines and report matches around Taiwan — but my body wouldn't cooperate with that either. That long, exhausting fight to be heard about my own health is exactly what became <strong>ZebraUp</strong>.</p>
-      <p>And underneath all of it: doctoral research, especially self-directed and this technical, is not well-funded work. If you've read this far and think what I'm building is worth backing, that's genuinely the most useful thing you can do next.</p>
-    </div>
-    <div class="i18n" data-lang="es" style="display:none">
-      <p class="lede">Un CV en vivo normalmente esconde las partes que no fueron fáciles. Esto es parte de lo que realmente me trajo hasta aquí.</p>
-      <p>Soy la primera de mi familia en ir a la universidad — nadie en mi familia tenía un mapa para nada de esto, así que he ido dibujando el mío, una postulación a beca a la vez. Seis becas, hasta ahora, me han llevado de Chile a Corea del Sur, a Nueva York y a Taiwán.</p>
-      <p>Construir el pipeline del Estudio 1 significó semanas depurando mis propios errores, incluyendo un bug en la detección del "codo" que estaba eligiendo silenciosamente el número equivocado de características para todo el torneo de selección — solo salió a la luz porque un resultado se veía demasiado conveniente para confiar en él. Arreglarlo significó cambiar a un método más estricto y volver a correr todo de nuevo.</p>
-      <p>El Estudio 2 significó defender una decisión metodológica — incluir medidas de filtro afectivo — frente a un cuestionamiento real, y hacer la lectura necesaria para sostener ese argumento con evidencia, no solo con instinto.</p>
-      <p>Por un tiempo, entrenar también fue parte del plan. Luego el <mark class="gold">Síndrome de Ehlers-Danlos</mark> lo hizo imposible — una condición del tejido conectivo que, tras años de frustración y una lesión de rodilla de más, me obligó a dejar de entrenar fútbol y básquetbol para siempre. Incluso me formé y obtuve una certificación como estadística de fútbol, para seguir cerca del juego desde la banca y reportar partidos por Taiwán — pero mi cuerpo tampoco cooperó con eso. Esa lucha larga y agotadora por ser escuchada sobre mi propia salud es exactamente lo que se convirtió en <strong>ZebraUp</strong>.</p>
-      <p>Y bajo todo esto: la investigación doctoral, especialmente cuando es autodirigida y tan técnica, no es un trabajo bien remunerado. Si llegaste hasta aquí leyendo y crees que lo que estoy construyendo vale la pena apoyar, eso es, honestamente, lo más útil que puedes hacer a continuación.</p>
-    </div>
-    <div class="i18n" data-lang="zh" style="display:none">
-      <p class="lede">一份「即時更新」的履歷,通常會隱藏那些不順利的部分。以下是真正把我帶到這裡的一些歷程。</p>
-      <p>我是家族裡第一位大學生——家人沒有人能為我指路,所以這條路大多是我自己一步步摸索出來的,靠著一次又一次申請獎學金。到目前為止,六筆獎學金帶我從智利走到韓國、紐約,再到台灣。</p>
-      <p>打造研究一的分析流程,意味著花費數週時間除錯——包括一個「拐點偵測」的錯誤,它悄悄地為整個特徵篩選錦標賽選錯了特徵數量,直到某次結果看起來「太完美」而讓我起疑,才發現問題所在。修正這個錯誤,意味著改用更嚴謹的方法,並重新跑一次所有流程。</p>
-      <p>研究二則意味著要為一項方法論決定辯護——納入情感濾網的測量——面對真正的質疑,並透過大量文獻閱讀,以證據而非直覺來支撐這個論點。</p>
-      <p>有一段時間,當教練也在我的計畫之中。後來,<mark class="gold">埃勒斯-當洛斯症候群(Ehlers-Danlos)</mark>讓這件事變得不可能——這是一種結締組織疾病;在多年的挫折與又一次膝蓋受傷之後,我不得不徹底放棄足球與籃球的教練工作。我甚至受訓並取得了足球數據統計員的證照,想從場邊繼續靠近這項運動、在台灣各地報導比賽——但我的身體同樣無法配合。正是這場漫長而耗盡心力、為自己的健康發聲的奮鬥,最終化為 <strong>ZebraUp</strong>。</p>
-      <p>而在這一切之下:博士研究——尤其是這種自主推動、技術含量高的研究——本來就不是一份能帶來穩定收入的工作。如果你讀到這裡,也認同我正在做的事值得支持,那麼,那正是接下來你能做的最有幫助的事。</p>
     </div>
     </div>
   </section>
@@ -1112,7 +1128,7 @@
       <span>Spanish — native</span><span>English — fluent (TOEFL iBT 102/120)</span><span>Mandarin — intermediate</span><span>Korean — elementary</span>
     </div>
     <div class="skills-list i18n" data-lang="es" style="display:none">
-      <span>Español — nativo</span><span>Inglés — fluido (TOEFL iBT 102/120)</span><span>Mandarín — intermedio</span><span>Coreano — elemental</span>
+      <span>Español: nativo</span><span>Inglés: fluido (TOEFL iBT 102/120)</span><span>Mandarín: intermedio</span><span>Coreano: elemental</span>
     </div>
     <div class="skills-list i18n" data-lang="zh" style="display:none">
       <span>西班牙語——母語</span><span>英語——流利(TOEFL iBT 102/120)</span><span>華語——中等程度</span><span>韓語——初級</span>
@@ -1124,7 +1140,57 @@
     </h3>
     <div class="skills-list">
       <span>LSA — Linguistic Society of America</span>
-      <span>ASELE — enseñanza del español como lengua extranjera</span>
+      <span>ASELE: enseñanza del español como lengua extranjera</span>
+    </div>
+  </section>
+
+  <section id="journey" class="reveal collapsible">
+    <p class="bridge i18n" data-lang="en">None of this happened as smoothly as it reads so far. Here's the part usually left out.</p>
+    <p class="bridge i18n" data-lang="es" style="display:none">Nada de esto ocurrió tan sin problemas como se lee hasta ahora. Esta es la parte que normalmente se omite.</p>
+    <p class="bridge i18n" data-lang="zh" style="display:none">以上這一切,都不像讀起來那樣順利。以下是通常被省略的部分。</p>
+    <p class="kicker"><span class="lvl">C1</span>
+      <span class="i18n" data-lang="en">the honest part</span>
+      <span class="i18n" data-lang="es" style="display:none">la parte honesta</span>
+      <span class="i18n" data-lang="zh" style="display:none">誠實的部分</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">The messy middle</span>
+      <span class="i18n" data-lang="es" style="display:none">El proceso desordenado</span>
+      <span class="i18n" data-lang="zh" style="display:none">混亂的中間過程</span>
+    </h2>
+
+    <div class="tldr">
+      <p class="i18n" data-lang="en">6 scholarships took me from Chile to South Korea, New York, and Taiwan. Stopped competitive coaching due to Ehlers-Danlos Syndrome, and later saw AI make my Ehlers-Danlos Society volunteer translation work redundant — both experiences led directly to <a href="#zebraup">ZebraUp</a>. Also navigating a job market where formal training competes with untrained native speakers and AI-assisted work.</p>
+      <p class="i18n" data-lang="es" style="display:none">6 becas me llevaron de Chile a Corea del Sur, Nueva York y Taiwán. Dejé de entrenar de forma competitiva por el Síndrome de Ehlers-Danlos. Más tarde, la IA volvió redundante mi trabajo voluntario de traducción para la Ehlers-Danlos Society. Ambas experiencias llevaron directamente a <a href="#zebraup">ZebraUp</a>. También navego un mercado laboral donde la formación formal compite con hablantes nativos sin entrenamiento y trabajo asistido por IA.</p>
+      <p class="i18n" data-lang="zh" style="display:none">6筆獎學金帶我從智利到韓國、紐約與台灣。因埃勒斯-當洛斯症候群而停止競技教練工作,後來又眼見AI讓我在Ehlers-Danlos Society的翻譯志工工作變得多餘——這兩段經歷都直接促成了<a href="#zebraup">ZebraUp</a>的誕生。同時也在一個正式訓練必須與未受訓的母語者、以及AI輔助工作競爭的就業市場中摸索前進。</p>
+    </div>
+    <button type="button" class="story-toggle" data-target="journey"></button>
+
+    <div class="story">
+    <div class="i18n" data-lang="en">
+      <p class="lede">A live CV usually hides the parts that weren't smooth. Here's some of what actually got me here.</p>
+      <p>Nobody in my family had a map for any of this, so I've drawn most of it myself, one scholarship application at a time. Six of them, so far, got me from Chile to South Korea to New York to Taiwan.</p>
+      <p>Chronic illness has its own tax here. Real medical support for a connective-tissue condition is hard to find anywhere, and harder still in Taiwan — finding specialists who actually understand it has been its own separate fight. Steady work hasn't been simple either: in Taiwan, any native Spanish speaker can end up teaching Spanish with no training or credentials required, and now, anyone with access to AI can write enough code to pass for the work being done. It's hard not to feel years of training counting for less every year.</p>
+      <p>For a while, coaching was part of the plan too. Then <mark class="gold">Ehlers-Danlos Syndrome</mark> made that impossible — a connective-tissue condition that, after years of frustration and one knee injury too many, meant I had to stop coaching soccer and basketball for good. I even trained and earned a Football Statistician Certificate (Genius Sport, 2024), to stay near the game from the sidelines and report matches around Taiwan — but my body wouldn't cooperate with that either. That long, exhausting fight to be heard about my own health is exactly what became <a href="#zebraup"><strong>ZebraUp</strong></a>. More recently, AI tools made my volunteer translation work for the Ehlers-Danlos Society redundant — that one stung, honestly — but it's part of what pushed me to put that energy fully into ZebraUp instead.</p>
+      <p>I also completed the Be There Certificate (Born This Way Foundation, 2023), on how to support someone through a mental health crisis.</p>
+      <p>And underneath all of it: the scholarship funding my studies in Taiwan covers five years total. I used two for the master's and three for the Ph.D., so the funding has run out. I need support. If you've read this far and think what I'm building is worth backing, that's genuinely the most useful thing you can do next.</p>
+    </div>
+    <div class="i18n" data-lang="es" style="display:none">
+      <p class="lede">Un CV en vivo normalmente esconde las partes que no fueron fáciles. Esto es parte de lo que realmente me trajo hasta aquí.</p>
+      <p>Nadie en mi familia tenía un mapa para nada de esto, así que he ido dibujando el mío, una postulación a beca a la vez. Seis becas, hasta ahora, me han llevado de Chile a Corea del Sur, a Nueva York y a Taiwán.</p>
+      <p>La enfermedad crónica tiene su propio costo aparte. El apoyo médico real para una condición del tejido conectivo es difícil de encontrar en cualquier parte, y más difícil todavía en Taiwán. Encontrar especialistas que de verdad la entiendan ha sido su propia pelea. Encontrar trabajo estable tampoco ha sido simple: en Taiwán, cualquier persona que hable español como lengua materna puede terminar enseñando español sin necesidad de formación ni credenciales, y ahora, cualquier persona con acceso a IA puede escribir suficiente código como para que el trabajo parezca hecho. Cuesta no sentir que los años de formación pesan cada vez menos.</p>
+      <p>Por un tiempo, entrenar también fue parte del plan. Luego el <mark class="gold">Síndrome de Ehlers-Danlos</mark> lo hizo imposible (una condición del tejido conectivo que, tras años de frustración y una lesión de rodilla de más, me obligó a dejar de entrenar fútbol y básquetbol para siempre). Incluso me formé y obtuve un Football Statistician Certificate (Genius Sport, 2024), para seguir cerca del juego desde la banca y reportar partidos por Taiwán. Pero mi cuerpo tampoco cooperó con eso. Esa lucha larga y agotadora por ser escuchada sobre mi propia salud es exactamente lo que se convirtió en <a href="#zebraup"><strong>ZebraUp</strong></a>. Hace poco, herramientas de IA volvieron redundante mi trabajo voluntario de traducción para la Ehlers-Danlos Society (eso me dolió, honestamente), pero también fue parte de lo que terminó de empujarme a poner esa energía por completo en ZebraUp.</p>
+      <p>También completé el Be There Certificate (Born This Way Foundation, 2023), sobre cómo acompañar a alguien que atraviesa una crisis de salud mental.</p>
+      <p>Y bajo todo esto: la beca que financia mis estudios en Taiwán cubre cinco años en total. Usé dos para la maestría y tres para el doctorado, así que ya no tengo beca. Necesito apoyo. Si llegaste hasta aquí leyendo y crees que lo que estoy construyendo vale la pena apoyar, eso es, honestamente, lo más útil que puedes hacer a continuación.</p>
+    </div>
+    <div class="i18n" data-lang="zh" style="display:none">
+      <p class="lede">一份「即時更新」的履歷,通常會隱藏那些不順利的部分。以下是真正把我帶到這裡的一些歷程。</p>
+      <p>家人沒有人能為我指路,所以這條路大多是我自己一步步摸索出來的,靠著一次又一次申請獎學金。到目前為止,六筆獎學金帶我從智利走到韓國、紐約,再到台灣。</p>
+      <p>慢性病有它自己的代價。結締組織疾病要找到真正理解的醫療支持並不容易,在台灣更是如此——找到真正懂這個病的專科醫師,一直是另一場獨立的戰鬥。找到穩定的工作也不簡單:在台灣,任何以西班牙語為母語的人都可能在沒有受過訓練、沒有任何證照的情況下教起西班牙語;而現在,任何能使用AI的人,也能寫出「看起來完成了工作」的程式碼。很難不去感覺,多年累積的訓練,一年比一年更不值錢。</p>
+      <p>有一段時間,當教練也在我的計畫之中。後來,<mark class="gold">埃勒斯-當洛斯症候群(Ehlers-Danlos)</mark>讓這件事變得不可能——這是一種結締組織疾病;在多年的挫折與又一次膝蓋受傷之後,我不得不徹底放棄足球與籃球的教練工作。我甚至受訓並取得了Football Statistician Certificate證照(Genius Sport,2024年),想從場邊繼續靠近這項運動、在台灣各地報導比賽——但我的身體同樣無法配合。正是這場漫長而耗盡心力、為自己的健康發聲的奮鬥,最終化為 <a href="#zebraup"><strong>ZebraUp</strong></a>。不久前,AI工具讓我在Ehlers-Danlos Society的翻譯志工工作變得多餘——說實話,那件事讓我很受傷——但這也是促使我把那份心力完全投入ZebraUp的原因之一。</p>
+      <p>我也完成了Be There Certificate(Born This Way Foundation,2023年),學習如何陪伴正在經歷心理健康危機的人。</p>
+      <p>而在這一切之下:資助我在台灣求學的獎學金,總共涵蓋五年。我用了兩年完成碩士學位,三年用於博士階段,獎學金已經用完了。我需要支持。如果你讀到這裡,也認同我正在做的事值得支持,那麼,那正是接下來你能做的最有幫助的事。</p>
+    </div>
     </div>
   </section>
 
@@ -1140,11 +1206,11 @@
       <span class="i18n" data-lang="zh" style="display:none">與我合作,或支持這項研究</span>
     </h2>
     <p class="lede i18n" data-lang="en">I'm open to collaborations on open-source NLP and linguistics projects — especially anything touching language learning or teaching. If a role, a project, or a partnership sounds like a fit, I'd love to hear from you.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Estoy abierta a colaborar en proyectos de PLN y lingüística de código abierto — especialmente si tienen que ver con el aprendizaje o la enseñanza de idiomas. Si un puesto, un proyecto o una colaboración calzan, me encantaría saber de ti.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Estoy abierta a colaborar en proyectos de PLN y lingüística de código abierto, especialmente si tienen que ver con el aprendizaje o la enseñanza de idiomas. Si un puesto, un proyecto o una colaboración calzan, me encantaría saber de ti.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">我樂於參與開放原始碼的自然語言處理與語言學相關專案——尤其是與語言學習或教學有關的計畫。如果有職缺、專案或合作機會適合,歡迎與我聯繫。</p>
 
     <blockquote class="i18n" data-lang="en">"Lecturabilidad," not "legibilidad" — whether a text is readable in practice, not just legible on the page.</blockquote>
-    <blockquote class="i18n" data-lang="es" style="display:none">«Lecturabilidad», no «legibilidad» — que un texto se pueda leer en la práctica, no solo que sea legible en la página.</blockquote>
+    <blockquote class="i18n" data-lang="es" style="display:none">«Lecturabilidad», no «legibilidad»: que un texto se pueda leer en la práctica, no solo que sea legible en la página.</blockquote>
     <blockquote class="i18n" data-lang="zh" style="display:none">我偏好用「lecturabilidad」(實際可讀性)而非「legibilidad」(字面可辨識性)——指文本在實際閱讀中是否易懂,而不只是紙面上看得清楚。</blockquote>
 
     <div class="support-box">
@@ -1183,7 +1249,10 @@
       <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
       <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
       <a href="https://github.com/Poln4">GitHub</a>
+      <a href="https://bsky.app/profile/paulinavl.bsky.social">Bluesky</a>
+      <a href="https://mastodon.social/@paulinavl">Mastodon</a>
     </div>
+
     <p style="margin-top:16px;">
       <span class="i18n" data-lang="en">Taipei, Taiwan · updated 2026</span>
       <span class="i18n" data-lang="es" style="display:none">Taipéi, Taiwán · actualizado en 2026</span>
